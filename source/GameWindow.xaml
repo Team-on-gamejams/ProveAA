@@ -1,0 +1,310 @@
+﻿<Window x:Class="ProveAA.GameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProveAA"
+        mc:Ignorable="d"
+        Title="ProveAA" Height="480" Width="640"
+		MinWidth="640" MinHeight="480"
+		Initialized="Window_Initialized">
+    <DockPanel LastChildFill="True" Background="#262626">
+
+		<Grid x:Name="CardsGrid" MinHeight="137" Margin="5" ShowGridLines="True" DockPanel.Dock="Bottom">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			
+		</Grid>
+
+		<Grid x:Name="LeftGrid" Width="200" Margin="5" ShowGridLines="True" DockPanel.Dock="Left">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="75"/>
+				<RowDefinition Height="100"/>
+				<RowDefinition />
+				<RowDefinition Height="25"/>
+			</Grid.RowDefinitions>
+
+			<Grid ShowGridLines="True">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="75"/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+
+				<Image />
+
+				<Grid Grid.Column="1">
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+
+					<Grid Grid.Row="0" Margin="5 10 5 10">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+
+						<Rectangle x:Name="HealbarRectangle" Grid.ColumnSpan="50" Fill="Red" />
+						<Viewbox Grid.ColumnSpan="100" Margin="5 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left">
+							<TextBlock Foreground="White" Text="HP: "/>
+						</Viewbox>
+						<Viewbox Grid.ColumnSpan="100" >
+							<TextBlock x:Name="HealbarText" Foreground="White" Text="5/10"/>
+						</Viewbox>
+					</Grid>
+
+					<Grid Grid.Row="1" Margin="5 10 5 10">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+
+						<Rectangle x:Name="ManabarRectangle" Grid.ColumnSpan="30" Fill="Blue" />
+						<Viewbox Grid.ColumnSpan="100" Margin="5 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left">
+							<TextBlock Foreground="White" Text="MP: "/>
+						</Viewbox>
+						<Viewbox Grid.ColumnSpan="100" >
+							<TextBlock x:Name="ManabarText" Foreground="White" Text="3/10"/>
+						</Viewbox>
+					</Grid>
+
+				</Grid>
+
+			</Grid>
+
+			<Grid Grid.Row="1" ShowGridLines="True">
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+
+				<Viewbox Margin="7" Grid.Row="0">
+					<TextBlock x:Name="ArmorText" Foreground="White" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Text="Броня: Щит+2 (2)"/>
+				</Viewbox>
+
+				<Viewbox Margin="7" Grid.Row="1">
+					<TextBlock x:Name="WeaponText" Foreground="White" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Text="Оружие: Палка+1 (2)"/>
+				</Viewbox>
+			</Grid>
+
+			<Grid Grid.Row="3" ShowGridLines="True">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+
+				<Button Content="Menu"/>
+				<Button Grid.Column="1" Content="Next lvl"/>
+			</Grid>
+
+		</Grid>
+
+		<Grid x:Name="CenterGrid" Margin="15" ShowGridLines="True">
+			<Rectangle Fill="DimGray" />
+		</Grid>
+		
+	</DockPanel>
+</Window>

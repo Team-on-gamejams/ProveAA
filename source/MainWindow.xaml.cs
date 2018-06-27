@@ -20,6 +20,17 @@ namespace ProveAA {
 	public partial class MainWindow : Window {
 		public MainWindow() {
 			InitializeComponent();
+
+		}
+
+		private void Window_Initialized(object sender, EventArgs e) {
+			GameWindow gameWindow = new GameWindow();
+			gameWindow.Top = this.Top;
+			gameWindow.Left = this.Left;
+			gameWindow.Width = this.Width;
+			gameWindow.Height = this.Height;
+			gameWindow.Show();
+			this.Close();
 		}
 	}
 }

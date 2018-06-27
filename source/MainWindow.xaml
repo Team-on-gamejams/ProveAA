@@ -1,0 +1,14 @@
+﻿<Window x:Class="ProveAA.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProveAA"
+        mc:Ignorable="d"
+        Title="ProveAA" Height="480" Width="640"
+		MinWidth="640" MinHeight="480"
+		Initialized="Window_Initialized">
+    <Grid>
+        
+    </Grid>
+</Window>
