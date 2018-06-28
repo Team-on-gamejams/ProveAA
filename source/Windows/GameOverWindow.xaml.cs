@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ProveAA {
+namespace ProveAA.Windows {
 	/// <summary>
 	/// Interaction logic for GameOverWindow.xaml
 	/// </summary>

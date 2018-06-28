@@ -54,17 +54,35 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Settings.cs" />
-    <Compile Include="Singletones.cs" />
-    <Page Include="GameOverWindow.xaml">
+    <Compile Include="Item\Armor\BasicArmor.cs" />
+    <Compile Include="Support\Bar.cs" />
+    <Compile Include="Card\BasicCard.cs" />
+    <Compile Include="Interface\ICardContent.cs" />
+    <Compile Include="Interface\ICellContent.cs" />
+    <Compile Include="Creature\BasicCreature.cs" />
+    <Compile Include="Item\Potion\HealPotion.cs" />
+    <Compile Include="Item\BasicItem.cs" />
+    <Compile Include="Support\Level.cs" />
+    <Compile Include="Item\Potion\ManaPotion.cs" />
+    <Compile Include="Map\GameMap.cs" />
+    <Compile Include="Map\MapCell.cs" />
+    <Compile Include="Creature\Player.cs" />
+    <Compile Include="Item\Potion\BasicPotion.cs" />
+    <Compile Include="Game\Settings.cs" />
+    <Compile Include="Game\Singletones.cs" />
+    <Compile Include="Support\Stat.cs" />
+    <Compile Include="Support\WPFExtencions.cs" />
+    <Compile Include="Trap\BasicTrap.cs" />
+    <Compile Include="Item\Weapon\BasicWeapon.cs" />
+    <Page Include="Windows\GameOverWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GameWindow.xaml">
+    <Page Include="Windows\GameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -72,14 +90,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Game.cs" />
-    <Compile Include="GameOverWindow.xaml.cs">
+    <Compile Include="Game\Game.cs" />
+    <Compile Include="Windows\GameOverWindow.xaml.cs">
       <DependentUpon>GameOverWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameWindow.xaml.cs">
+    <Compile Include="Windows\GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -110,5 +128,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,7 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ProveAA {
+using ProveAA.Support;
+
+namespace ProveAA.Windows {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
@@ -25,12 +27,7 @@ namespace ProveAA {
 
 		private void Window_Initialized(object sender, EventArgs e) {
 			GameWindow gameWindow = new GameWindow();
-			gameWindow.Top = this.Top;
-			gameWindow.Left = this.Left;
-			gameWindow.Width = this.Width;
-			gameWindow.Height = this.Height;
-			gameWindow.Show();
-			this.Close();
+			this.ReopenWindow(gameWindow);
 		}
 	}
 }

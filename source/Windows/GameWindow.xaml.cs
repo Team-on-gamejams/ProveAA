@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ProveAA {
+using ProveAA.Game;
+
+namespace ProveAA.Windows {
 	/// <summary>
 	/// Interaction logic for GameWindow.xaml
 	/// </summary>
@@ -28,11 +30,11 @@ namespace ProveAA {
 			Singletones.game.Start(this);
 		}
 
-
-
 		private double hashedCardSizeMod = 1.5 / 7;
 		void ResizeUI() {
 			CardsGrid.Height = this.RenderSize.Width * hashedCardSizeMod;
+			double mazeGridSize = Math.Min(CenterGrid.RenderSize.Height, CenterGrid.RenderSize.Width);
+			MazeGrid.Width = MazeGrid.Height = mazeGridSize;
 		}
 
 	}

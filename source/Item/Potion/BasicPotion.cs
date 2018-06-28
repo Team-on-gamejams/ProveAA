@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProveAA {
-	static class Settings {
+namespace ProveAA.Item.Potion {
+	class BasicPotion : BasicItem {
 	}
 }

@@ -1,4 +1,4 @@
-﻿<Window x:Class="ProveAA.GameWindow"
+﻿<Window x:Class="ProveAA.Windows.GameWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -303,7 +303,9 @@
 		</Grid>
 
 		<Grid x:Name="CenterGrid" Margin="15" ShowGridLines="True">
-			<Rectangle Fill="DimGray" />
+			<Grid ShowGridLines="True" Background="DimGray" x:Name="MazeGrid">
+				
+			</Grid>
 		</Grid>
 		
 	</DockPanel>
