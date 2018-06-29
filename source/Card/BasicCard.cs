@@ -6,5 +6,6 @@ using System.Threading.Tasks;
 
 namespace ProveAA.Card {
 	class BasicCard : Interface.ICellContent {
+		public Interface.ICardContent cardContent;
 	}
 }

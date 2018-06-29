@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ProveAA" Height="480" Width="640"
 		MinWidth="640" MinHeight="480"
-		Initialized="Window_Initialized">
+		Loaded="Window_Loaded">
     <DockPanel LastChildFill="True" Background="#262626">
 
 		<Grid x:Name="CardsGrid" MinHeight="137" Margin="5" ShowGridLines="True" DockPanel.Dock="Bottom">
@@ -37,7 +37,7 @@
 					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
 
-				<Image />
+				<Image x:Name="LeftTopPlayerImage"/>
 
 				<Grid Grid.Column="1">
 					<Grid.RowDefinitions>
@@ -302,8 +302,8 @@
 
 		</Grid>
 
-		<Grid x:Name="CenterGrid" Margin="15" ShowGridLines="True">
-			<Grid ShowGridLines="True" Background="DimGray" x:Name="MazeGrid">
+		<Grid x:Name="CenterGrid" Margin="15" ShowGridLines="False">
+			<Grid ShowGridLines="False" Background="DimGray" x:Name="MazeGrid">
 				
 			</Grid>
 		</Grid>

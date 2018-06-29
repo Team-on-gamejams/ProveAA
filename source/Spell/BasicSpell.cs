@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ProveAA.Creature;
 
-namespace ProveAA.Item.Armor {
-	abstract class BasicArmor : BasicItem {
-		public byte armorBonus;
-
+namespace ProveAA.Spell {
+	abstract class BasicSpell : Interface.ICardContent {
+		public abstract void UseCard(Player creature);
 	}
 }

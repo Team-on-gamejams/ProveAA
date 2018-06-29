@@ -8,5 +8,9 @@ namespace ProveAA.Support {
 	class Stat {
 		public byte Base;
 		public byte Current;
+
+		public override string ToString() {
+			return $"{Current} ({Base})";
+		}
 	}
 }

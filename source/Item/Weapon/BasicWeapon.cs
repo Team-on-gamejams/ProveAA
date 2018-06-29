@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProveAA.Creature;
 
 namespace ProveAA.Item.Weapon {
-	class BasicWeapon : BasicItem {
+	abstract class BasicWeapon : BasicItem {
+		public byte attackBonus;
+
 	}
 }

@@ -4,6 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
 using ProveAA.Map;
 using ProveAA.Creature;
 
@@ -13,23 +22,34 @@ namespace ProveAA.Game {
 		Player player;
 		Map.GameMap map;
 
-		public void Start(ProveAA.Windows.GameWindow window) {
-			InitGame();
-			this.window = window;
-			InitWindow();
-		}
+		internal GameMap Map { get => map; set => map = value; }
 
-		void InitWindow() {
-			for(int i = 0; i < map.SizeY; ++i)
-				window.MazeGrid.RowDefinitions.Add(new System.Windows.Controls.RowDefinition());
-			for (int i = 0; i < map.SizeX; ++i)
-				window.MazeGrid.ColumnDefinitions.Add(new System.Windows.Controls.ColumnDefinition());
-		}
-
-		void InitGame() {
-			map = new Map.GameMap(Settings.map_sizeX, Settings.map_sizeY);
-			map.RandomFill();
+		public void Start() {
+			this.window = Singletones.gameWindow;
 			player = new Player();
+
+			GameMap.CreateMap(player);
+		}
+
+		void DisplayPlayerInfo() {
+			window.HealbarText.Text = player.hitPoints.ToString();
+			System.Windows.Controls.Grid.SetColumnSpan(window.HealbarRectangle, player.hitPoints.GetPersent());
+			window.ManabarText.Text = player.manaPoints.ToString();
+			System.Windows.Controls.Grid.SetColumnSpan(window.ManabarRectangle, player.hitPoints.GetPersent());
+
+			window.WeaponText.Text = "Оружие: ";
+			if (player.UsedWeapon != null)
+				window.WeaponText.Text += player.UsedWeapon.ToString();
+			else
+				window.WeaponText.Text += "------";
+			window.WeaponText.Text += $" ({player.attack.Current})";
+
+			window.ArmorText.Text = "Броня: ";
+			if (player.UsedArmor != null)
+				window.ArmorText.Text += player.UsedArmor.ToString();
+			else
+				window.ArmorText.Text += "------";
+			window.ArmorText.Text += $" ({player.armor.Current})";
 		}
 	}
 }

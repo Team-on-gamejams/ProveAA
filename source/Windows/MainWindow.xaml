@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ProveAA" Height="480" Width="640"
 		MinWidth="640" MinHeight="480"
-		Initialized="Window_Initialized">
+		Loaded="Window_Loaded">
     <Grid>
         
     </Grid>

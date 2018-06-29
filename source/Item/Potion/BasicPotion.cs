@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProveAA.Creature;
 
 namespace ProveAA.Item.Potion {
-	class BasicPotion : BasicItem {
+	abstract class BasicPotion : BasicItem {
 	}
 }

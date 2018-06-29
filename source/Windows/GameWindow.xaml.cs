@@ -23,11 +23,16 @@ namespace ProveAA.Windows {
 			InitializeComponent();
 		}
 
-		private void Window_Initialized(object sender, EventArgs e) {
+		private void Window_Loaded(object sender, EventArgs e) {
 			this.SizeChanged += (a, b) => ResizeUI();
 			this.StateChanged += (a, b) => ResizeUI();
 
-			Singletones.game.Start(this);
+			System.Timers.Timer t = new System.Timers.Timer {
+				AutoReset = false,
+				Interval = 500,
+			};
+			t.Elapsed += (a, b) => {Singletones.game.Start(); t.Stop(); };
+			t.Start();
 		}
 
 		private double hashedCardSizeMod = 1.5 / 7;

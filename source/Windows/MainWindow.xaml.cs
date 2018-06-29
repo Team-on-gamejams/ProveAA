@@ -25,9 +25,8 @@ namespace ProveAA.Windows {
 
 		}
 
-		private void Window_Initialized(object sender, EventArgs e) {
-			GameWindow gameWindow = new GameWindow();
-			this.ReopenWindow(gameWindow);
+		private void Window_Loaded(object sender, EventArgs e) {
+			this.ReopenWindow(Game.Singletones.gameWindow);
 		}
 	}
 }

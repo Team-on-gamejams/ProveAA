@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace ProveAA.Support {
 	class Bar {
-		public byte Current, Max;
+		public byte current;
+		public byte Current { set { current = value; if (current > Max) current = Max; } get => current; }
+		public byte Max { set; get; }
+
+		public Byte GetPersent() => (byte)Math.Round(Current * 100f / Max);
+
+		public override string ToString() {
+			return $"{Current} / {Max}";
+		}
 	}
 }

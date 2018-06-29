@@ -8,10 +8,13 @@ namespace ProveAA.Game {
 	static class Singletones {
 		public static Random rand;
 		public static Game game;
+		public static Creature.Player player;
+		public static Windows.GameWindow gameWindow;
 
 		static Singletones() {
-			game = new Game();
 			rand = new Random();
+			game = new Game();
+			gameWindow = new Windows.GameWindow();
 		}
 	}
 }

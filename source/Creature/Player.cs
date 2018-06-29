@@ -13,14 +13,22 @@ using ProveAA.Game;
 
 namespace ProveAA.Creature {
 	class Player : BasicCreature {
-		public byte posX, posY;
+		private byte posY;
+		private byte posX;
 
-		BasicCard[] cards;
-		BasicWeapon usedWeapon;
-		BasicArmor usedArmor;
+		public BasicCard[] Cards { get; private set; }
+		public BasicWeapon UsedWeapon { get; private set; }
+		public BasicArmor UsedArmor { get; private set; }
+		public byte PosX { get => posX; set{ posX = value; System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate { System.Windows.Controls.Grid.SetColumn(image, PosX); RemoveFogFromNearbyCells(); }); } }
+		public byte PosY { get => posY; set{ posY = value; System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate { System.Windows.Controls.Grid.SetRow(image, PosY); RemoveFogFromNearbyCells(); }); } }
 
 		public Player() {
-			cards = new BasicCard[7];
+			System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
+				image.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\player\player.png", UriKind.Absolute));
+				Singletones.gameWindow.MazeGrid.Children.Add(image);
+				Singletones.gameWindow.LeftTopPlayerImage.Source = image.Source;
+			});
+			Cards = new BasicCard[7];
 
 			this.armor.Base = this.armor.Current = Settings.player_init_armor;
 			this.attack.Base = this.attack.Current = Settings.player_init_attack;
@@ -33,6 +41,9 @@ namespace ProveAA.Creature {
 			this.level.CurrentLvl = Settings.player_init_lvl;
 			this.level.CurrentExp = 0;
 			this.level.ExpToNext = Settings.player_init_toNextLvl;
+
+			posX = posY = 1;
+			Singletones.player = this;
 		}
 
 		public void TryLevelUp() {
@@ -57,5 +68,20 @@ namespace ProveAA.Creature {
 			}
 		}
 
+		public void UseCard(BasicCard item) {
+			item.cardContent.UseCard(this);
+		}
+
+		public void RecalcStats() {
+			armor.Current = (byte)(armor.Base + UsedArmor.armorBonus);
+			attack.Current = (byte)(attack.Base + UsedWeapon.attackBonus);
+		}
+
+		void RemoveFogFromNearbyCells() {
+			for (byte y = (byte)(posY - 1); y < posY + 1; ++y)
+				for (byte x = (byte)(posX - 1); x < posX + 1; ++x)
+					if(Game.Singletones.game.Map != null)
+						Game.Singletones.game.Map[y, x].IsInFog = false;
+		}
 	}
 }

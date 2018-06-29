@@ -6,5 +6,6 @@ using System.Threading.Tasks;
 
 namespace ProveAA.Interface {
 	interface ICardContent {
+		void UseCard(Creature.Player creature);
 	}
 }

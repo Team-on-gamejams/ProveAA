@@ -55,6 +55,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Item\Armor\BasicArmor.cs" />
+    <Compile Include="Item\Potion\RefreshPotion.cs" />
+    <Compile Include="Spell\BasicSpell.cs" />
+    <Compile Include="Spell\Move\FirstMove.cs" />
     <Compile Include="Support\Bar.cs" />
     <Compile Include="Card\BasicCard.cs" />
     <Compile Include="Interface\ICardContent.cs" />
@@ -128,6 +131,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
