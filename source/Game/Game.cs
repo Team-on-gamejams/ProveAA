@@ -18,15 +18,18 @@ using ProveAA.Creature;
 namespace ProveAA.Game {
 	class Game {
 		Map.GameMap map;
-		BasicCreature player;
+		Player player;
 
-		public Game() {
-			map = new Map.GameMap();
-			player = new BasicCreature();
+		public Game(Windows.GameWindow window) {
+			map = new Map.GameMap(window);
+			player = new Player();
+			player.InitOutput(window, map);
 		}
 
 		public void Start(Windows.GameWindow window) {
 			map.NewLevel(player);
+			map.OutputMap(window);
+			player.OutputPlayerInfo(window);
 		}
 	}
 }

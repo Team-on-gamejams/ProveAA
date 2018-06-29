@@ -37,7 +37,7 @@
 					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
 
-				<Image x:Name="LeftTopPlayerImage"/>
+				<Grid x:Name="LeftTopPlayerImage"/>
 
 				<Grid Grid.Column="1">
 					<Grid.RowDefinitions>

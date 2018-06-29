@@ -24,18 +24,29 @@ namespace ProveAA.Windows {
 		}
 
 		private void Window_Loaded(object sender, EventArgs e) {
+			ResizeUI();
 			this.SizeChanged += (a, b) => ResizeUI();
-			this.StateChanged += (a, b) => ResizeUI();
+			this.StateChanged += (a, b) => {
+				System.Timers.Timer t = new System.Timers.Timer {
+					Interval = 100,
+					AutoReset = false,
+					Enabled = false,
+				};
+				t.Elapsed += (c, d) => { ResizeUI(); t.Enabled = false; };
+				t.Enabled = true;
+			};
 
-			Game.Game game = new Game.Game();
+			Game.Game game = new Game.Game(this);
 			game.Start(this);
 		}
 
 		private double hashedCardSizeMod = 1.5 / 7;
 		void ResizeUI() {
-			CardsGrid.Height = this.RenderSize.Width * hashedCardSizeMod;
-			double mazeGridSize = Math.Min(CenterGrid.RenderSize.Height, CenterGrid.RenderSize.Width);
-			MazeGrid.Width = MazeGrid.Height = mazeGridSize;
+			System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
+				CardsGrid.Height = this.RenderSize.Width * hashedCardSizeMod;
+				double mazeGridSize = Math.Min(CenterGrid.RenderSize.Height, CenterGrid.RenderSize.Width);
+				MazeGrid.Width = MazeGrid.Height = mazeGridSize;
+			});
 		}
 
 	}

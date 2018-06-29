@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Creature\Player.cs" />
     <Compile Include="Interface\ICellContent.cs" />
     <Compile Include="Map\GameCell.cs" />
     <Compile Include="Map\GameMap.cs" />
