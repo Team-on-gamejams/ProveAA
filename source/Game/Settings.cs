@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProveAA.Game {
 	static class Settings {
-		public static byte map_sizeX = 20;
-		public static byte map_sizeY = 20;
+		public static byte map_sizeX = 6;
+		public static byte map_sizeY = 6;
 
 		public static byte player_init_hp = 10;
 		public static byte player_init_mp = 10;

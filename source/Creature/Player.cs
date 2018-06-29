@@ -15,18 +15,26 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProveAA.Map;
+using ProveAA.Card;
 
 namespace ProveAA.Creature {
 	class Player : BasicCreature {
 		byte posX, posY;
 		Windows.GameWindow window;
 		Map.GameMap map;
+		List<Card.Card> cards;
 
 		public readonly Level level;
-		public byte PosX { get => posX; set { posX = value; PosChanged(); } }
-		public byte PosY { get => posY; set { posY = value; PosChanged(); } }
+		public byte PosX { get => posX; set { posX = value; } }
+		public byte PosY { get => posY; set { posY = value; } }
+
+		internal GameMap Map { get => map; set => map = value; }
+		internal List<Card.Card> Cards { get => cards; set => cards = value; }
 
 		public Player() {
+			Cards = new List<Card.Card>(7);
+			Cards.Add(new Card.Card(new Spell.Move.ExploreZone()));
 			level = new Level();
 			this.imageGridLeftTopCorner.Children.Add(
 				new Image() { Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\player\player.png", UriKind.Absolute)) }
@@ -53,9 +61,10 @@ namespace ProveAA.Creature {
 		public void InitOutput(Windows.GameWindow window, Map.GameMap map) {
 			System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
 				this.window = window;
-				this.map = map;
+				this.Map = map;
 				window.LeftTopPlayerImage.Children.Add(imageGridLeftTopCorner);
 				window.MazeGrid.Children.Add(imageGridMaze);
+				Cards[0].AddToHand(this, window);
 			});
 		}
 
@@ -104,12 +113,13 @@ namespace ProveAA.Creature {
 			});
 		}
 
-		void PosChanged() {
+		public void PosChanged() {
 			Grid.SetRow(imageGridMaze, posY);
 			Grid.SetColumn(imageGridMaze, posX);
+			Map[posY, posX].IsVisited = true;
 			for (byte i = (byte)(posY - 1); i <= posY + 1; ++i)
 				for (byte j = (byte)(posX - 1); j <= posX + 1; ++j)
-					map[i, j].IsInFog = false;
+					Map[i, j].IsInFog = false;
 		}
 	}
 }

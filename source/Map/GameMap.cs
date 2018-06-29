@@ -57,6 +57,7 @@ namespace ProveAA.Map {
 					if(!map[i, j].IsSolid) {
 						player.PosX = j;
 						player.PosY = i;
+						player.PosChanged();
 						return;
 					}
 				}

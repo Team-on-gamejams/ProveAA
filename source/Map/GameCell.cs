@@ -15,8 +15,9 @@ using System.Windows.Shapes;
 
 namespace ProveAA.Map {
 	class GameCell {
-		bool isSolid, isWall, isDoor, isInFog;
+		bool isSolid, isWall, isDoor, isInFog, isVisited;
 
+		public bool IsVisited { get => isVisited; set => isVisited = value; }
 		public bool IsSolid { get => isSolid; set { isSolid = value; RecreateImage(); } }
 		public bool IsWall { get => isWall; set { isWall = value; RecreateImage(); } }
 		public bool IsDoor { get => isDoor; set { isDoor = value; RecreateImage(); } }
@@ -26,6 +27,7 @@ namespace ProveAA.Map {
 		public Image image;
 
 		public GameCell() {
+			isVisited = false;
 			image = new Image();
 			isSolid = isWall = isInFog = true;
 			isDoor = false;
@@ -36,6 +38,8 @@ namespace ProveAA.Map {
 			Uri newImage;
 			if (IsInFog)
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\fog.png", UriKind.Absolute);
+			else if(IsVisited)
+				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\visited.png", UriKind.Absolute);
 			else if (IsWall)
 				newImage =new Uri(Environment.CurrentDirectory + @"\img\map\wall.png", UriKind.Absolute);
 			else if (IsDoor && IsSolid)

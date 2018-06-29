@@ -54,10 +54,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Card\Card.cs" />
     <Compile Include="Creature\Player.cs" />
+    <Compile Include="Game\Rand.cs" />
+    <Compile Include="Interface\ICardContent.cs" />
     <Compile Include="Interface\ICellContent.cs" />
     <Compile Include="Map\GameCell.cs" />
     <Compile Include="Map\GameMap.cs" />
+    <Compile Include="Spell\BasicSpell.cs" />
+    <Compile Include="Spell\Move\ExploreZone.cs" />
     <Compile Include="Support\Bar.cs" />
     <Compile Include="Creature\BasicCreature.cs" />
     <Compile Include="Support\Level.cs" />
@@ -119,11 +124,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Card\" />
     <Folder Include="Item\Armor\" />
     <Folder Include="Item\Potion\" />
     <Folder Include="Item\Weapon\" />
-    <Folder Include="Spell\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
