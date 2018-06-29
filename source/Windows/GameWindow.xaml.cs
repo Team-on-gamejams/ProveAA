@@ -27,12 +27,8 @@ namespace ProveAA.Windows {
 			this.SizeChanged += (a, b) => ResizeUI();
 			this.StateChanged += (a, b) => ResizeUI();
 
-			System.Timers.Timer t = new System.Timers.Timer {
-				AutoReset = false,
-				Interval = 500,
-			};
-			t.Elapsed += (a, b) => {Singletones.game.Start(); t.Stop(); };
-			t.Start();
+			Game.Game game = new Game.Game();
+			game.Start(this);
 		}
 
 		private double hashedCardSizeMod = 1.5 / 7;

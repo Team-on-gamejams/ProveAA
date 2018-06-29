@@ -13,43 +13,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-using ProveAA.Map;
 using ProveAA.Creature;
 
 namespace ProveAA.Game {
 	class Game {
-		Windows.GameWindow window;
-		Player player;
 		Map.GameMap map;
+		BasicCreature player;
 
-		internal GameMap Map { get => map; set => map = value; }
-
-		public void Start() {
-			this.window = Singletones.gameWindow;
-			player = new Player();
-
-			GameMap.CreateMap(player);
+		public Game() {
+			map = new Map.GameMap();
+			player = new BasicCreature();
 		}
 
-		void DisplayPlayerInfo() {
-			window.HealbarText.Text = player.hitPoints.ToString();
-			System.Windows.Controls.Grid.SetColumnSpan(window.HealbarRectangle, player.hitPoints.GetPersent());
-			window.ManabarText.Text = player.manaPoints.ToString();
-			System.Windows.Controls.Grid.SetColumnSpan(window.ManabarRectangle, player.hitPoints.GetPersent());
-
-			window.WeaponText.Text = "Оружие: ";
-			if (player.UsedWeapon != null)
-				window.WeaponText.Text += player.UsedWeapon.ToString();
-			else
-				window.WeaponText.Text += "------";
-			window.WeaponText.Text += $" ({player.attack.Current})";
-
-			window.ArmorText.Text = "Броня: ";
-			if (player.UsedArmor != null)
-				window.ArmorText.Text += player.UsedArmor.ToString();
-			else
-				window.ArmorText.Text += "------";
-			window.ArmorText.Text += $" ({player.armor.Current})";
+		public void Start(Windows.GameWindow window) {
+			map.NewLevel(player);
 		}
 	}
 }

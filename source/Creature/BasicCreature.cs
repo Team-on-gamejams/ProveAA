@@ -16,7 +16,9 @@ namespace ProveAA.Creature {
 		public readonly Bar hitPoints;
 		public readonly Bar manaPoints;
 
-		public System.Windows.Controls.Image image;
+		byte posX, posY;
+		public byte PosX { get => posX; set => posX = value; }
+		public byte PosY { get => posY; set => posY = value; }
 
 		public BasicCreature() {
 			level = new Level();
@@ -24,15 +26,6 @@ namespace ProveAA.Creature {
 			attack = new Stat();
 			hitPoints = new Bar();
 			manaPoints = new Bar();
-
-			System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
-				this.image = new System.Windows.Controls.Image();
-
-				System.Windows.Controls.Grid.SetZIndex(image, 1);
-				System.Windows.Controls.Grid.SetRowSpan(image, 1);
-				System.Windows.Controls.Grid.SetColumnSpan(image, 1);
-			}); 
 		}
-
 	}
 }
