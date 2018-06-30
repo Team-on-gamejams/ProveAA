@@ -12,9 +12,8 @@ namespace ProveAA.Spell.Move {
 		public override void CardUsed(Player pl) {
 			List<Tuple<byte, byte>> visitedPos = new List<Tuple<byte, byte>>();
 			avaliableMove.Clear();
-			if (avaliableMove.Count == 0) {
+			if (avaliableMove.Count == 0)
 				RecFill(pl.PosX, pl.PosY);
-			}
 
 			if (avaliableMove.Count != 0) {
 				ushort randIndex = (ushort)Game.Rand.Next(0, avaliableMove.Count);

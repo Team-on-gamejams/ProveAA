@@ -21,7 +21,7 @@ using ProveAA.Card;
 namespace ProveAA.Creature {
 	class Player : BasicCreature {
 		byte posX, posY;
-		Windows.GameWindow window;
+		public Windows.GameWindow window;
 		Map.GameMap map;
 		List<Card.Card> cards;
 
@@ -34,7 +34,7 @@ namespace ProveAA.Creature {
 
 		public Player() {
 			Cards = new List<Card.Card>(7);
-			Cards.Add(new Card.Card(new Spell.Move.ExploreZone()));
+			(new Card.Card(new Spell.Move.ExploreZone())).AddToHand(this);
 			level = new Level();
 			this.imageGridLeftTopCorner.Children.Add(
 				new Image() { Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\player\player.png", UriKind.Absolute)) }
@@ -64,7 +64,6 @@ namespace ProveAA.Creature {
 				this.Map = map;
 				window.LeftTopPlayerImage.Children.Add(imageGridLeftTopCorner);
 				window.MazeGrid.Children.Add(imageGridMaze);
-				Cards[0].AddToHand(this, window);
 			});
 		}
 
@@ -120,6 +119,12 @@ namespace ProveAA.Creature {
 			for (byte i = (byte)(posY - 1); i <= posY + 1; ++i)
 				for (byte j = (byte)(posX - 1); j <= posX + 1; ++j)
 					Map[i, j].IsInFog = false;
+			PlayerStepInCell(Map[posY, posX]);
+		}
+
+		public void PlayerStepInCell(Map.GameCell cell) {
+			cell.cellContent?.PlayerStepIn(this);
+			cell.cellContent = null;
 		}
 	}
 }

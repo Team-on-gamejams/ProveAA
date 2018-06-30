@@ -29,7 +29,10 @@ namespace ProveAA.Game {
 		public void Start(Windows.GameWindow window) {
 			map.NewLevel(player);
 			map.OutputMap(window);
+
 			player.OutputPlayerInfo(window);
+			player.hitPoints.Changed += ()=> player.OutputPlayerInfo(window);
+			player.manaPoints.Changed += ()=> player.OutputPlayerInfo(window);
 		}
 	}
 }

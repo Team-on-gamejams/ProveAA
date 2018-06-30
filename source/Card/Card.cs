@@ -15,32 +15,42 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProveAA.Creature;
 
 namespace ProveAA.Card {
-	class Card {
+	class Card : Interface.ICellContent {
 		Grid cardGrid;
 		ICardContent cardContent;
+		public static Windows.GameWindow window;
 
 		public Card(ICardContent content) {
 			cardContent = content;
 		}
 
-		public void AddToHand(Creature.Player player, Windows.GameWindow window) {
+		public void AddToHand(Creature.Player player) {
 			if (player.Cards.Count < 7) {
+				player.Cards.Add(this);
 				cardGrid = new Grid();
-				cardGrid.MouseLeftButtonUp += (a, b) => this.Use(player);
+				cardGrid.MouseLeftButtonUp += (a, b) => {
+					this.Use(player);
+				};
 
-				cardGrid.Children.Add(new TextBlock() { Text = "I am card, isnt it?" });
+				cardGrid.Children.Add(new TextBlock() { Text = "I am card, isnt it? \n " + cardContent.ToString().Substring(cardContent.ToString().LastIndexOf('.')+1) });
 
 				Grid.SetColumn(cardGrid, player.Cards.Count - 1);
 				window.CardsGrid.Children.Add(cardGrid);
 			}
 		}
 
+		public void PlayerStepIn(Player player) {
+			AddToHand(player);
+		}
+
 		public void Use(Creature.Player player) {
 			cardContent.CardUsed(player);
-			if (player.Cards.ElementAt(0) != this) {
+			if (player.Cards[0] != this) {
 				player.Cards.Remove(this);
+				window.CardsGrid.Children.Remove(cardGrid);
 				for (byte i = 0; i < player.Cards.Count; ++i)
 					Grid.SetColumn(player.Cards[i].cardGrid, i);
 			}

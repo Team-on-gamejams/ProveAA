@@ -21,6 +21,7 @@ namespace ProveAA.Windows {
 	public partial class GameWindow : Window {
 		public GameWindow() {
 			InitializeComponent();
+			Card.Card.window = this;
 		}
 
 		private void Window_Loaded(object sender, EventArgs e) {

@@ -17,6 +17,7 @@ namespace ProveAA.Map {
 	class GameCell {
 		bool isSolid, isWall, isDoor, isInFog, isVisited;
 
+		public Interface.ICellContent cellContent;
 		public bool IsVisited { get => isVisited; set => isVisited = value; }
 		public bool IsSolid { get => isSolid; set { isSolid = value; RecreateImage(); } }
 		public bool IsWall { get => isWall; set { isWall = value; RecreateImage(); } }

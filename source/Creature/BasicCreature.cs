@@ -19,7 +19,7 @@ using ProveAA.Game;
 
 
 namespace ProveAA.Creature {
-	class BasicCreature : ICellContent {
+	class BasicCreature {
 		public readonly Stat armor;
 		public readonly Stat attack;
 		public readonly Bar hitPoints;

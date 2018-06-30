@@ -11,8 +11,8 @@ namespace ProveAA.Game {
 
 		public static byte player_init_hp = 10;
 		public static byte player_init_mp = 10;
-		public static byte player_init_hpMax = 10;
-		public static byte player_init_mpMax = 10;
+		public static byte player_init_hpMax = 100;
+		public static byte player_init_mpMax = 150;
 		public static byte player_init_armor = 0;
 		public static byte player_init_attack = 1;
 
@@ -26,7 +26,7 @@ namespace ProveAA.Game {
 		public static bool player_lvl_refreshHp = true;
 		public static bool player_lvl_refreshMp = true;
 
-		public static float potion_Heal_HealPersent = 0.25f;
+		public static float potion_Healing_HealPersent = 0.25f;
 		public static float potion_Mana_ManaPersent = 0.25f;
 		public static float potion_Refresh_HealPersent = 0.50f;
 		public static float potion_Refresh_ManaPersent = 0.50f;

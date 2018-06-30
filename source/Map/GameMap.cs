@@ -49,6 +49,14 @@ namespace ProveAA.Map {
 			for (byte i = 1; i < map.GetLength(0) - 1; ++i)
 				for (byte j = 1; j < map.GetLength(1) - 1; ++j)
 					map[i, j].IsSolid = map[i, j].IsWall = false;
+
+			for (byte i = 1; i < map.GetLength(1) - 1; ++i)
+				map[2, i].IsSolid = map[2, i].IsWall = true;
+			map[2, map.GetLength(1) - 2].IsWall = false;
+			map[2, map.GetLength(1) - 2].IsDoor = true;
+			map[1, map.GetLength(1) - 2].cellContent = new Card.Card(new Item.Potion.HealingPotion());
+			map[1, map.GetLength(1) - 3].cellContent = new Card.Card(new Item.Potion.ManaPotion());
+			map[1, map.GetLength(1) - 4].cellContent = new Card.Card(new Item.Potion.RefreshPotion());
 		}
 
 		void PlacePlayer(Creature.Player player) {

@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProveAA.Interface {
-	interface ICellContent {
-		void PlayerStepIn(Creature.Player player);
+namespace ProveAA.Item.Potion {
+	abstract class BasicPotion : BasicItem {
 	}
 }
