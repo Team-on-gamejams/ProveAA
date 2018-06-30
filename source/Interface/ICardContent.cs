@@ -7,5 +7,8 @@ using System.Threading.Tasks;
 namespace ProveAA.Interface {
 	interface ICardContent {
 		void CardUsed(Creature.Player player);
+
+		Uri GetImageForCard();
+		Uri GetImageForCell();
 	}
 }

@@ -55,5 +55,9 @@ namespace ProveAA.Card {
 					Grid.SetColumn(player.Cards[i].cardGrid, i);
 			}
 		}
+
+		public Uri GetDisplayImage() {
+			return cardContent.GetImageForCell();
+		}
 	}
 }

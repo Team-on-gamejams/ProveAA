@@ -7,5 +7,7 @@ using System.Threading.Tasks;
 namespace ProveAA.Interface {
 	interface ICellContent {
 		void PlayerStepIn(Creature.Player player);
+
+		Uri GetDisplayImage();
 	}
 }

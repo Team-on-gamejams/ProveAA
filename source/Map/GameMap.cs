@@ -38,10 +38,14 @@ namespace ProveAA.Map {
 		public void OutputMap(Windows.GameWindow window) {
 			for (byte i = 0; i < map.GetLength(0); ++i)
 				for (byte j = 0; j < map.GetLength(1); ++j) {
-					window.MazeGrid.Children.Add(map[i, j].image);
-					Grid.SetRow(map[i, j].image, i);
-					Grid.SetColumn(map[i, j].image, j);
-					Grid.SetZIndex(map[i, j].image, 0);
+					window.MazeGrid.Children.Add(map[i, j].imageCell);
+					Grid.SetRow(map[i, j].imageCell, i);
+					Grid.SetColumn(map[i, j].imageCell, j);
+					Grid.SetZIndex(map[i, j].imageCell, 0);
+					window.MazeGrid.Children.Add(map[i, j].imageContent);
+					Grid.SetRow(map[i, j].imageContent, i);
+					Grid.SetColumn(map[i, j].imageContent, j);
+					Grid.SetZIndex(map[i, j].imageContent, 1);
 				}
 		}
 
@@ -54,9 +58,11 @@ namespace ProveAA.Map {
 				map[2, i].IsSolid = map[2, i].IsWall = true;
 			map[2, map.GetLength(1) - 2].IsWall = false;
 			map[2, map.GetLength(1) - 2].IsDoor = true;
-			map[1, map.GetLength(1) - 2].cellContent = new Card.Card(new Item.Potion.HealingPotion());
-			map[1, map.GetLength(1) - 3].cellContent = new Card.Card(new Item.Potion.ManaPotion());
-			map[1, map.GetLength(1) - 4].cellContent = new Card.Card(new Item.Potion.RefreshPotion());
+			//map[2, map.GetLength(1) - 2].IsSolid = false;
+
+			map[1, map.GetLength(1) - 2].CellContent = new Card.Card(new Item.Potion.HealingPotion());
+			map[1, map.GetLength(1) - 3].CellContent = new Card.Card(new Item.Potion.ManaPotion());
+			map[1, map.GetLength(1) - 4].CellContent = new Card.Card(new Item.Potion.RefreshPotion());
 		}
 
 		void PlacePlayer(Creature.Player player) {

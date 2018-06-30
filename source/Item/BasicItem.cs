@@ -8,5 +8,7 @@ using ProveAA.Creature;
 namespace ProveAA.Item {
 	abstract class BasicItem : Interface.ICardContent {
 		public abstract void CardUsed(Player player);
+		public abstract Uri GetImageForCard();
+		public abstract Uri GetImageForCell();
 	}
 }

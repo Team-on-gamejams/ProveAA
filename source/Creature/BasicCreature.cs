@@ -30,9 +30,9 @@ namespace ProveAA.Creature {
 
 		public BasicCreature() {
 			imageGridLeftTopCorner = new Grid();
-			Grid.SetZIndex(imageGridLeftTopCorner, 2);
 			imageGridMaze = new Grid();
-			Grid.SetZIndex(imageGridMaze, 2);
+			Grid.SetZIndex(imageGridLeftTopCorner, 10);
+			Grid.SetZIndex(imageGridMaze, 10);
 			armor = new Stat();
 			attack = new Stat();
 			hitPoints = new Bar();

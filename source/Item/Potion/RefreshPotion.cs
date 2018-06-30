@@ -10,5 +10,11 @@ namespace ProveAA.Item.Potion {
 			player.hitPoints.Current += (byte)(player.hitPoints.Max * Game.Settings.potion_Refresh_HealPersent);
 			player.manaPoints.Current += (byte)(player.hitPoints.Max * Game.Settings.potion_Refresh_ManaPersent);
 		}
+
+		public override Uri GetImageForCard() =>
+			new Uri(Environment.CurrentDirectory + @"\img\potion\RefreshCard.png", UriKind.Absolute);
+
+		public override Uri GetImageForCell() =>
+			new Uri(Environment.CurrentDirectory + @"\img\potion\RefreshCell.png", UriKind.Absolute);
 	}
 }

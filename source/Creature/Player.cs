@@ -123,8 +123,8 @@ namespace ProveAA.Creature {
 		}
 
 		public void PlayerStepInCell(Map.GameCell cell) {
-			cell.cellContent?.PlayerStepIn(this);
-			cell.cellContent = null;
+			cell.CellContent?.PlayerStepIn(this);
+			cell.CellContent = null;
 		}
 	}
 }

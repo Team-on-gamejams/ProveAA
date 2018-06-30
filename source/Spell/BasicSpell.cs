@@ -8,5 +8,7 @@ using ProveAA.Creature;
 namespace ProveAA.Spell {
 	abstract class BasicSpell : Interface.ICardContent {
 		public abstract void CardUsed(Player player);
+		public abstract Uri GetImageForCard();
+		public abstract Uri GetImageForCell();
 	}
 }
