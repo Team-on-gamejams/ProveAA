@@ -31,11 +31,15 @@ namespace ProveAA.Card {
 			if (player.Cards.Count < 7) {
 				player.Cards.Add(this);
 				cardGrid = new Grid();
+				cardGrid.Margin = new Thickness(10);
+
 				cardGrid.MouseLeftButtonUp += (a, b) => {
 					this.Use(player);
 				};
 
-				cardGrid.Children.Add(new TextBlock() { Text = "I am card, isnt it? \n " + cardContent.ToString().Substring(cardContent.ToString().LastIndexOf('.')+1) });
+
+				var img = new Image() { Source = new BitmapImage(cardContent.GetImageForCard()) };
+				cardGrid.Children.Add(img);
 
 				Grid.SetColumn(cardGrid, player.Cards.Count - 1);
 				window.CardsGrid.Children.Add(cardGrid);
