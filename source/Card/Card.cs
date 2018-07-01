@@ -51,12 +51,13 @@ namespace ProveAA.Card {
 		}
 
 		public void Use(Creature.Player player) {
-			cardContent.CardUsed(player);
-			if (player.Cards[0] != this) {
-				player.Cards.Remove(this);
-				window.CardsGrid.Children.Remove(cardGrid);
-				for (byte i = 0; i < player.Cards.Count; ++i)
-					Grid.SetColumn(player.Cards[i].cardGrid, i);
+			if (cardContent.CardUsed(player)) {
+				if (player.Cards[0] != this) {
+					player.Cards.Remove(this);
+					window.CardsGrid.Children.Remove(cardGrid);
+					for (byte i = 0; i < player.Cards.Count; ++i)
+						Grid.SetColumn(player.Cards[i].cardGrid, i);
+				}
 			}
 		}
 

@@ -16,23 +16,30 @@ using ProveAA.Interface;
 
 namespace ProveAA.Map {
 	class GameCell {
-		bool isSolid, isWall, isDoor, isInFog, isVisited;
-
+		bool isSolid, isWall, isDoor, isInFog, isVisited, isDoorOpened;
 		private Interface.ICellContent cellContent;
 		public bool IsVisited { get => isVisited; set => isVisited = value; }
 		public bool IsSolid { get => isSolid; set { isSolid = value; RecreateImage(); } }
 		public bool IsWall { get => isWall; set { isWall = value; RecreateImage(); } }
+		public bool IsDoorOpened { get => isDoorOpened; set { isDoorOpened = value; RecreateImage(); } }
 		public bool IsDoor { get => isDoor; set { isDoor = value; RecreateImage(); } }
 		public bool IsInFog { get => isInFog; set { isInFog = value; RecreateImage(); } }
+		public char CellZone { get => _cellZone; set { _cellZone = value;
+				imageLetter.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\letter\" + _cellZone.ToString().ToLower() + ".png", UriKind.Absolute));
+		} }
 
-		internal ICellContent CellContent { get => cellContent; set { cellContent = value;} }
+		internal ICellContent CellContent { get => cellContent; set { cellContent = value; if (!IsInFog) RecreateContentImage(); } }
 
 		Uri lastImage;
 		public Image imageCell;
+		public Image imageLetter;
 		public Image imageContent;
+		private char _cellZone;
 
 		public GameCell() {
 			isVisited = false;
+			imageLetter = new Image();
+			imageLetter.Height = imageLetter.Width = 20;
 			imageCell = new Image();
 			imageContent = new Image();
 			isSolid = isWall = isInFog = true;
@@ -44,20 +51,20 @@ namespace ProveAA.Map {
 			Uri newImage;
 			if (IsInFog)
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\fog.png", UriKind.Absolute);
-			else if(IsVisited)
+			else if (IsVisited)
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\visited.png", UriKind.Absolute);
 			else if (IsWall)
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\wall.png", UriKind.Absolute);
-			else if (IsDoor && IsSolid)
+			else if (IsDoor && !isDoorOpened)
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\doorClosed.png", UriKind.Absolute);
-			else if (IsDoor && !IsSolid)
+			else if (IsDoor && isDoorOpened)
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\doorOpened.png", UriKind.Absolute);
 			else if (!IsSolid)
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\road.png", UriKind.Absolute);
 			else
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\other.png", UriKind.Absolute);
 
-			if(!IsInFog)
+			if (!IsInFog)
 				RecreateContentImage();
 
 			if (newImage != lastImage) {

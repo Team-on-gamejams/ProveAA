@@ -68,6 +68,7 @@
     <Compile Include="Map\GameMap.cs" />
     <Compile Include="Spell\BasicSpell.cs" />
     <Compile Include="Spell\Move\ExploreZone.cs" />
+    <Compile Include="Spell\Move\OpenDoor.cs" />
     <Compile Include="Support\Bar.cs" />
     <Compile Include="Creature\BasicCreature.cs" />
     <Compile Include="Support\Level.cs" />

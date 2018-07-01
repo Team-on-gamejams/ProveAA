@@ -9,7 +9,7 @@ namespace ProveAA.Spell.Move {
 	class ExploreZone : BasicSpell {
 		public static List<Tuple<byte, byte>> avaliableMove = new List<Tuple<byte, byte>>();
 
-		public override void CardUsed(Player pl) {
+		public override bool CardUsed(Player pl) {
 			List<Tuple<byte, byte>> visitedPos = new List<Tuple<byte, byte>>();
 			avaliableMove.Clear();
 			if (avaliableMove.Count == 0)
@@ -21,7 +21,9 @@ namespace ProveAA.Spell.Move {
 				pl.PosY = avaliableMove[randIndex].Item2;
 				pl.PosChanged();
 				avaliableMove.RemoveAt(randIndex);
+				return true;
 			}
+			return false;
 
 			void RecFill(byte x, byte y) {
 				if (visitedPos.Contains(new Tuple<byte, byte>(x, y)))
