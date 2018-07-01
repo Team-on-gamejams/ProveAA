@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProveAA.Item.Potion {
 	class ManaPotion : BasicPotion {
 		public override bool CardUsed(Creature.Player player) {
-			player.manaPoints.Current += (byte)(player.hitPoints.Max * Game.Settings.potion_Mana_ManaPersent);
+			player.manaPoints.Current += (byte)(player.manaPoints.Max * Game.Settings.potion_Mana_ManaPersent);
 			return true;
 		}
 

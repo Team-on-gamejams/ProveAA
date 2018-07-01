@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 namespace ProveAA.Map {
 	class GameMap {
+		static char lastZone = 'a';
 		GameCell[,] map;
 
 		public byte SizeY => (byte)map.GetLength(0);
@@ -34,6 +35,7 @@ namespace ProveAA.Map {
 		}
 
 		public void NewLevel(Creature.Player player) {
+			ClearMap();
 			RandomFill();
 			PlacePlayer(player);
 		}
@@ -60,22 +62,45 @@ namespace ProveAA.Map {
 				}
 		}
 
+		void ClearMap() {
+			for (byte i = 0; i < map.GetLength(0); ++i)
+				for (byte j = 0; j < map.GetLength(1); ++j)
+					map[i, j].RefillValue();
+		}
+
 		void RandomFill() {
-			for (byte i = 1; i < map.GetLength(0) - 1; ++i)
-				for (byte j = 1; j < map.GetLength(1) - 1; ++j)
-					map[i, j].IsSolid = map[i, j].IsWall = false;
+			GenerateWalls();
+			PlaceDoors();
+			PlaceItems();
+
+			void GenerateWalls() {
+				for (byte i = 1; i < map.GetLength(0) - 1; ++i)
+					for (byte j = 1; j < map.GetLength(1) - 1; ++j)
+						map[i, j].IsSolid = map[i, j].IsWall = false;
 
 
-			for (byte i = 1; i < map.GetLength(1) - 1; ++i)
-				map[2, i].IsSolid = map[2, i].IsWall = true;
-			map[2, map.GetLength(1) - 2].IsWall = false;
-			map[2, map.GetLength(1) - 2].IsDoor = true;
+				for (byte i = 1; i < map.GetLength(1) - 1; ++i)
+					map[2, i].IsSolid = map[2, i].IsWall = true;
+			}
 
-			SetZoneLetters(1, (byte)(map.GetLength(1) - 2), 'a');
-			SetZoneLetters(3, (byte)(map.GetLength(1) - 2), 'b');
+			void PlaceDoors() {
+				List<Tuple<byte, byte>> doorPos = new List<Tuple<byte, byte>>();
+				doorPos.Add(new Tuple<byte, byte>(2, (byte)(map.GetLength(1) - 2)));
+				doorPos.Add(new Tuple<byte, byte>((byte)(map.GetLength(0) - 1), 1));
 
-			map[1, map.GetLength(1) - 3].CellContent = new Card.Card(new Item.Potion.ManaPotion());
-			map[1, map.GetLength(1) - 4].CellContent = new Card.Card(new Spell.Move.OpenDoor('b'));
+				foreach (var i in doorPos) {
+					SetZoneLetters((byte)(i.Item1-1), i.Item2, lastZone);
+					map[i.Item1, i.Item2].IsWall = false;
+					map[i.Item1, i.Item2].IsDoor = true;
+					map[i.Item1, i.Item2].CellZone = lastZone;
+					map[i.Item1-1, i.Item2].CellContent = new Card.Card(new Spell.Move.OpenDoor(lastZone));
+					++lastZone;
+				}
+			}
+
+			void PlaceItems() {
+				map[1, map.GetLength(1) - 3].CellContent = new Card.Card(new Item.Potion.ManaPotion());
+			}
 		}
 
 		void PlacePlayer(Creature.Player player) {
@@ -91,19 +116,8 @@ namespace ProveAA.Map {
 		}
 
 		void SetZoneLetters(byte i, byte j, char letter) {
-			bool placeLetter = false, moveToNext = false;
-
-			if (letter != 'a' && map[i, j].CellZone == 0 && !map[i, j].IsSolid)
-				placeLetter = moveToNext = true;
-			if (letter != 'a' && map[i, j].CellZone == 0 && map[i, j].IsDoor)
-				placeLetter = true;
-
-			if ((letter == 'a' && map[i, j].CellZone == 0 && !map[i, j].IsSolid)) 
-				placeLetter = moveToNext = true;
-
-			if (placeLetter)
+			if (map[i, j].CellZone == 0 && !map[i, j].IsSolid) {
 				map[i, j].CellZone = letter;
-			if (moveToNext){
 				SetZoneLetters(i, (byte)(j + 1), letter);
 				SetZoneLetters(i, (byte)(j - 1), letter);
 				SetZoneLetters((byte)(i + 1), j, letter);

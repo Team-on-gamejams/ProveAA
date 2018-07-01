@@ -14,8 +14,8 @@ namespace ProveAA.Spell.Move {
 
 		public override bool CardUsed(Creature.Player pl) {
 			Tuple<byte, byte> doorPos = null;
-			for (byte i = 1; i < pl.Map.SizeY - 1; ++i) {
-				for (byte j = 1; j < pl.Map.SizeX - 1; ++j) {
+			for (byte i = 0; i < pl.Map.SizeY; ++i) {
+				for (byte j = 0; j < pl.Map.SizeX; ++j) {
 					if(pl.Map[i, j].IsDoor && pl.Map[i, j].CellZone == doorLetter && !pl.Map[i, j].IsInFog) {
 						doorPos = new Tuple<byte, byte>(i, j);
 						break;
@@ -24,9 +24,7 @@ namespace ProveAA.Spell.Move {
 			}
 
 			if(doorPos != null) {
-				pl.Map[doorPos.Item1, doorPos.Item2].IsDoorOpened = true;
 				byte i = (byte)(doorPos.Item1 + 1), j= doorPos.Item2;
-
 				if (!TrySetPos()) {
 					i -= 2;
 					if (!TrySetPos()) {
@@ -34,14 +32,18 @@ namespace ProveAA.Spell.Move {
 						++j;
 						if (!TrySetPos()) {
 							j -= 2;
-							TrySetPos();
+							if (!TrySetPos()) {
+								pl.Map.NewLevel(pl);
+								return true;
+							}
 						}
 					}
 				}
 				return true;
 
 				bool TrySetPos() {
-					if (pl.Map[i, j].CellZone == doorLetter) {
+					if (i < pl.Map.SizeY && j < pl.Map.SizeX && pl.Map[i, j].CellZone == doorLetter+1) {
+						pl.Map[doorPos.Item1, doorPos.Item2].IsDoorOpened = true;
 						pl.PosX = j;
 						pl.PosY = i;
 						pl.PosChanged();
@@ -50,15 +52,16 @@ namespace ProveAA.Spell.Move {
 					return false;
 				}
 			}
+
 			return false;
 		}
 
 		public override Uri GetImageForCard() {
-			return new Uri(Environment.CurrentDirectory + @"\img\spell\OpenDoor" + doorLetter.ToString().ToLower() + "Card.png", UriKind.Absolute);
+			return new Uri(Environment.CurrentDirectory + @"\img\spell\OpenDoor" + doorLetter.ToString().ToUpper() + "Card.png", UriKind.Absolute);
 		}
 
 		public override Uri GetImageForCell() {
-			return new Uri(Environment.CurrentDirectory + @"\img\spell\OpenDoor" + doorLetter.ToString().ToLower() + "Cell.png", UriKind.Absolute);
+			return new Uri(Environment.CurrentDirectory + @"\img\spell\OpenDoor" + doorLetter.ToString().ToUpper() + "Cell.png", UriKind.Absolute);
 		}
 	}
 }

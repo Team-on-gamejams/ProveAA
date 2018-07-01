@@ -16,6 +16,7 @@ using ProveAA.Interface;
 
 namespace ProveAA.Map {
 	class GameCell {
+		private char _cellZone;
 		bool isSolid, isWall, isDoor, isInFog, isVisited, isDoorOpened;
 		private Interface.ICellContent cellContent;
 		public bool IsVisited { get => isVisited; set => isVisited = value; }
@@ -24,9 +25,12 @@ namespace ProveAA.Map {
 		public bool IsDoorOpened { get => isDoorOpened; set { isDoorOpened = value; RecreateImage(); } }
 		public bool IsDoor { get => isDoor; set { isDoor = value; RecreateImage(); } }
 		public bool IsInFog { get => isInFog; set { isInFog = value; RecreateImage(); } }
-		public char CellZone { get => _cellZone; set { _cellZone = value;
+		public char CellZone { get => _cellZone;
+			set {
+				_cellZone = value;
 				imageLetter.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\letter\" + _cellZone.ToString().ToLower() + ".png", UriKind.Absolute));
-		} }
+			}
+		}
 
 		internal ICellContent CellContent { get => cellContent; set { cellContent = value; if (!IsInFog) RecreateContentImage(); } }
 
@@ -34,16 +38,22 @@ namespace ProveAA.Map {
 		public Image imageCell;
 		public Image imageLetter;
 		public Image imageContent;
-		private char _cellZone;
 
 		public GameCell() {
-			isVisited = false;
 			imageLetter = new Image();
 			imageLetter.Height = imageLetter.Width = 20;
 			imageCell = new Image();
 			imageContent = new Image();
+			RefillValue();
+		}
+
+		public void RefillValue() {
+			isVisited = false;
 			isSolid = isWall = isInFog = true;
 			isDoor = false;
+			isDoorOpened = false;
+			_cellZone = new char();
+			cellContent = null;
 			RecreateImage();
 		}
 
