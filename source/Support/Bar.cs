@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProveAA.Support {
 	class Bar {
-		public byte current;
+		private byte current;
 		private byte _max;
 
 		public byte Current { set { current = value; if (current > Max) current = Max; Changed?.Invoke(); } get => current; }

@@ -19,6 +19,6 @@ namespace ProveAA.Item.Weapon {
 		}
 
 		public Uri GetOnPlayerItemImage() =>
-			new Uri(Environment.CurrentDirectory + itemImgPath + "Player.png", UriKind.Absolute);
+			new Uri(Environment.CurrentDirectory + '\\' + itemImgPath + "Player.png", UriKind.Absolute);
 	}
 }

@@ -55,6 +55,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Card\Card.cs" />
+    <Compile Include="Creature\Monster\BasicMonster.cs" />
+    <Compile Include="Creature\Monster\Ghost.cs" />
     <Compile Include="Creature\Player.cs" />
     <Compile Include="Game\Rand.cs" />
     <Compile Include="Interface\ICardContent.cs" />

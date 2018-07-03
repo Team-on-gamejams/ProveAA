@@ -26,6 +26,7 @@ namespace ProveAA.Creature {
 		Map.GameMap map;
 		List<Card.Card> cards;
 
+		protected Grid imageGridLeftTopCorner;
 		Image armorImage, weaponImage;
 		private BasicArmor UsedArmor { get; set; }
 		private BasicWeapon UsedWeapon { get; set; }
@@ -39,9 +40,10 @@ namespace ProveAA.Creature {
 		internal List<Card.Card> Cards { get => cards; set => cards = value; }
 
 		public Player() {
+			imageGridLeftTopCorner = new Grid();
+			Grid.SetZIndex(imageGridLeftTopCorner, 10);
 			armorImage = new Image();
 			weaponImage = new Image();
-			UsedArmor = null;
 			UsedWeapon = null;
 			Cards = new List<Card.Card>(7);
 			(new Card.Card(new Spell.Move.ExploreZone())).AddToHand(this);
@@ -162,6 +164,10 @@ namespace ProveAA.Creature {
 		public void PlayerStepInCell(Map.GameCell cell) {
 			cell.CellContent?.PlayerStepIn(this);
 			cell.CellContent = null;
+		}
+
+		public void StartBattle(Creature.Monster.BasicMonster monster) {
+
 		}
 	}
 }

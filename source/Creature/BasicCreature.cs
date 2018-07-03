@@ -25,13 +25,10 @@ namespace ProveAA.Creature {
 		public readonly Bar hitPoints;
 		public readonly Bar manaPoints;
 
-		protected Grid imageGridLeftTopCorner;
 		protected Grid imageGridMaze;
 
 		public BasicCreature() {
-			imageGridLeftTopCorner = new Grid();
 			imageGridMaze = new Grid();
-			Grid.SetZIndex(imageGridLeftTopCorner, 10);
 			Grid.SetZIndex(imageGridMaze, 10);
 			armor = new Stat();
 			attack = new Stat();

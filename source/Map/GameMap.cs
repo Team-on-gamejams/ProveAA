@@ -72,6 +72,7 @@ namespace ProveAA.Map {
 			GenerateWalls();
 			PlaceDoors();
 			PlaceItems();
+			PlaceMonster();
 
 			void GenerateWalls() {
 				for (byte i = 1; i < map.GetLength(0) - 1; ++i)
@@ -102,6 +103,10 @@ namespace ProveAA.Map {
 				map[1, map.GetLength(1) - 3].CellContent = new Card.Card(new Item.Potion.ManaPotion());
 				map[map.GetLength(0) - 2, map.GetLength(1) - 2].CellContent = new Card.Card(new Item.Armor.MetallShield());
 				map[map.GetLength(0) - 3, map.GetLength(1) - 2].CellContent = new Card.Card(new Item.Weapon.Spear());
+			}
+
+			void PlaceMonster() {
+				map[map.GetLength(0) - 3, map.GetLength(1) - 4].CellContent = new Creature.Monster.Ghost();
 			}
 		}
 

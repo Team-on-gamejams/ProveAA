@@ -11,7 +11,7 @@ namespace ProveAA.Item {
 		public string itemImgPath;
 
 		public BasicItem() {
-			itemImgPath = @"\img\";
+			itemImgPath = @"img\";
 		}
 
 		public abstract bool CardUsed(Player player);
