@@ -13,6 +13,9 @@ namespace ProveAA.Spell.Move {
 		}
 
 		public override bool CardUsed(Creature.Player pl) {
+			if (pl.IsInBattle)
+				return false;
+
 			Tuple<byte, byte> doorPos = null;
 			for (byte i = 0; i < pl.Map.SizeY; ++i) {
 				for (byte j = 0; j < pl.Map.SizeX; ++j) {

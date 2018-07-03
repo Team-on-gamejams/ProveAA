@@ -10,6 +10,9 @@ namespace ProveAA.Spell.Move {
 		public static List<Tuple<byte, byte>> avaliableMove = new List<Tuple<byte, byte>>();
 
 		public override bool CardUsed(Player pl) {
+			if (pl.IsInBattle)
+				return false;
+
 			List<Tuple<byte, byte>> visitedPos = new List<Tuple<byte, byte>>();
 			avaliableMove.Clear();
 			if (avaliableMove.Count == 0)

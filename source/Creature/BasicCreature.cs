@@ -35,5 +35,22 @@ namespace ProveAA.Creature {
 			hitPoints = new Bar();
 			manaPoints = new Bar();
 		}
+
+		public virtual bool GetAttack(BasicCreature Enemy) {
+			short dmg = (short)(Enemy.attack.Current - this.armor.Current);
+			if (dmg <= 0)
+				dmg = 1;
+			if (dmg > hitPoints.Current)
+				dmg = hitPoints.Current;
+			hitPoints.Current -= (byte)dmg;
+			return hitPoints.Current == 0;
+		}
+
+		static public Grid CloneGrid(Grid grid) {
+			string gridXaml = System.Windows.Markup.XamlWriter.Save(grid);
+			System.IO.StringReader stringReader = new System.IO.StringReader(gridXaml);
+			System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(stringReader);
+			return (Grid)System.Windows.Markup.XamlReader.Load(xmlReader);
+		}
 	}
 }

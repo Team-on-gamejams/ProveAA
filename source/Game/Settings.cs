@@ -9,8 +9,8 @@ namespace ProveAA.Game {
 		public static byte map_sizeX = 6;
 		public static byte map_sizeY = 6;
 
-		public static byte player_init_hp = 10;
-		public static byte player_init_mp = 10;
+		public static byte player_init_hp = 80;
+		public static byte player_init_mp = 100;
 		public static byte player_init_hpMax = 100;
 		public static byte player_init_mpMax = 150;
 		public static byte player_init_armor = 0;

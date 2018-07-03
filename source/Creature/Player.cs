@@ -26,7 +26,6 @@ namespace ProveAA.Creature {
 		Map.GameMap map;
 		List<Card.Card> cards;
 
-		protected Grid imageGridLeftTopCorner;
 		Image armorImage, weaponImage;
 		private BasicArmor UsedArmor { get; set; }
 		private BasicWeapon UsedWeapon { get; set; }
@@ -36,28 +35,26 @@ namespace ProveAA.Creature {
 		public byte PosX { get => posX; set { posX = value; } }
 		public byte PosY { get => posY; set { posY = value; } }
 
+		public bool IsInBattle { get; set; }
+		public Creature.Monster.BasicMonster Enemy { get; set; }
+
 		internal GameMap Map { get => map; set => map = value; }
 		internal List<Card.Card> Cards { get => cards; set => cards = value; }
 
 		public Player() {
-			imageGridLeftTopCorner = new Grid();
-			Grid.SetZIndex(imageGridLeftTopCorner, 10);
 			armorImage = new Image();
 			weaponImage = new Image();
-			UsedWeapon = null;
 			Cards = new List<Card.Card>(7);
 			(new Card.Card(new Spell.Move.ExploreZone())).AddToHand(this);
-			level = new Level();
-			this.imageGridLeftTopCorner.Children.Add(
-				new Image() { Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\player\player.png", UriKind.Absolute)) }
-			);
-			this.imageGridLeftTopCorner.Children.Add(weaponImage);
-			this.imageGridLeftTopCorner.Children.Add(armorImage);
-			this.imageGridMaze.Children.Add(
-				new Image() { Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\player\player.png", UriKind.Absolute)) }
-			);
-			Grid.SetZIndex(imageGridLeftTopCorner, 2);
+
+			var playerImg = new Image() { Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\player\player.png", UriKind.Absolute)) };
+			this.imageGridMaze.Children.Add(playerImg);
+			this.imageGridMaze.Children.Add(weaponImage);
+			this.imageGridMaze.Children.Add(armorImage);
 			Grid.SetZIndex(imageGridMaze, 2);
+			Grid.SetZIndex(playerImg, 2);
+			Grid.SetZIndex(weaponImage, 3);
+			Grid.SetZIndex(armorImage, 4);
 
 			this.armor.Base = this.armor.Current = Settings.player_init_armor;
 			this.attack.Base = this.attack.Current = Settings.player_init_attack;
@@ -67,6 +64,7 @@ namespace ProveAA.Creature {
 			this.hitPoints.Current = Settings.player_init_hp;
 			this.manaPoints.Current = Settings.player_init_mp;
 
+			level = new Level();
 			this.level.CurrentLvl = Settings.player_init_lvl;
 			this.level.CurrentExp = 0;
 			this.level.ExpToNext = Settings.player_init_toNextLvl;
@@ -76,8 +74,9 @@ namespace ProveAA.Creature {
 			System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
 				this.window = window;
 				this.Map = map;
-				window.LeftTopPlayerImage.Children.Add(imageGridLeftTopCorner);
 				window.MazeGrid.Children.Add(imageGridMaze);
+				window.LeftTopPlayerImage.Children.Clear();
+				window.LeftTopPlayerImage.Children.Add(CloneGrid(imageGridMaze));
 			});
 		}
 
@@ -128,6 +127,8 @@ namespace ProveAA.Creature {
 				else
 					window.ArmorText.Text += "------";
 				window.ArmorText.Text += $" ({armor.Current})";
+				window.LeftTopPlayerImage.Children.Clear();
+				window.LeftTopPlayerImage.Children.Add(CloneGrid(imageGridMaze));
 			});
 		}
 
@@ -148,6 +149,8 @@ namespace ProveAA.Creature {
 				else
 					window.WeaponText.Text += "------";
 				window.WeaponText.Text += $" ({attack.Current})";
+				window.LeftTopPlayerImage.Children.Clear();
+				window.LeftTopPlayerImage.Children.Add(CloneGrid(imageGridMaze));
 			});
 		}
 
@@ -167,6 +170,24 @@ namespace ProveAA.Creature {
 		}
 
 		public void StartBattle(Creature.Monster.BasicMonster monster) {
+			IsInBattle = true;
+			Enemy = monster;
+
+			System.Timers.Timer battleTimer = new System.Timers.Timer() {
+				AutoReset = true,
+				Enabled = false,
+				Interval = 50,
+			};
+
+			battleTimer.Elapsed += (sender, eventArgs) => {
+				if (this.GetAttack(Enemy) || Enemy.GetAttack(this)) {
+					IsInBattle = false;
+					battleTimer.Stop();
+					return;
+				}
+			};
+
+			battleTimer.Start();
 
 		}
 	}
