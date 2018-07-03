@@ -30,9 +30,11 @@ namespace ProveAA.Game {
 			map.NewLevel(player);
 			map.OutputMap(window);
 
-			player.OutputPlayerInfo(window);
-			player.hitPoints.Changed += ()=> player.OutputPlayerInfo(window);
-			player.manaPoints.Changed += ()=> player.OutputPlayerInfo(window);
+			player.OutputPlayerInfo();
+			player.hitPoints.Changed += ()=> player.OutputPlayerInfo();
+			player.manaPoints.Changed += ()=> player.OutputPlayerInfo();
+			player.EquipArmor(null);
+			player.EquipWeapon(null);
 		}
 	}
 }

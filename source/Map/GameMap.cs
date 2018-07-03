@@ -100,6 +100,8 @@ namespace ProveAA.Map {
 
 			void PlaceItems() {
 				map[1, map.GetLength(1) - 3].CellContent = new Card.Card(new Item.Potion.ManaPotion());
+				map[map.GetLength(0) - 2, map.GetLength(1) - 2].CellContent = new Card.Card(new Item.Armor.MetallShield());
+				map[map.GetLength(0) - 3, map.GetLength(1) - 2].CellContent = new Card.Card(new Item.Weapon.Spear());
 			}
 		}
 

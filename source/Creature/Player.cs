@@ -17,15 +17,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ProveAA.Map;
 using ProveAA.Card;
+using ProveAA.Item.Armor;
+using ProveAA.Item.Weapon;
 
 namespace ProveAA.Creature {
 	class Player : BasicCreature {
 		byte posX, posY;
-		public Windows.GameWindow window;
 		Map.GameMap map;
 		List<Card.Card> cards;
 
+		Image armorImage, weaponImage;
+		private BasicArmor UsedArmor { get; set; }
+		private BasicWeapon UsedWeapon { get; set; }
+
 		public readonly Level level;
+		public Windows.GameWindow window;
 		public byte PosX { get => posX; set { posX = value; } }
 		public byte PosY { get => posY; set { posY = value; } }
 
@@ -33,12 +39,18 @@ namespace ProveAA.Creature {
 		internal List<Card.Card> Cards { get => cards; set => cards = value; }
 
 		public Player() {
+			armorImage = new Image();
+			weaponImage = new Image();
+			UsedArmor = null;
+			UsedWeapon = null;
 			Cards = new List<Card.Card>(7);
 			(new Card.Card(new Spell.Move.ExploreZone())).AddToHand(this);
 			level = new Level();
 			this.imageGridLeftTopCorner.Children.Add(
 				new Image() { Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\player\player.png", UriKind.Absolute)) }
 			);
+			this.imageGridLeftTopCorner.Children.Add(weaponImage);
+			this.imageGridLeftTopCorner.Children.Add(armorImage);
 			this.imageGridMaze.Children.Add(
 				new Image() { Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\player\player.png", UriKind.Absolute)) }
 			);
@@ -89,26 +101,51 @@ namespace ProveAA.Creature {
 			}
 		}
 
-		public void OutputPlayerInfo(Windows.GameWindow window) {
+		public void OutputPlayerInfo() {
 			System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
 				window.HealbarText.Text = hitPoints.ToString();
 				System.Windows.Controls.Grid.SetColumnSpan(window.HealbarRectangle, hitPoints.GetPersent());
 				window.ManabarText.Text = manaPoints.ToString();
 				System.Windows.Controls.Grid.SetColumnSpan(window.ManabarRectangle, manaPoints.GetPersent());
+			});
+		}
 
-				//window.WeaponText.Text = "Оружие: ";
-				//if (player.UsedWeapon != null)
-				//	window.WeaponText.Text += player.UsedWeapon.ToString();
-				//else
-				//	window.WeaponText.Text += "------";
-				//window.WeaponText.Text += $" ({player.attack.Current})";
+		public void EquipArmor(BasicArmor newArmor) {
+			System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
+				if (UsedArmor != null)
+					armor.Current -= UsedArmor.armorMod;
+				UsedArmor = newArmor;
+				if (UsedArmor != null) {
+					armor.Current += UsedArmor.armorMod;
+					armorImage.Source = new BitmapImage(UsedArmor.GetOnPlayerItemImage());
+				}
 
-				//window.ArmorText.Text = "Броня: ";
-				//if (player.UsedArmor != null)
-				//	window.ArmorText.Text += player.UsedArmor.ToString();
-				//else
-				//	window.ArmorText.Text += "------";
-				//window.ArmorText.Text += $" ({player.armor.Current})";
+				window.ArmorText.Text = "Armor: ";
+				if (UsedArmor != null)
+					window.ArmorText.Text += UsedArmor.itemName;
+				else
+					window.ArmorText.Text += "------";
+				window.ArmorText.Text += $" ({armor.Current})";
+			});
+		}
+
+		public void EquipWeapon(BasicWeapon newWeapon) {
+			System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
+
+				if (UsedWeapon != null)
+					attack.Current -= UsedWeapon.dmgMod;
+				UsedWeapon = newWeapon;
+				if (UsedWeapon != null) {
+					attack.Current += UsedWeapon.dmgMod;
+					weaponImage.Source = new BitmapImage(UsedWeapon.GetOnPlayerItemImage());
+				}
+
+				window.WeaponText.Text = "Weapon: ";
+				if (UsedWeapon != null)
+					window.WeaponText.Text += UsedWeapon.itemName;
+				else
+					window.WeaponText.Text += "------";
+				window.WeaponText.Text += $" ({attack.Current})";
 			});
 		}
 

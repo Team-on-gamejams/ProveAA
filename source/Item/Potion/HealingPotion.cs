@@ -7,15 +7,14 @@ using ProveAA.Creature;
 
 namespace ProveAA.Item.Potion {
 	class HealingPotion : BasicPotion {
+		public HealingPotion() {
+			this.itemImgPath += "Healing";
+			this.itemName = "Healing potion";
+		}
+
 		public override bool CardUsed(Player player) {
 			player.hitPoints.Current += (byte)(player.hitPoints.Max * Game.Settings.potion_Healing_HealPersent);
 			return true;
 		}
-
-		public override Uri GetImageForCard() =>
-			new Uri(Environment.CurrentDirectory + @"\img\potion\HealingCard.png", UriKind.Absolute);
-
-		public override Uri GetImageForCell() =>
-			new Uri(Environment.CurrentDirectory + @"\img\potion\HealingCell.png", UriKind.Absolute);
 	}
 }

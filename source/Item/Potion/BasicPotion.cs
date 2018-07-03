@@ -6,5 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProveAA.Item.Potion {
 	abstract class BasicPotion : BasicItem {
+		public BasicPotion() {
+			itemImgPath += @"potion\";
+		}
 	}
 }

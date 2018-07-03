@@ -59,11 +59,15 @@
     <Compile Include="Game\Rand.cs" />
     <Compile Include="Interface\ICardContent.cs" />
     <Compile Include="Interface\ICellContent.cs" />
+    <Compile Include="Item\Armor\BasicArmor.cs" />
+    <Compile Include="Item\Armor\MetallShield.cs" />
     <Compile Include="Item\BasicItem.cs" />
     <Compile Include="Item\Potion\BasicPotion.cs" />
     <Compile Include="Item\Potion\HealingPotion.cs" />
     <Compile Include="Item\Potion\ManaPotion.cs" />
     <Compile Include="Item\Potion\RefreshPotion.cs" />
+    <Compile Include="Item\Weapon\BasicWeapon.cs" />
+    <Compile Include="Item\Weapon\Spear.cs" />
     <Compile Include="Map\GameCell.cs" />
     <Compile Include="Map\GameMap.cs" />
     <Compile Include="Spell\BasicSpell.cs" />
@@ -129,9 +133,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Item\Armor\" />
-    <Folder Include="Item\Weapon\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
