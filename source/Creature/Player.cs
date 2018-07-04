@@ -45,7 +45,7 @@ namespace ProveAA.Creature {
 			armorImage = new Image();
 			weaponImage = new Image();
 			Cards = new List<Card.Card>(7);
-			(new Card.Card(new Spell.Move.ExploreZone())).AddToHand(this);
+			//(new Card.Card(new Spell.Move.ExploreZone())).AddToHand(this);
 
 			var playerImg = new Image() { Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\player\player.png", UriKind.Absolute)) };
 			this.imageGridMaze.Children.Add(playerImg);
@@ -77,6 +77,52 @@ namespace ProveAA.Creature {
 				window.MazeGrid.Children.Add(imageGridMaze);
 				window.LeftTopPlayerImage.Children.Clear();
 				window.LeftTopPlayerImage.Children.Add(CloneGrid(imageGridMaze));
+
+				window.KeyDown += (a, b) => {
+					if (!this.IsInBattle) {
+						byte newX = PosX, newY = PosY;
+						GameCell cell;
+
+						if (b.Key == Key.Left || b.Key == Key.A) {
+							--newX;
+							TrySet();
+						}
+						else if (b.Key == Key.Right || b.Key == Key.D) {
+							++newX;
+							TrySet();
+						}
+						else if (b.Key == Key.Up || b.Key == Key.W) {
+							--newY;
+							TrySet();
+						}
+						else if (b.Key == Key.Down || b.Key == Key.S) {
+							++newY;
+							TrySet();
+						}
+
+						void TrySet() {
+							cell = map[newY, newX];
+							if (cell == null)
+								return;
+							if (!cell.IsSolid) {
+								posX = newX;
+								posY = newY;
+								PosChanged();
+								return;
+							}
+							if (cell.IsDoor) {
+								for (int i = 0; i < this.Cards.Count; ++i) {
+									if (Cards[i].CardContent is Spell.Move.OpenDoor card) {
+										if (card.DoorLetter == map[(byte)(PosY + 1), PosX].CellZone) {
+											Cards[i].Use(this);
+											break;
+										}
+									}
+								}
+							}
+						}
+					}
+				};
 			});
 		}
 
@@ -165,8 +211,8 @@ namespace ProveAA.Creature {
 		}
 
 		public void PlayerStepInCell(Map.GameCell cell) {
-			cell.CellContent?.PlayerStepIn(this);
-			cell.CellContent = null;
+			if(cell.CellContent?.PlayerStepIn(this)??false)
+				cell.CellContent = null;
 		}
 
 		public void StartBattle(Creature.Monster.BasicMonster monster) {

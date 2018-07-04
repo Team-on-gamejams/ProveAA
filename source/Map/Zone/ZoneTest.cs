@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace ProveAA.Map.Zone {
 	class ZoneTest : BasicZoneGenerator {
 		public override void GenerateMap(GameMap map) {
+			lastZone = 'a';
+
 			for (byte i = 1; i < map.SizeX - 1; ++i)
 				map[2, i].IsSolid = map[2, i].IsWall = true;
 

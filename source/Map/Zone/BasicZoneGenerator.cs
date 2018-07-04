@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProveAA.Map.Zone {
 	abstract class BasicZoneGenerator {
-		protected static char lastZone = 'a';
+		protected char lastZone = 'a';
 
 		abstract public void GenerateMap(GameMap map);
 		abstract public void PlaceMonster(GameMap map);

@@ -17,8 +17,9 @@ namespace ProveAA.Creature.Monster {
 			new Uri(Environment.CurrentDirectory + '\\' + monsterImgPath + ".png", UriKind.Absolute);
 
 
-		public void PlayerStepIn(Player player) {
+		public bool PlayerStepIn(Player player) {
 			player.StartBattle(this);
+			return true;
 		}
 	}
 }

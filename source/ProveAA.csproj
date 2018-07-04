@@ -74,6 +74,7 @@
     <Compile Include="Map\GameCell.cs" />
     <Compile Include="Map\GameMap.cs" />
     <Compile Include="Map\Zone\BasicZoneGenerator.cs" />
+    <Compile Include="Map\Zone\FirstZone.cs" />
     <Compile Include="Map\Zone\ZoneTest.cs" />
     <Compile Include="Spell\Attack\Fireball.cs" />
     <Compile Include="Spell\BasicSpell.cs" />

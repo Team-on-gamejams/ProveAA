@@ -23,11 +23,13 @@ namespace ProveAA.Card {
 		ICardContent cardContent;
 		public static Windows.GameWindow window;
 
+		internal ICardContent CardContent { get => cardContent; }
+
 		public Card(ICardContent content) {
 			cardContent = content;
 		}
 
-		public void AddToHand(Creature.Player player) {
+		public bool AddToHand(Creature.Player player) {
 			if (player.Cards.Count < 7) {
 				player.Cards.Add(this);
 				cardGrid = new Grid();
@@ -43,21 +45,22 @@ namespace ProveAA.Card {
 
 				Grid.SetColumn(cardGrid, player.Cards.Count - 1);
 				window.CardsGrid.Children.Add(cardGrid);
+				return true;
 			}
+			return false;
 		}
 
-		public void PlayerStepIn(Player player) {
-			AddToHand(player);
+		public bool PlayerStepIn(Player player) {
+			return AddToHand(player);
 		}
 
 		public void Use(Creature.Player player) {
 			if (cardContent.CardUsed(player)) {
-				if (player.Cards[0] != this) {
-					player.Cards.Remove(this);
-					window.CardsGrid.Children.Remove(cardGrid);
-					for (byte i = 0; i < player.Cards.Count; ++i)
-						Grid.SetColumn(player.Cards[i].cardGrid, i);
-				}
+				player.Cards.Remove(this);
+				window.CardsGrid.Children.Remove(cardGrid);
+				for (byte i = 0; i < player.Cards.Count; ++i)
+					Grid.SetColumn(player.Cards[i].cardGrid, i);
+				player.PlayerStepInCell(player.Map[player.PosY, player.PosX]);
 			}
 		}
 

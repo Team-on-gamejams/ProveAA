@@ -9,9 +9,11 @@ namespace ProveAA.Spell.Move {
 		char doorLetter;
 
 		public OpenDoor(char DoorLetter) {
-			doorLetter = DoorLetter;
-			itemImgPath += "OpenDoor" + doorLetter.ToString().ToUpper();
+			this.DoorLetter = DoorLetter;
+			itemImgPath += "OpenDoor" + this.DoorLetter.ToString().ToUpper();
 		}
+
+		public char DoorLetter { get => doorLetter; set => doorLetter = value; }
 
 		public override bool CardUsed(Creature.Player pl) {
 			if (pl.IsInBattle)
@@ -20,7 +22,7 @@ namespace ProveAA.Spell.Move {
 			Tuple<byte, byte> doorPos = null;
 			for (byte i = 0; i < pl.Map.SizeY; ++i) {
 				for (byte j = 0; j < pl.Map.SizeX; ++j) {
-					if(pl.Map[i, j].IsDoor && pl.Map[i, j].CellZone == doorLetter && !pl.Map[i, j].IsInFog) {
+					if(pl.Map[i, j].IsDoor && pl.Map[i, j].CellZone == DoorLetter && !pl.Map[i, j].IsInFog) {
 						doorPos = new Tuple<byte, byte>(i, j);
 						break;
 					}
@@ -28,32 +30,16 @@ namespace ProveAA.Spell.Move {
 			}
 
 			if(doorPos != null) {
-				byte i = (byte)(doorPos.Item1 + 1), j= doorPos.Item2;
-				if (!TrySetPos()) {
-					i -= 2;
-					if (!TrySetPos()) {
-						++i;
-						++j;
-						if (!TrySetPos()) {
-							j -= 2;
-							if (!TrySetPos()) {
-								pl.Map.NewLevel(pl);
-								return true;
-							}
-						}
-					}
+				if(doorPos.Item1 == 0 || doorPos.Item2 == 0 || doorPos.Item1 == pl.Map.SizeY - 1 || doorPos.Item2 == pl.Map.SizeX - 1) {
+					pl.Map.NewLevel(pl);
+					return true;
 				}
-				return true;
-
-				bool TrySetPos() {
-					if (i < pl.Map.SizeY && j < pl.Map.SizeX && pl.Map[i, j].CellZone == doorLetter+1) {
-						pl.Map[doorPos.Item1, doorPos.Item2].IsDoorOpened = true;
-						pl.PosX = j;
-						pl.PosY = i;
-						pl.PosChanged();
-						return true;
-					}
-					return false;
+				else {
+					pl.Map[doorPos.Item1, doorPos.Item2].IsDoorOpened = true;
+					pl.PosX = doorPos.Item2;
+					pl.PosY = doorPos.Item1;
+					pl.PosChanged();
+					return true;
 				}
 			}
 

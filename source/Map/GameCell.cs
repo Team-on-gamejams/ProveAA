@@ -22,7 +22,7 @@ namespace ProveAA.Map {
 		public bool IsVisited { get => isVisited; set => isVisited = value; }
 		public bool IsSolid { get => isSolid; set { isSolid = value; RecreateImage(); } }
 		public bool IsWall { get => isWall; set { isWall = value; RecreateImage(); } }
-		public bool IsDoorOpened { get => isDoorOpened; set { isDoorOpened = value; RecreateImage(); } }
+		public bool IsDoorOpened { get => isDoorOpened; set { isDoorOpened = value; IsSolid = !value; RecreateImage(); } }
 		public bool IsDoor { get => isDoor; set { isDoor = value; RecreateImage(); } }
 		public bool IsInFog { get => isInFog; set { isInFog = value; RecreateImage(); } }
 		public char CellZone { get => _cellZone;
@@ -61,14 +61,14 @@ namespace ProveAA.Map {
 			Uri newImage;
 			if (IsInFog)
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\fog.png", UriKind.Absolute);
-			else if (IsVisited)
-				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\visited.png", UriKind.Absolute);
 			else if (IsWall)
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\wall.png", UriKind.Absolute);
 			else if (IsDoor && !isDoorOpened)
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\doorClosed.png", UriKind.Absolute);
 			else if (IsDoor && isDoorOpened)
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\doorOpened.png", UriKind.Absolute);
+			else if (IsVisited)
+				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\visited.png", UriKind.Absolute);
 			else if (!IsSolid)
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\road.png", UriKind.Absolute);
 			else
