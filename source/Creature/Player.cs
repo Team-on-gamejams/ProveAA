@@ -113,13 +113,14 @@ namespace ProveAA.Creature {
 							if (cell.IsDoor) {
 								for (int i = 0; i < this.Cards.Count; ++i) {
 									if (Cards[i].CardContent is Spell.Move.OpenDoor card) {
-										if (card.DoorLetter == map[(byte)(PosY + 1), PosX].CellZone) {
+										if (card.DoorLetter == map[newY, newX].CellZone) {
 											Cards[i].Use(this);
-											break;
+											return;
 										}
 									}
 								}
 							}
+
 						}
 					}
 				};

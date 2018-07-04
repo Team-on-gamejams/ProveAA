@@ -18,7 +18,7 @@ namespace ProveAA.Map {
 		static byte generation = 0;
 		static List<Zone.BasicZoneGenerator> generators = new List<Zone.BasicZoneGenerator>() {
 			new Zone.ZoneTest(),
-			//new Zone.FirstZone(),
+			new Zone.FirstZone(),
 		};
 		GameCell[,] map;
 
@@ -83,7 +83,14 @@ namespace ProveAA.Map {
 				++generation;
 		}
 
-		public GameCell this[byte a, byte b] { get => map[a, b]; set => map[a, b] = value; }
+		public GameCell this[byte a, byte b] {
+			get {
+				if (a < 0 || a >= SizeY || b < 0 || b >= SizeX)
+					return null;
+				return map[a, b];
+			}
+			set => map[a, b] = value;
+		}
 	}
 }
 

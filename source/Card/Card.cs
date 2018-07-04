@@ -64,8 +64,8 @@ namespace ProveAA.Card {
 			}
 		}
 
-		public Uri GetDisplayImage() {
-			return cardContent.GetImageForCell();
-		}
+		public Uri GetDisplayImage() =>
+			cardContent.GetImageForCell();
+		
 	}
 }

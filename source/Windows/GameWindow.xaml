@@ -10,7 +10,7 @@
 		Loaded="Window_Loaded">
     <DockPanel LastChildFill="True" Background="#262626">
 
-		<Grid x:Name="CardsGrid" MinHeight="137" Margin="5" ShowGridLines="True" DockPanel.Dock="Bottom">
+		<Grid x:Name="CardsGrid" MinHeight="137" Margin="5" ShowGridLines="False" DockPanel.Dock="Bottom">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition/>
 				<ColumnDefinition/>
@@ -23,7 +23,7 @@
 			
 		</Grid>
 
-		<Grid x:Name="LeftGrid" Width="200" Margin="5" ShowGridLines="True" DockPanel.Dock="Left">
+		<Grid x:Name="LeftGrid" Width="200" Margin="5" ShowGridLines="False" DockPanel.Dock="Left">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="75"/>
 				<RowDefinition Height="100"/>
@@ -31,7 +31,7 @@
 				<RowDefinition Height="25"/>
 			</Grid.RowDefinitions>
 
-			<Grid ShowGridLines="True">
+			<Grid ShowGridLines="False">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="75"/>
 					<ColumnDefinition/>
@@ -275,7 +275,7 @@
 
 			</Grid>
 
-			<Grid Grid.Row="1" ShowGridLines="True">
+			<Grid Grid.Row="1" ShowGridLines="False">
 				<Grid.RowDefinitions>
 					<RowDefinition/>
 					<RowDefinition/>
@@ -290,14 +290,18 @@
 				</Viewbox>
 			</Grid>
 
-			<Grid Grid.Row="3" ShowGridLines="True">
+			<Grid Grid.Row="3" ShowGridLines="False">
 				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
 					<ColumnDefinition/>
 					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
 
-				<Button Content="Menu"/>
-				<Button Grid.Column="1" Content="Next lvl"/>
+				<Button  IsTabStop="False" Content="Menu"/>
+				<Button  IsTabStop="False" Grid.Column="1" Content="Inventory"/>
+				<Button  IsTabStop="False" Grid.Column="2" Content="Stats"/>
+				<Button IsTabStop="False" Grid.Column="3" Content="Help"/>
 			</Grid>
 
 		</Grid>

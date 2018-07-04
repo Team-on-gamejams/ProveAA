@@ -30,7 +30,7 @@ namespace ProveAA.Spell.Move {
 			}
 
 			if(doorPos != null) {
-				if(doorPos.Item1 == 0 || doorPos.Item2 == 0 || doorPos.Item1 == pl.Map.SizeY - 1 || doorPos.Item2 == pl.Map.SizeX - 1) {
+				if(pl.Map[doorPos.Item1, doorPos.Item2].IsDoorToNextLevel) {
 					pl.Map.NewLevel(pl);
 					return true;
 				}

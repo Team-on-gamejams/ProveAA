@@ -7,23 +7,13 @@ using System.Threading.Tasks;
 namespace ProveAA.Map.Zone {
 	class ZoneTest : BasicZoneGenerator {
 		public override void GenerateMap(GameMap map) {
-			lastZone = 'a';
 
 			for (byte i = 1; i < map.SizeX - 1; ++i)
 				map[2, i].IsSolid = map[2, i].IsWall = true;
+			doorPos.Add(new Tuple<byte, byte, bool>(2, (byte)(map.SizeX - 2), false));
+			doorPos.Add(new Tuple<byte, byte, bool>((byte)(map.SizeY - 1), 1, true));
 
-			List<Tuple<byte, byte>> doorPos = new List<Tuple<byte, byte>>();
-			doorPos.Add(new Tuple<byte, byte>(2, (byte)(map.SizeX - 2)));
-			doorPos.Add(new Tuple<byte, byte>((byte)(map.SizeY - 1), 1));
-
-			foreach (var i in doorPos) {
-				SetZoneLetters((byte)(i.Item1 - 1), i.Item2, lastZone, map);
-				map[i.Item1, i.Item2].IsWall = false;
-				map[i.Item1, i.Item2].IsDoor = true;
-				map[i.Item1, i.Item2].CellZone = lastZone;
-				map[(byte)(i.Item1 - 1), i.Item2].CellContent = new Card.Card(new Spell.Move.OpenDoor(lastZone));
-				++lastZone;
-			}
+			PlaceDoors(map);
 		}
 
 		public override void PlaceItems(GameMap map) {

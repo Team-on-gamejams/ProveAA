@@ -22,8 +22,10 @@ namespace ProveAA.Map {
 		public bool IsVisited { get => isVisited; set => isVisited = value; }
 		public bool IsSolid { get => isSolid; set { isSolid = value; RecreateImage(); } }
 		public bool IsWall { get => isWall; set { isWall = value; RecreateImage(); } }
+		public bool IsDoorToNextLevel { get; set; }
 		public bool IsDoorOpened { get => isDoorOpened; set { isDoorOpened = value; IsSolid = !value; RecreateImage(); } }
 		public bool IsDoor { get => isDoor; set { isDoor = value; RecreateImage(); } }
+
 		public bool IsInFog { get => isInFog; set { isInFog = value; RecreateImage(); } }
 		public char CellZone { get => _cellZone;
 			set {
@@ -51,10 +53,13 @@ namespace ProveAA.Map {
 			isVisited = false;
 			isSolid = isWall = isInFog = true;
 			isDoor = false;
+			IsDoorToNextLevel = false;
 			isDoorOpened = false;
 			_cellZone = new char();
+			imageLetter.Source = null;
 			cellContent = null;
 			RecreateImage();
+			RecreateContentImage();
 		}
 
 		public void RecreateImage() {
