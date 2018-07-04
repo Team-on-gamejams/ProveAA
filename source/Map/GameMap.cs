@@ -15,7 +15,10 @@ using System.Windows.Shapes;
 
 namespace ProveAA.Map {
 	class GameMap {
-		static char lastZone = 'a';
+		static byte generation = 0;
+		static List<Zone.BasicZoneGenerator> generators = new List<Zone.BasicZoneGenerator>() {
+			new Zone.ZoneTest(),
+		};
 		GameCell[,] map;
 
 		public byte SizeY => (byte)map.GetLength(0);
@@ -36,8 +39,7 @@ namespace ProveAA.Map {
 
 		public void NewLevel(Creature.Player player) {
 			ClearMap();
-			RandomFill();
-			PlacePlayer(player);
+			RandomFill(player);
 		}
 
 		public void OutputMap(Windows.GameWindow window) {
@@ -66,71 +68,18 @@ namespace ProveAA.Map {
 			for (byte i = 0; i < map.GetLength(0); ++i)
 				for (byte j = 0; j < map.GetLength(1); ++j)
 					map[i, j].RefillValue();
-		}
-
-		void RandomFill() {
-			GenerateWalls();
-			PlaceDoors();
-			PlaceItems();
-			PlaceMonster();
-
-			void GenerateWalls() {
-				for (byte i = 1; i < map.GetLength(0) - 1; ++i)
-					for (byte j = 1; j < map.GetLength(1) - 1; ++j)
-						map[i, j].IsSolid = map[i, j].IsWall = false;
-
-
-				for (byte i = 1; i < map.GetLength(1) - 1; ++i)
-					map[2, i].IsSolid = map[2, i].IsWall = true;
-			}
-
-			void PlaceDoors() {
-				List<Tuple<byte, byte>> doorPos = new List<Tuple<byte, byte>>();
-				doorPos.Add(new Tuple<byte, byte>(2, (byte)(map.GetLength(1) - 2)));
-				doorPos.Add(new Tuple<byte, byte>((byte)(map.GetLength(0) - 1), 1));
-
-				foreach (var i in doorPos) {
-					SetZoneLetters((byte)(i.Item1-1), i.Item2, lastZone);
-					map[i.Item1, i.Item2].IsWall = false;
-					map[i.Item1, i.Item2].IsDoor = true;
-					map[i.Item1, i.Item2].CellZone = lastZone;
-					map[i.Item1-1, i.Item2].CellContent = new Card.Card(new Spell.Move.OpenDoor(lastZone));
-					++lastZone;
-				}
-			}
-
-			void PlaceItems() {
-				map[1, map.GetLength(1) - 3].CellContent = new Card.Card(new Item.Potion.ManaPotion());
-				map[map.GetLength(0) - 2, map.GetLength(1) - 2].CellContent = new Card.Card(new Item.Armor.MetallShield());
-				map[map.GetLength(0) - 3, map.GetLength(1) - 2].CellContent = new Card.Card(new Item.Weapon.Spear());
-				map[map.GetLength(0) - 3, map.GetLength(1) - 3].CellContent = new Card.Card(new Spell.Attack.Fireball());
-			}
-
-			void PlaceMonster() {
-				map[map.GetLength(0) - 3, map.GetLength(1) - 4].CellContent = new Creature.Monster.Ghost();
-			}
-		}
-
-		void PlacePlayer(Creature.Player player) {
 			for (byte i = 1; i < map.GetLength(0) - 1; ++i)
-				for (byte j = 1; j < map.GetLength(1) - 1; ++j) {
-					if (!map[i, j].IsSolid) {
-						player.PosX = j;
-						player.PosY = i;
-						player.PosChanged();
-						return;
-					}
-				}
+				for (byte j = 1; j < map.GetLength(1) - 1; ++j)
+					map[i, j].IsSolid = map[i, j].IsWall = false;
 		}
 
-		void SetZoneLetters(byte i, byte j, char letter) {
-			if (map[i, j].CellZone == 0 && !map[i, j].IsSolid) {
-				map[i, j].CellZone = letter;
-				SetZoneLetters(i, (byte)(j + 1), letter);
-				SetZoneLetters(i, (byte)(j - 1), letter);
-				SetZoneLetters((byte)(i + 1), j, letter);
-				SetZoneLetters((byte)(i - 1), j, letter);
-			}
+		void RandomFill(Creature.Player player) {
+			generators[generation].GenerateMap(this);
+			generators[generation].PlaceMonster(this);
+			generators[generation].PlaceItems(this);
+			generators[generation].PlacePlayer(this, player);
+			if (generation != generators.Count - 1)
+				++generation;
 		}
 
 		public GameCell this[byte a, byte b] { get => map[a, b]; set => map[a, b] = value; }

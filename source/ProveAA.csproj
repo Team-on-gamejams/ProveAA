@@ -73,6 +73,8 @@
     <Compile Include="Item\Weapon\Spear.cs" />
     <Compile Include="Map\GameCell.cs" />
     <Compile Include="Map\GameMap.cs" />
+    <Compile Include="Map\Zone\BasicZoneGenerator.cs" />
+    <Compile Include="Map\Zone\ZoneTest.cs" />
     <Compile Include="Spell\Attack\Fireball.cs" />
     <Compile Include="Spell\BasicSpell.cs" />
     <Compile Include="Spell\Move\ExploreZone.cs" />
