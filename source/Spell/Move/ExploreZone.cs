@@ -9,6 +9,10 @@ namespace ProveAA.Spell.Move {
 	class ExploreZone : BasicSpell {
 		public static List<Tuple<byte, byte>> avaliableMove = new List<Tuple<byte, byte>>();
 
+		public ExploreZone() {
+			itemImgPath += "Explore";
+		}
+
 		public override bool CardUsed(Player pl) {
 			if (pl.IsInBattle)
 				return false;
@@ -44,12 +48,5 @@ namespace ProveAA.Spell.Move {
 			}
 		}
 
-		public override Uri GetImageForCard() {
-			return new Uri(Environment.CurrentDirectory + @"\img\spell\ExploreCard.png", UriKind.Absolute);
-		}
-
-		public override Uri GetImageForCell() {
-			return GetImageForCard();
-		}
 	}
 }

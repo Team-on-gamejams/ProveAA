@@ -36,6 +36,16 @@ namespace ProveAA.Creature {
 			manaPoints = new Bar();
 		}
 
+		public virtual bool GetDmgWithArmor(byte dmgIn) {
+			short dmg = (short)(dmgIn - this.armor.Current);
+			if (dmg <= 0)
+				dmg = 1;
+			if (dmg > hitPoints.Current)
+				dmg = hitPoints.Current;
+			hitPoints.Current -= (byte)dmg;
+			return hitPoints.Current == 0;
+		}
+
 		public virtual bool GetAttack(BasicCreature Enemy) {
 			short dmg = (short)(Enemy.attack.Current - this.armor.Current);
 			if (dmg <= 0)

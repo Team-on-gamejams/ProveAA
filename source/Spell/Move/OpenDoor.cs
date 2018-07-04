@@ -10,6 +10,7 @@ namespace ProveAA.Spell.Move {
 
 		public OpenDoor(char DoorLetter) {
 			doorLetter = DoorLetter;
+			itemImgPath += "OpenDoor" + doorLetter.ToString().ToUpper();
 		}
 
 		public override bool CardUsed(Creature.Player pl) {
@@ -57,14 +58,6 @@ namespace ProveAA.Spell.Move {
 			}
 
 			return false;
-		}
-
-		public override Uri GetImageForCard() {
-			return new Uri(Environment.CurrentDirectory + @"\img\spell\OpenDoor" + doorLetter.ToString().ToUpper() + "Card.png", UriKind.Absolute);
-		}
-
-		public override Uri GetImageForCell() {
-			return new Uri(Environment.CurrentDirectory + @"\img\spell\OpenDoor" + doorLetter.ToString().ToUpper() + "Cell.png", UriKind.Absolute);
 		}
 	}
 }

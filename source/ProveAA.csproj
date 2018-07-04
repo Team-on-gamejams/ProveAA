@@ -73,6 +73,7 @@
     <Compile Include="Item\Weapon\Spear.cs" />
     <Compile Include="Map\GameCell.cs" />
     <Compile Include="Map\GameMap.cs" />
+    <Compile Include="Spell\Attack\Fireball.cs" />
     <Compile Include="Spell\BasicSpell.cs" />
     <Compile Include="Spell\Move\ExploreZone.cs" />
     <Compile Include="Spell\Move\OpenDoor.cs" />
