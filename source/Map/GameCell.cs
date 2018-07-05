@@ -16,34 +16,24 @@ using ProveAA.Interface;
 
 namespace ProveAA.Map {
 	class GameCell {
-		private char _cellZone;
 		bool isSolid, isWall, isDoor, isInFog, isVisited, isDoorOpened;
 		private Interface.ICellContent cellContent;
 		public bool IsVisited { get => isVisited; set => isVisited = value; }
 		public bool IsSolid { get => isSolid; set { isSolid = value; RecreateImage(); } }
 		public bool IsWall { get => isWall; set { isWall = value; RecreateImage(); } }
-		public bool IsDoorToNextLevel { get; set; }
 		public bool IsDoorOpened { get => isDoorOpened; set { isDoorOpened = value; IsSolid = !value; RecreateImage(); } }
 		public bool IsDoor { get => isDoor; set { isDoor = value; RecreateImage(); } }
+		public byte DoorId { get; set; }
 
 		public bool IsInFog { get => isInFog; set { isInFog = value; RecreateImage(); } }
-		public char CellZone { get => _cellZone;
-			set {
-				_cellZone = value;
-				imageLetter.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\letter\" + _cellZone.ToString().ToLower() + ".png", UriKind.Absolute));
-			}
-		}
 
 		internal ICellContent CellContent { get => cellContent; set { cellContent = value; if (!IsInFog) RecreateContentImage(); } }
 
 		Uri lastImage;
 		public Image imageCell;
-		public Image imageLetter;
 		public Image imageContent;
 
 		public GameCell() {
-			imageLetter = new Image();
-			imageLetter.Height = imageLetter.Width = 20;
 			imageCell = new Image();
 			imageContent = new Image();
 			RefillValue();
@@ -53,10 +43,7 @@ namespace ProveAA.Map {
 			isVisited = false;
 			isSolid = isWall = isInFog = true;
 			isDoor = false;
-			IsDoorToNextLevel = false;
 			isDoorOpened = false;
-			_cellZone = new char();
-			imageLetter.Source = null;
 			cellContent = null;
 			RecreateImage();
 			RecreateContentImage();

@@ -55,13 +55,6 @@ namespace ProveAA.Map {
 					Grid.SetColumn(map[i, j].imageContent, j);
 					Grid.SetZIndex(map[i, j].imageContent, 1);
 					window.MazeGrid.Children.Add(map[i, j].imageContent);
-
-					Grid.SetRow(map[i, j].imageLetter, i);
-					Grid.SetColumn(map[i, j].imageLetter, j);
-					Grid.SetZIndex(map[i, j].imageLetter, 2);
-					map[i, j].imageLetter.HorizontalAlignment = HorizontalAlignment.Left;
-					map[i, j].imageLetter.VerticalAlignment = VerticalAlignment.Top;
-					window.MazeGrid.Children.Add(map[i, j].imageLetter);
 				}
 		}
 
@@ -75,10 +68,7 @@ namespace ProveAA.Map {
 		}
 
 		void RandomFill(Creature.Player player) {
-			generators[generation].GenerateMap(this);
-			generators[generation].PlaceMonster(this);
-			generators[generation].PlaceItems(this);
-			generators[generation].PlacePlayer(this, player);
+			generators[generation].GenerateMap(this, player);
 			if (generation != generators.Count - 1)
 				++generation;
 		}
