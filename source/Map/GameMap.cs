@@ -17,8 +17,8 @@ namespace ProveAA.Map {
 	class GameMap {
 		static byte generation = 0;
 		static List<Zone.BasicZoneGenerator> generators = new List<Zone.BasicZoneGenerator>() {
-			new Zone.ZoneTest(),
-			new Zone.FirstZone(),
+			//new Zone.ZoneTest(),
+			new Zone.MazeGenerator(),
 		};
 		GameCell[,] map;
 
@@ -66,7 +66,7 @@ namespace ProveAA.Map {
 					map[i, j].RefillValue();
 			for (byte i = 1; i < map.GetLength(0) - 1; ++i)
 				for (byte j = 1; j < map.GetLength(1) - 1; ++j)
-					map[i, j].IsSolid = map[i, j].IsWall = false;
+					map[i, j].IsWall = false;
 		}
 
 		void RandomFill(Creature.Player player) {

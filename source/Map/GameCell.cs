@@ -16,11 +16,11 @@ using ProveAA.Interface;
 
 namespace ProveAA.Map {
 	class GameCell {
-		bool isSolid, isWall, isDoor, isInFog, isVisited, isDoorOpened;
+		bool isSolid, isWall, isDoor, isInFog, isDoorOpened;
 		private Interface.ICellContent cellContent;
-		public bool IsVisited { get => isVisited; set => isVisited = value; }
+		public bool IsVisited { get => _isVisited; set{ _isVisited = value; RecreateImage(); } }
 		public bool IsSolid { get => isSolid; set { isSolid = value; RecreateImage(); } }
-		public bool IsWall { get => isWall; set { isWall = value; RecreateImage(); } }
+		public bool IsWall { get => isWall; set { isWall = value; isSolid = value; RecreateImage(); } }
 		public bool IsDoorOpened { get => isDoorOpened; set { isDoorOpened = value; IsSolid = !value; RecreateImage(); } }
 		public bool IsDoor { get => isDoor; set { isDoor = value; RecreateImage(); } }
 		public byte DoorId { get; set; }
@@ -32,6 +32,7 @@ namespace ProveAA.Map {
 		Uri lastImage;
 		public Image imageCell;
 		public Image imageContent;
+		private bool _isVisited;
 
 		public GameCell() {
 			imageCell = new Image();
@@ -40,7 +41,7 @@ namespace ProveAA.Map {
 		}
 
 		public void RefillValue() {
-			isVisited = false;
+			IsVisited = false;
 			isSolid = isWall = isInFog = true;
 			isDoor = false;
 			isDoorOpened = false;

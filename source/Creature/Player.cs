@@ -33,7 +33,7 @@ namespace ProveAA.Creature {
 		public readonly Level level;
 		public Windows.GameWindow window;
 		public byte PosX { get => posX; set { posX = value; } }
-		public byte PosY { get => posY; set { posY = value; } }
+		public byte PosY { get => posY; set {  posY = value; } }
 
 		public bool IsInBattle { get; set; }
 		public Creature.Monster.BasicMonster Enemy { get; set; }

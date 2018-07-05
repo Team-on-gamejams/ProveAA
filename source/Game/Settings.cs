@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 namespace ProveAA.Game {
 	static class Settings {
 		public static byte handSize = 12;
-		public static byte map_sizeX = 14;
-		public static byte map_sizeY = 14;
+		public static byte map_sizeX = 15;
+		public static byte map_sizeY = 15;
 
-		public static byte player_init_hp = 80;
+		public static byte player_init_hp = 30;
 		public static byte player_init_mp = 100;
-		public static byte player_init_hpMax = 100;
-		public static byte player_init_mpMax = 150;
-		public static byte player_init_armor = 0;
-		public static byte player_init_attack = 1;
+		public static byte player_init_hpMax = 30;
+		public static byte player_init_mpMax = 100;
+		public static byte player_init_armor = 5;
+		public static byte player_init_attack = 5;
 
 		public static byte player_init_lvl = 1;
 		public static byte player_init_toNextLvl = 5;
@@ -31,5 +31,8 @@ namespace ProveAA.Game {
 		public static float potion_Mana_ManaPersent = 0.25f;
 		public static float potion_Refresh_HealPersent = 0.50f;
 		public static float potion_Refresh_ManaPersent = 0.50f;
+
+		public static bool mazeGen_StartOnCenter = true;
+		public static List<ushort> mazeGen_crossOnItterCnt = new List<ushort>() {0};
 	}
 }

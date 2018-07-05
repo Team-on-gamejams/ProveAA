@@ -44,7 +44,7 @@ namespace ProveAA.Map.Zone {
 		}
 
 		public void PlaceMonster(GameMap map) {
-			map[(byte)(map.SizeY - 3), (byte)(map.SizeX - 4)].CellContent = new Creature.Monster.Ghost();
+			map[(byte)(map.SizeY - 3), (byte)(map.SizeX - 4)].CellContent = new Creature.Monster.Ghost1();
 		}
 
 		public void PlacePlayer(GameMap map, Creature.Player player) {
