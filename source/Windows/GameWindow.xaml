@@ -11,16 +11,7 @@
     <DockPanel LastChildFill="True" Background="#262626">
 
 		<Grid x:Name="CardsGrid" MinHeight="137" Margin="5" ShowGridLines="False" DockPanel.Dock="Bottom">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
-			
+
 		</Grid>
 
 		<Grid x:Name="LeftGrid" Width="200" Margin="5" ShowGridLines="False" DockPanel.Dock="Left">

@@ -56,6 +56,8 @@ namespace ProveAA.Map {
 					Grid.SetZIndex(map[i, j].imageContent, 1);
 					window.MazeGrid.Children.Add(map[i, j].imageContent);
 				}
+			for (int i = 0; i < Game.Settings.handSize; ++i)
+				window.CardsGrid.ColumnDefinitions.Add(new ColumnDefinition());
 		}
 
 		void ClearMap() {

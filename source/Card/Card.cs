@@ -30,7 +30,7 @@ namespace ProveAA.Card {
 		}
 
 		public bool AddToHand(Creature.Player player) {
-			if (player.Cards.Count < 7) {
+			if (player.Cards.Count < Settings.handSize) {
 				player.Cards.Add(this);
 				cardGrid = new Grid();
 				cardGrid.Margin = new Thickness(10);

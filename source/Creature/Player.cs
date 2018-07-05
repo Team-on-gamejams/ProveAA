@@ -44,7 +44,7 @@ namespace ProveAA.Creature {
 		public Player() {
 			armorImage = new Image();
 			weaponImage = new Image();
-			Cards = new List<Card.Card>(7);
+			Cards = new List<Card.Card>(Settings.handSize);
 			//(new Card.Card(new Spell.Move.ExploreZone())).AddToHand(this);
 
 			var playerImg = new Image() { Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\player\player.png", UriKind.Absolute)) };

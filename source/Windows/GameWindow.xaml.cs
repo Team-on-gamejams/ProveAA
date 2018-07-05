@@ -41,7 +41,7 @@ namespace ProveAA.Windows {
 			game.Start(this);
 		}
 
-		private double hashedCardSizeMod = 1.5 / 7;
+		private double hashedCardSizeMod = 1.5 / Settings.handSize;
 		void ResizeUI() {
 			System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
 				CardsGrid.Height = this.RenderSize.Width * hashedCardSizeMod;

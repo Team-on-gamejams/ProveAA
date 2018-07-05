@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProveAA.Game {
 	static class Settings {
+		public static byte handSize = 12;
 		public static byte map_sizeX = 14;
 		public static byte map_sizeY = 14;
 
