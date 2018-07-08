@@ -32,7 +32,8 @@ namespace ProveAA.Game {
 		public static float potion_Refresh_HealPersent = 0.50f;
 		public static float potion_Refresh_ManaPersent = 0.50f;
 
+		public static bool mazeGen_PlaceFog = false;
 		public static bool mazeGen_StartOnCenter = true;
-		public static List<ushort> mazeGen_crossOnItterCnt = new List<ushort>() {0};
+		public static List<ushort> mazeGen_crossOnItterCnt = new List<ushort>() {0, 3};
 	}
 }

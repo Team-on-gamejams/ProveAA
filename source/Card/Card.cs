@@ -56,6 +56,7 @@ namespace ProveAA.Card {
 
 		public void Use(Creature.Player player) {
 			if (cardContent.CardUsed(player)) {
+				player.UpdateEnemy();
 				player.Cards.Remove(this);
 				window.CardsGrid.Children.Remove(cardGrid);
 				for (byte i = 0; i < player.Cards.Count; ++i)

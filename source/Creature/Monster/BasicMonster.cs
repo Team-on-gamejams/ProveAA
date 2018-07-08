@@ -16,6 +16,8 @@ namespace ProveAA.Creature.Monster {
 		public Uri GetDisplayImage() =>
 			new Uri(Environment.CurrentDirectory + '\\' + monsterImgPath + ".png", UriKind.Absolute);
 
+		public Uri GetBattleImage() =>
+			new Uri(Environment.CurrentDirectory + '\\' + monsterImgPath + "Battle.png", UriKind.Absolute);
 
 		public bool PlayerStepIn(Player player) {
 			player.StartBattle(this);

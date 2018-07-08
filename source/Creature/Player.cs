@@ -124,6 +124,8 @@ namespace ProveAA.Creature {
 						}
 					}
 				};
+
+				ChangeToMaze();
 			});
 		}
 
@@ -221,21 +223,53 @@ namespace ProveAA.Creature {
 			Enemy = monster;
 
 			System.Timers.Timer battleTimer = new System.Timers.Timer() {
-				AutoReset = true,
+				AutoReset = false,
 				Enabled = false,
-				Interval = 50,
+				Interval = 230,
 			};
 
 			battleTimer.Elapsed += (sender, eventArgs) => {
-				if (this.GetAttack(Enemy) || Enemy.GetAttack(this)) {
-					IsInBattle = false;
-					battleTimer.Stop();
-					return;
-				}
+				System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
+					bool rez = this.GetAttack(Enemy) || Enemy.GetAttack(this);
+
+					UpdateEnemy();
+
+					if (rez) {
+						IsInBattle = false;
+						battleTimer.Stop();
+						ChangeToMaze();
+						return;
+					}
+					else
+						battleTimer.Start();
+
+				});
 			};
 
+			ChangeToBattle();
 			battleTimer.Start();
 
+		}
+
+		void ChangeToBattle() {
+			window.MazeGrid.Opacity = 0.3;
+			window.BattleGrid.Opacity = 1;
+			window.EnemyImage.Source = new BitmapImage(Enemy.GetBattleImage());
+			UpdateEnemy();
+		}
+
+		public void UpdateEnemy() {
+			if (IsInBattle) {
+				window.EnemyHpText.Text = Enemy.hitPoints.ToString();
+				Grid.SetColumnSpan(window.EnemyHpRectangle, Enemy.hitPoints.GetPersent());
+				window.PlayerHpText.Text = hitPoints.ToString();
+				Grid.SetColumnSpan(window.PlayerHpRectangle, hitPoints.GetPersent());
+			}
+		}
+
+		void ChangeToMaze() {
+			window.MazeGrid.Opacity = 1;
+			window.BattleGrid.Opacity = 0;
 		}
 	}
 }

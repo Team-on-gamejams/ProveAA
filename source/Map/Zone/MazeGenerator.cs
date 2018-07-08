@@ -22,7 +22,7 @@ namespace ProveAA.Map.Zone {
 			for (byte i = 0; i < map.SizeY; ++i)
 				for (byte j = 0; j < map.SizeX; ++j) {
 					map[i, j].IsVisited = false;
-					map[i, j].IsInFog = false;
+					map[i, j].IsInFog = Game.Settings.mazeGen_PlaceFog;
 				}
 			player.PosX = startX;
 			player.PosY = startY;

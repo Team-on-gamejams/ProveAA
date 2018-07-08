@@ -47,6 +47,7 @@ namespace ProveAA.Windows {
 				CardsGrid.Height = this.RenderSize.Width * hashedCardSizeMod;
 				double mazeGridSize = Math.Min(CenterGrid.RenderSize.Height, CenterGrid.RenderSize.Width);
 				MazeGrid.Width = MazeGrid.Height = mazeGridSize;
+				BattleGrid.Width = BattleGrid.Height = mazeGridSize;
 			});
 		}
 
