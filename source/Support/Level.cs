@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProveAA.Support {
 	class Level {
-		public byte CurrentLvl, CurrentExp;
+		public double CurrentLvl, CurrentExp, freePoints;
 		public double ExpToNext;
 
 		public override string ToString() {

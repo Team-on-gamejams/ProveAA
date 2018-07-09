@@ -17,7 +17,6 @@ namespace ProveAA.Map {
 	class GameMap {
 		static byte generation = 0;
 		static List<Zone.BasicZoneGenerator> generators = new List<Zone.BasicZoneGenerator>() {
-			//new Zone.ZoneTest(),
 			new Zone.MazeGenerator(),
 		};
 		GameCell[,] map;

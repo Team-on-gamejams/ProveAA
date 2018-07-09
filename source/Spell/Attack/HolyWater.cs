@@ -12,6 +12,7 @@ namespace ProveAA.Spell.Attack {
 		}
 
 		public override bool CardUsed(Player player) {
+			player.manaPoints.Current = 0;
 			player.hitPoints.Current = player.hitPoints.Max;
 			if (player.IsInBattle && player.Enemy is Attributes.BasicGhost) {
 				player.Enemy.GetSpellAttack(10, this);

@@ -19,23 +19,27 @@ namespace ProveAA.Map.Zone {
 			while(digInfo.Count != 0) 
 				RecDig(digInfo.Pop());
 
-			for (byte i = 0; i < map.SizeY; ++i)
+			for (byte i = 0; i < map.SizeY; ++i) {
 				for (byte j = 0; j < map.SizeX; ++j) {
 					map[i, j].IsVisited = false;
 					map[i, j].IsInFog = Game.Settings.mazeGen_PlaceFog;
 				}
-			player.PosX = startX;
-			player.PosY = startY;
+			}
+
+			map[(byte)(startY), (byte)(startX - 3)].CellContent = new Card.Card(new Item.Weapon.Spear());
+			map[(byte)(startY - 3), (byte)(startX)].CellContent = new Card.Card(new Item.Weapon.Spear());
 
 			map[(byte)(startY - 1), (byte)(startX)].CellContent = new Card.Card(new Item.Armor.MetallShield());
 			map[(byte)(startY - 2), (byte)(startX)].CellContent = new Card.Card(new Item.Weapon.GhostSlayer());
 			map[(byte)(startY), (byte)(startX - 1)].CellContent = new Card.Card(new Spell.Attack.HolyWater());
-			map[(byte)(startY), (byte)(startX - 2)].CellContent = new Card.Card(new Item.Potion.ManaPotion());
-			map[(byte)(startY), (byte)(startX + 1)].CellContent = new Card.Card(new Item.Potion.RefreshPotion());
-			map[(byte)(startY), (byte)(startX + 2)].CellContent = new Card.Card(new Spell.Attack.Fireball());
+			map[(byte)(startY), (byte)(startX - 2)].CellContent = new Card.Card(new Item.Potion.RefreshPotion());
+			map[(byte)(startY), (byte)(startX + 1)].CellContent = new Creature.Monster.Ghost1(player);
+			map[(byte)(startY), (byte)(startX + 2)].CellContent = new Creature.Monster.Ghost2(player);
 			map[(byte)(startY + 1), (byte)(startX)].CellContent = new Creature.Monster.Ghost3(player);
 			map[(byte)(startY + 2), (byte)(startX)].CellContent = new Trap.HealthTrap();
 
+			player.PosX = startX;
+			player.PosY = startY;
 			player.PosChanged();
 		}
 

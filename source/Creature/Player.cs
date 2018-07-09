@@ -125,27 +125,37 @@ namespace ProveAA.Creature {
 					}
 				};
 
+				window.WeaponText.MouseLeftButtonDown += (a, b) => {
+					if(level.freePoints != 0) {
+						--level.freePoints;
+						attack.Base += Settings.player_lvl_addToAttack;
+						attack.Current += Settings.player_lvl_addToAttack;
+						OutputPlayerInfo();
+					}
+				};
+
+				window.ArmorText.MouseLeftButtonDown += (a, b) => {
+					if (level.freePoints != 0) {
+						--level.freePoints;
+						armor.Base += Settings.player_lvl_addToArmor;
+						armor.Current += Settings.player_lvl_addToArmor;
+						OutputPlayerInfo();
+					}
+				};
+
 				ChangeToMaze();
 			});
 		}
 
 		public void TryLevelUp() {
-			if (level.CurrentExp >= level.ExpToNext) {
+			if (level.CurrentExp >= Math.Floor(level.ExpToNext)) {
 				++level.CurrentLvl;
-				level.CurrentExp = (byte)(level.CurrentExp - level.ExpToNext);
-				level.ExpToNext = level.ExpToNext * Settings.player_lvl_expMod;
+				++level.freePoints;
+				level.CurrentExp -= Math.Floor(level.ExpToNext);
+				level.ExpToNext *= Settings.player_lvl_expMod;
 
 				hitPoints.Max += Settings.player_lvl_addToMaxHp;
 				manaPoints.Max += Settings.player_lvl_addToMaxMp;
-
-				if (Game.Rand.Next(0, 2) == 1) {
-					armor.Base += Settings.player_lvl_addToArmor;
-					armor.Current += Settings.player_lvl_addToArmor;
-				}
-				else {
-					attack.Base += Settings.player_lvl_addToAttack;
-					attack.Current += Settings.player_lvl_addToAttack;
-				}
 
 				if (Settings.player_lvl_refreshHp)
 					hitPoints.Current = hitPoints.Max;
@@ -153,6 +163,7 @@ namespace ProveAA.Creature {
 					manaPoints.Current = manaPoints.Max;
 
 				OutputPlayerInfo();
+				TryLevelUp();
 			}
 		}
 
@@ -189,6 +200,8 @@ namespace ProveAA.Creature {
 			else
 				window.ArmorText.Text += "------";
 			window.ArmorText.Text += $" ({armor.Current})";
+			if (level.freePoints != 0)
+				window.ArmorText.Text += " [+]";
 		}
 
 		public void EquipWeapon(BasicWeapon newWeapon) {
@@ -214,6 +227,8 @@ namespace ProveAA.Creature {
 			else
 				window.WeaponText.Text += "------";
 			window.WeaponText.Text += $" ({attack.Current})";
+			if (level.freePoints != 0)
+				window.WeaponText.Text += " [+]";
 		}
 
 		public void PosChanged() {
@@ -248,11 +263,11 @@ namespace ProveAA.Creature {
 					UpdateEnemy();
 
 					if (rez) {
-						IsInBattle = false;
 						battleTimer.Stop();
-						ChangeToMaze();
+						IsInBattle = false;
 						++level.CurrentExp;
 						TryLevelUp();
+						ChangeToMaze();
 						return;
 					}
 					else
