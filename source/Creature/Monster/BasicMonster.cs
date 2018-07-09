@@ -6,11 +6,40 @@ using System.Threading.Tasks;
 
 namespace ProveAA.Creature.Monster {
 	abstract class BasicMonster : BasicCreature, Interface.ICellContent {
+		protected enum MonsterDifficult : byte { lvl1, lvl2, lvl3 };
+
+		protected MonsterDifficult monsterDifficult;
 		public string monsterName;
 		public string monsterImgPath;
 
 		public BasicMonster() {
 			monsterImgPath = @"img\monster\";
+		}
+
+		protected void BalanceMonster(Creature.Player player) {
+			this.hitPoints.Max = player.hitPoints.Max;
+			this.hitPoints.Current = player.hitPoints.Max;
+			switch (monsterDifficult) {
+			case MonsterDifficult.lvl1:
+			this.hitPoints.Max = (byte)(this.hitPoints.Max / Game.Settings.Enemy_Lvl1_HpDiv);
+			break;
+			case MonsterDifficult.lvl2:
+			this.hitPoints.Max = (byte)(this.hitPoints.Max / Game.Settings.Enemy_Lvl2_HpDiv);
+			break;
+			case MonsterDifficult.lvl3:
+			this.hitPoints.Max = (byte)(this.hitPoints.Max / Game.Settings.Enemy_Lvl3_HpDiv);
+			break;
+			}
+
+			ushort maxStat = (ushort)(player.attack.Current + player.armor.Current - 1);
+			this.attack.Current = 1;
+			this.armor.Current = 0;
+			while (maxStat-- != 0) {
+				if (Game.Rand.Next(0, 2) == 1)
+					++this.armor.Current;
+				else
+					++this.attack.Current;
+			}
 		}
 
 		public Uri GetDisplayImage() =>

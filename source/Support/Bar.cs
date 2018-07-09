@@ -10,7 +10,7 @@ namespace ProveAA.Support {
 		private byte _max;
 
 		public byte Current { set { current = value; if (current > Max) current = Max; Changed?.Invoke(); } get => current; }
-		public byte Max { get => _max; set { _max = value; Changed?.Invoke(); } }
+		public byte Max { get => _max; set { _max = value; if (Max > Current) Current = Max; Changed?.Invoke(); } }
 
 		public Byte GetPersent() {
 			byte persent = (byte)Math.Round(Current * 100f / Max);

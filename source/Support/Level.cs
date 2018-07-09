@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProveAA.Support {
 	class Level {
-		public byte CurrentLvl, CurrentExp, ExpToNext;
+		public byte CurrentLvl, CurrentExp;
+		public double ExpToNext;
 
 		public override string ToString() {
-			return $"{CurrentExp} / {ExpToNext}  ({CurrentLvl})";
+			return $"{CurrentExp} / {(int)ExpToNext}  ({CurrentLvl})";
 		}
 	}
 }

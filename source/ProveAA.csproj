@@ -106,6 +106,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Game\Game.cs" />
+    <Compile Include="Trap\BasicTrap.cs" />
+    <Compile Include="Trap\HealthTrap.cs" />
+    <Compile Include="Trap\ManaBurn.cs" />
     <Compile Include="Windows\GameOverWindow.xaml.cs">
       <DependentUpon>GameOverWindow.xaml</DependentUpon>
     </Compile>

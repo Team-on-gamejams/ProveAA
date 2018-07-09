@@ -140,6 +140,7 @@
 							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
 
+						<Rectangle Grid.ColumnSpan="100" Fill="Gray" />
 						<Rectangle x:Name="HealbarRectangle" Grid.ColumnSpan="50" Fill="Red" />
 						<Viewbox Grid.ColumnSpan="100" Margin="5 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left">
 							<TextBlock Foreground="White" Text="HP: "/>
@@ -253,6 +254,7 @@
 							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
 
+						<Rectangle Grid.ColumnSpan="100" Fill="Gray" />
 						<Rectangle x:Name="ManabarRectangle" Grid.ColumnSpan="30" Fill="Blue" />
 						<Viewbox Grid.ColumnSpan="100" Margin="5 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left">
 							<TextBlock Foreground="White" Text="MP: "/>
@@ -290,8 +292,6 @@
 				</Grid.ColumnDefinitions>
 
 				<Button  IsTabStop="False" Content="Menu"/>
-				<Button  IsTabStop="False" Grid.Column="1" Content="Inventory"/>
-				<Button  IsTabStop="False" Grid.Column="2" Content="Stats"/>
 				<Button IsTabStop="False" Grid.Column="3" Content="Help"/>
 			</Grid>
 
@@ -305,7 +305,7 @@
 			
 			<Grid ShowGridLines="False" x:Name="BattleGrid" Panel.ZIndex="2">
 				<DockPanel LastChildFill="True">
-					<Grid DockPanel.Dock="Top" Grid.Row="1" Margin="5 10 5 10">
+					<Grid DockPanel.Dock="Top" Grid.Row="1" Margin="5 10 5 0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
 							<ColumnDefinition />
@@ -409,10 +409,127 @@
 							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
 
+						<Rectangle Grid.ColumnSpan="100" Fill="Gray" />
 						<Rectangle x:Name="EnemyHpRectangle" Grid.ColumnSpan="100" Fill="Red" />
 						<Viewbox MaxHeight="20"  Grid.ColumnSpan="100" >
 							<TextBlock x:Name="EnemyHpText" Foreground="White" Text="10/10"/>
 						</Viewbox>
+					</Grid>
+
+					<Grid DockPanel.Dock="Top" Grid.Row="1" Margin="5 5 5 10">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+
+						<Rectangle x:Name="EnemyStatAttackRectangle" Grid.ColumnSpan="50" Fill="Red" />
+						<Viewbox x:Name="EnemyStatAttackViewbox" MaxHeight="20"  Grid.ColumnSpan="50" >
+							<TextBlock x:Name="EnemyStatAttackText" Foreground="White" Text="5"/>
+						</Viewbox>
+
+						<Rectangle x:Name="EnemyStatArmorRectangle" Grid.Column="50" Grid.ColumnSpan="50" Fill="Blue" />
+						<Viewbox x:Name="EnemyStatArmorViewbox" Grid.Column="50" MaxHeight="20"  Grid.ColumnSpan="50" >
+							<TextBlock x:Name="EnemyStatArmorText" Foreground="White" Text="5"/>
+						</Viewbox>
+
 					</Grid>
 
 					<Grid DockPanel.Dock="Bottom" Grid.Row="1" Margin="5 10 5 10">
@@ -518,12 +635,14 @@
 							<ColumnDefinition />
 							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
-
+						
+						<Rectangle Grid.ColumnSpan="100" Fill="Gray" />
 						<Rectangle x:Name="PlayerHpRectangle" Grid.ColumnSpan="100" Fill="Red" />
 						<Viewbox MaxHeight="20"  Grid.ColumnSpan="100" >
 							<TextBlock x:Name="PlayerHpText" Foreground="White" Text="10/10"/>
 						</Viewbox>
 					</Grid>
+
 
 					<Image x:Name="EnemyImage"/>
 					

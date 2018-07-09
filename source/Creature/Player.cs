@@ -132,22 +132,27 @@ namespace ProveAA.Creature {
 		public void TryLevelUp() {
 			if (level.CurrentExp >= level.ExpToNext) {
 				++level.CurrentLvl;
-				level.CurrentExp -= level.ExpToNext;
-				level.ExpToNext = (byte)Math.Round(level.ExpToNext * Settings.player_lvl_expMod);
+				level.CurrentExp = (byte)(level.CurrentExp - level.ExpToNext);
+				level.ExpToNext = level.ExpToNext * Settings.player_lvl_expMod;
 
 				hitPoints.Max += Settings.player_lvl_addToMaxHp;
 				manaPoints.Max += Settings.player_lvl_addToMaxMp;
 
-				armor.Base += Settings.player_lvl_addToArmor;
-				armor.Current += Settings.player_lvl_addToArmor;
-
-				attack.Base += Settings.player_lvl_addToAttack;
-				attack.Current += Settings.player_lvl_addToAttack;
+				if (Game.Rand.Next(0, 2) == 1) {
+					armor.Base += Settings.player_lvl_addToArmor;
+					armor.Current += Settings.player_lvl_addToArmor;
+				}
+				else {
+					attack.Base += Settings.player_lvl_addToAttack;
+					attack.Current += Settings.player_lvl_addToAttack;
+				}
 
 				if (Settings.player_lvl_refreshHp)
 					hitPoints.Current = hitPoints.Max;
 				if (Settings.player_lvl_refreshMp)
 					manaPoints.Current = manaPoints.Max;
+
+				OutputPlayerInfo();
 			}
 		}
 
@@ -157,6 +162,8 @@ namespace ProveAA.Creature {
 				System.Windows.Controls.Grid.SetColumnSpan(window.HealbarRectangle, hitPoints.GetPersent());
 				window.ManabarText.Text = manaPoints.ToString();
 				System.Windows.Controls.Grid.SetColumnSpan(window.ManabarRectangle, manaPoints.GetPersent());
+				SetWeaponText();
+				SetArmorText();
 			});
 		}
 
@@ -170,15 +177,18 @@ namespace ProveAA.Creature {
 					armorImage.Source = new BitmapImage(UsedArmor.GetOnPlayerItemImage());
 				}
 
-				window.ArmorText.Text = "Armor: ";
-				if (UsedArmor != null)
-					window.ArmorText.Text += UsedArmor.itemName;
-				else
-					window.ArmorText.Text += "------";
-				window.ArmorText.Text += $" ({armor.Current})";
+				SetArmorText();
 				window.LeftTopPlayerImage.Children.Clear();
 				window.LeftTopPlayerImage.Children.Add(CloneGrid(imageGridMaze));
 			});
+		}
+		void SetArmorText() {
+			window.ArmorText.Text = "Armor: ";
+			if (UsedArmor != null)
+				window.ArmorText.Text += UsedArmor.itemName;
+			else
+				window.ArmorText.Text += "------";
+			window.ArmorText.Text += $" ({armor.Current})";
 		}
 
 		public void EquipWeapon(BasicWeapon newWeapon) {
@@ -192,15 +202,18 @@ namespace ProveAA.Creature {
 					weaponImage.Source = new BitmapImage(UsedWeapon.GetOnPlayerItemImage());
 				}
 
-				window.WeaponText.Text = "Weapon: ";
-				if (UsedWeapon != null)
-					window.WeaponText.Text += UsedWeapon.itemName;
-				else
-					window.WeaponText.Text += "------";
-				window.WeaponText.Text += $" ({attack.Current})";
+				SetWeaponText();
 				window.LeftTopPlayerImage.Children.Clear();
 				window.LeftTopPlayerImage.Children.Add(CloneGrid(imageGridMaze));
 			});
+		}
+		void SetWeaponText() {
+			window.WeaponText.Text = "Weapon: ";
+			if (UsedWeapon != null)
+				window.WeaponText.Text += UsedWeapon.itemName;
+			else
+				window.WeaponText.Text += "------";
+			window.WeaponText.Text += $" ({attack.Current})";
 		}
 
 		public void PosChanged() {
@@ -238,6 +251,8 @@ namespace ProveAA.Creature {
 						IsInBattle = false;
 						battleTimer.Stop();
 						ChangeToMaze();
+						++level.CurrentExp;
+						TryLevelUp();
 						return;
 					}
 					else
@@ -255,6 +270,26 @@ namespace ProveAA.Creature {
 			window.MazeGrid.Opacity = 0.3;
 			window.BattleGrid.Opacity = 1;
 			window.EnemyImage.Source = new BitmapImage(Enemy.GetBattleImage());
+
+			ushort allStat = (ushort)(Enemy.attack.Current + Enemy.armor.Current);
+			byte attackPersent = (byte)((Enemy.attack.Current * 100) / allStat);
+			byte armorPersent = (byte)(100 - attackPersent);
+			if (attackPersent == 0)
+				attackPersent = 1;
+			if (armorPersent == 0)
+				armorPersent = 1;
+
+			window.EnemyStatAttackText.Text = Enemy.attack.Current.ToString();
+			Grid.SetColumnSpan(window.EnemyStatAttackViewbox, attackPersent);
+			Grid.SetColumnSpan(window.EnemyStatAttackRectangle, attackPersent);
+
+			window.EnemyStatArmorText.Text = Enemy.armor.Current.ToString();
+			Grid.SetColumn(window.EnemyStatArmorViewbox, attackPersent);
+			Grid.SetColumn(window.EnemyStatArmorRectangle, attackPersent);
+			Grid.SetColumnSpan(window.EnemyStatArmorViewbox, armorPersent);
+			Grid.SetColumnSpan(window.EnemyStatArmorRectangle, armorPersent);
+
+
 			UpdateEnemy();
 		}
 

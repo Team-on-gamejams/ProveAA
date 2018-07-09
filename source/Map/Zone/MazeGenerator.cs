@@ -33,7 +33,8 @@ namespace ProveAA.Map.Zone {
 			map[(byte)(startY), (byte)(startX - 2)].CellContent = new Card.Card(new Item.Potion.ManaPotion());
 			map[(byte)(startY), (byte)(startX + 1)].CellContent = new Card.Card(new Item.Potion.RefreshPotion());
 			map[(byte)(startY), (byte)(startX + 2)].CellContent = new Card.Card(new Spell.Attack.Fireball());
-			map[(byte)(startY + 1), (byte)(startX)].CellContent = new Creature.Monster.Ghost3();
+			map[(byte)(startY + 1), (byte)(startX)].CellContent = new Creature.Monster.Ghost3(player);
+			map[(byte)(startY + 2), (byte)(startX)].CellContent = new Trap.HealthTrap();
 
 
 			player.PosChanged();

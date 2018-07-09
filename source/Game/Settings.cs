@@ -11,21 +11,26 @@ namespace ProveAA.Game {
 		public static byte map_sizeY = 15;
 
 		public static byte player_init_hp = 30;
-		public static byte player_init_mp = 100;
+		public static byte player_init_mp = 30;
 		public static byte player_init_hpMax = 30;
-		public static byte player_init_mpMax = 100;
-		public static byte player_init_armor = 5;
-		public static byte player_init_attack = 5;
+		public static byte player_init_mpMax = 30;
+		public static byte player_init_armor = 1;
+		public static byte player_init_attack = 1;
 
 		public static byte player_init_lvl = 1;
-		public static byte player_init_toNextLvl = 5;
+		public static byte player_init_toNextLvl = 1;
 		public static float player_lvl_expMod = 1.2f;
-		public static byte player_lvl_addToMaxHp = 1;
-		public static byte player_lvl_addToMaxMp = 1;
-		public static byte player_lvl_addToArmor = 0;
-		public static byte player_lvl_addToAttack = 0;
+		public static byte player_lvl_addToMaxHp = 10;
+		public static byte player_lvl_addToMaxMp = 5;
+		public static byte player_lvl_addToArmor = 1;
+		public static byte player_lvl_addToAttack = 1;
 		public static bool player_lvl_refreshHp = true;
 		public static bool player_lvl_refreshMp = true;
+
+		public static float Enemy_Lvl1_HpDiv = 4f;
+		public static float Enemy_Lvl2_HpDiv = 2f;
+		public static float Enemy_Lvl3_HpDiv = 1.2f;
+
 
 		public static float potion_Healing_HealPersent = 0.25f;
 		public static float potion_Mana_ManaPersent = 0.25f;
