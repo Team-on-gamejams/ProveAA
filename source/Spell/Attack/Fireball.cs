@@ -15,6 +15,7 @@ namespace ProveAA.Spell.Attack {
 			if (!player.IsInBattle)
 				return false;
 
+			player.manaPoints.Current -= 2;
 			player.Enemy.GetDmgWithArmor(20);
 
 			return true;

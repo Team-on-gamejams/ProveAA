@@ -36,7 +36,6 @@ namespace ProveAA.Map.Zone {
 			map[(byte)(startY + 1), (byte)(startX)].CellContent = new Creature.Monster.Ghost3(player);
 			map[(byte)(startY + 2), (byte)(startX)].CellContent = new Trap.HealthTrap();
 
-
 			player.PosChanged();
 		}
 

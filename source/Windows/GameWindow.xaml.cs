@@ -37,6 +37,9 @@ namespace ProveAA.Windows {
 				t.Enabled = true;
 			};
 
+			this.BattleIconAttack.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\icons\attack.png", UriKind.Absolute));
+			this.BattleIconArmor.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\icons\armor.png", UriKind.Absolute));
+
 			Game.Game game = new Game.Game(this);
 			game.Start(this);
 		}

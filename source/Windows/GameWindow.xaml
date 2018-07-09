@@ -521,14 +521,30 @@
 						</Grid.ColumnDefinitions>
 
 						<Rectangle x:Name="EnemyStatAttackRectangle" Grid.ColumnSpan="50" Fill="Red" />
-						<Viewbox x:Name="EnemyStatAttackViewbox" MaxHeight="20"  Grid.ColumnSpan="50" >
-							<TextBlock x:Name="EnemyStatAttackText" Foreground="White" Text="5"/>
-						</Viewbox>
+
+						<Grid MaxHeight="20" x:Name="EnemyStatAttackViewbox">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+							</Grid.ColumnDefinitions>
+							<Image VerticalAlignment="Center" HorizontalAlignment="Right" x:Name="BattleIconAttack"/>
+							<Viewbox VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1"  Grid.ColumnSpan="50" >
+									<TextBlock x:Name="EnemyStatAttackText" Foreground="White" Text="5"/>
+							</Viewbox>
+						</Grid>
 
 						<Rectangle x:Name="EnemyStatArmorRectangle" Grid.Column="50" Grid.ColumnSpan="50" Fill="Blue" />
-						<Viewbox x:Name="EnemyStatArmorViewbox" Grid.Column="50" MaxHeight="20"  Grid.ColumnSpan="50" >
-							<TextBlock x:Name="EnemyStatArmorText" Foreground="White" Text="5"/>
-						</Viewbox>
+
+						<Grid MaxHeight="20" x:Name="EnemyStatArmorViewbox">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+							</Grid.ColumnDefinitions>
+							<Image VerticalAlignment="Center" HorizontalAlignment="Right" x:Name="BattleIconArmor"/>
+							<Viewbox VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1"  Grid.ColumnSpan="50" >
+								<TextBlock x:Name="EnemyStatArmorText" Foreground="White" Text="5"/>
+							</Viewbox>
+						</Grid>
 
 					</Grid>
 
@@ -641,6 +657,7 @@
 						<Viewbox MaxHeight="20"  Grid.ColumnSpan="100" >
 							<TextBlock x:Name="PlayerHpText" Foreground="White" Text="10/10"/>
 						</Viewbox>
+										
 					</Grid>
 
 
