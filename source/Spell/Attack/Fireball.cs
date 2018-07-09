@@ -12,7 +12,7 @@ namespace ProveAA.Spell.Attack {
 		}
 
 		public override bool CardUsed(Player player) {
-			if (!player.IsInBattle)
+			if (!player.IsInBattle || player.manaPoints.Current < 2)
 				return false;
 
 			player.manaPoints.Current -= 2;

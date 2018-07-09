@@ -57,12 +57,14 @@
     </ApplicationDefinition>
     <Compile Include="Attributes\Fire.cs" />
     <Compile Include="Attributes\GhostKiller.cs" />
+    <Compile Include="Attributes\Undead.cs" />
     <Compile Include="Card\Card.cs" />
-    <Compile Include="Attributes\BasicGhost.cs" />
+    <Compile Include="Attributes\Ghost.cs" />
     <Compile Include="Creature\Monster\BasicMonster.cs" />
-    <Compile Include="Creature\Monster\Ghost1.cs" />
-    <Compile Include="Creature\Monster\Ghost2.cs" />
-    <Compile Include="Creature\Monster\Ghost3.cs" />
+    <Compile Include="Creature\Monster\Graveyard\BasicGraveyardMonster.cs" />
+    <Compile Include="Creature\Monster\Graveyard\Ghost1.cs" />
+    <Compile Include="Creature\Monster\Graveyard\Ghost2.cs" />
+    <Compile Include="Creature\Monster\Graveyard\Ghost3.cs" />
     <Compile Include="Creature\Player.cs" />
     <Compile Include="Game\Rand.cs" />
     <Compile Include="Interface\ICardContent.cs" />

@@ -33,9 +33,9 @@ namespace ProveAA.Map.Zone {
 			map[(byte)(startY - 2), (byte)(startX)].CellContent = new Card.Card(new Item.Weapon.GhostSlayer());
 			map[(byte)(startY), (byte)(startX - 1)].CellContent = new Card.Card(new Spell.Attack.HolyWater());
 			map[(byte)(startY), (byte)(startX - 2)].CellContent = new Card.Card(new Item.Potion.RefreshPotion());
-			map[(byte)(startY), (byte)(startX + 1)].CellContent = new Creature.Monster.Ghost1(player);
-			map[(byte)(startY), (byte)(startX + 2)].CellContent = new Creature.Monster.Ghost2(player);
-			map[(byte)(startY + 1), (byte)(startX)].CellContent = new Creature.Monster.Ghost3(player);
+			map[(byte)(startY), (byte)(startX + 1)].CellContent = new Creature.Monster.Graveyard.Ghost1(player);
+			map[(byte)(startY), (byte)(startX + 2)].CellContent = new Creature.Monster.Graveyard.Ghost2(player);
+			map[(byte)(startY + 1), (byte)(startX)].CellContent = new Creature.Monster.Graveyard.Ghost3(player);
 			map[(byte)(startY + 2), (byte)(startX)].CellContent = new Trap.HealthTrap();
 
 			player.PosX = startX;

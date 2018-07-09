@@ -69,7 +69,7 @@ namespace ProveAA.Creature {
 		}
 
 		void CalcAttributesDmg(ref short dmg, object attacker) {
-			if (this is Attributes.BasicGhost ghost && attacker is Attributes.GhostKiller)
+			if (this is Attributes.Ghost ghost && attacker is Attributes.GhostKiller)
 				dmg *= 4;
 		}
 

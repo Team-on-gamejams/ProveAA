@@ -27,10 +27,7 @@ namespace ProveAA.Game {
 		public static bool player_lvl_refreshHp = true;
 		public static bool player_lvl_refreshMp = true;
 
-		public static float Enemy_Lvl1_HpDiv = 4f;
-		public static float Enemy_Lvl2_HpDiv = 2f;
-		public static float Enemy_Lvl3_HpDiv = 1.2f;
-
+		public static List<double> Enemy_Lvl_HpDiv = new List<double>() { 4, 2, 1.2, 1, 0.8, 0.5 };
 
 		public static float potion_Healing_HealPersent = 0.25f;
 		public static float potion_Mana_ManaPersent = 0.25f;

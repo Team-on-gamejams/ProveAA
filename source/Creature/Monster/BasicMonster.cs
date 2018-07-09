@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace ProveAA.Creature.Monster {
 	abstract class BasicMonster : BasicCreature, Interface.ICellContent {
-		protected enum MonsterDifficult : byte { lvl1, lvl2, lvl3 };
+		protected byte statChanceAttack = 50;
 
-		protected MonsterDifficult monsterDifficult;
+		protected byte minMonsterLevel;
+		protected byte maxMonsterLevel;
+		protected byte monsterHpDifficult;
+
 		public string monsterName;
 		public string monsterImgPath;
 
@@ -17,28 +20,25 @@ namespace ProveAA.Creature.Monster {
 		}
 
 		protected void BalanceMonster(Creature.Player player) {
-			this.hitPoints.Max = player.hitPoints.Max;
-			switch (monsterDifficult) {
-			case MonsterDifficult.lvl1:
-			this.hitPoints.Max = (byte)(this.hitPoints.Max / Game.Settings.Enemy_Lvl1_HpDiv);
-			break;
-			case MonsterDifficult.lvl2:
-			this.hitPoints.Max = (byte)(this.hitPoints.Max / Game.Settings.Enemy_Lvl2_HpDiv);
-			break;
-			case MonsterDifficult.lvl3:
-			this.hitPoints.Max = (byte)(this.hitPoints.Max / Game.Settings.Enemy_Lvl3_HpDiv);
-			break;
-			}
-			this.hitPoints.Current = player.hitPoints.Max;
+			this.hitPoints.Max = (byte)(player.hitPoints.Max / Game.Settings.Enemy_Lvl_HpDiv[monsterHpDifficult]);
+			this.hitPoints.Current = this.hitPoints.Max;
 
-			ushort maxStat = (ushort)(player.attack.Current + player.armor.Current - 1);
+			ushort monsterLevel = player.level.CurrentLvl;
+			if(player.level.CurrentLvl < minMonsterLevel || player.level.CurrentLvl > maxMonsterLevel) 
+				monsterLevel = maxMonsterLevel;
+
+			ushort maxStat = (ushort)(Game.Settings.player_init_armor + Game.Settings.player_init_attack - 1 + 
+				monsterLevel - 1 + 
+				(player.UsedArmor?.armorMod ?? 0) +
+				(player.UsedWeapon?.dmgMod ?? 0)
+			);
 			this.attack.Current = 1;
 			this.armor.Current = 0;
 			while (maxStat-- != 0) {
-				if (Game.Rand.Next(0, 2) == 1)
-					++this.armor.Current;
-				else
+				if (Game.Rand.NextPersent() < this.statChanceAttack)
 					++this.attack.Current;
+				else
+					++this.armor.Current;
 			}
 		}
 

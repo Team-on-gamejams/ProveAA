@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProveAA.Creature.Monster {
-	class Ghost3 : BasicMonster, Attributes.BasicGhost {
+namespace ProveAA.Creature.Monster.Graveyard {
+	class Ghost3 : BasicGraveyardMonster, Attributes.Ghost {
 		public Ghost3(Creature.Player player) {
-			monsterDifficult = MonsterDifficult.lvl3;
+			statChanceAttack = 75;
+			monsterHpDifficult = 2;
 			monsterImgPath += @"Ghost3";
 			monsterName = "Ghost senior";
 
