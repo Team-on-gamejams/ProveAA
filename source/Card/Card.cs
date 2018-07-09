@@ -35,10 +35,13 @@ namespace ProveAA.Card {
 				cardGrid = new Grid();
 				cardGrid.Margin = new Thickness(10);
 
-				cardGrid.MouseLeftButtonUp += (a, b) => {
+				cardGrid.MouseLeftButtonDown += (a, b) => {
 					this.Use(player);
 				};
 
+				cardGrid.MouseRightButtonDown += (a, b) => {
+					this.RemoveFromHand(player);
+				};
 
 				var img = new Image() { Source = new BitmapImage(cardContent.GetImageForCard()) };
 				cardGrid.Children.Add(img);
@@ -57,12 +60,16 @@ namespace ProveAA.Card {
 		public void Use(Creature.Player player) {
 			if (cardContent.CardUsed(player)) {
 				player.UpdateEnemy();
-				player.Cards.Remove(this);
-				window.CardsGrid.Children.Remove(cardGrid);
-				for (byte i = 0; i < player.Cards.Count; ++i)
-					Grid.SetColumn(player.Cards[i].cardGrid, i);
+				RemoveFromHand(player);
 				player.PlayerStepInCell(player.Map[player.PosY, player.PosX]);
 			}
+		}
+
+		public void RemoveFromHand(Player player) {
+			player.Cards.Remove(this);
+			window.CardsGrid.Children.Remove(cardGrid);
+			for (byte i = 0; i < player.Cards.Count; ++i)
+				Grid.SetColumn(player.Cards[i].cardGrid, i);
 		}
 
 		public Uri GetDisplayImage() =>

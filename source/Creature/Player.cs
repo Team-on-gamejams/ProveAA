@@ -123,6 +123,15 @@ namespace ProveAA.Creature {
 
 						}
 					}
+
+					if(Key.D0 <= b.Key && b.Key <= Key.D9) {
+						int num = b.Key - Key.D1;
+						if (b.Key == Key.D0)
+							num = 9;
+						if (cards.Count > num) {
+							cards[num].Use(this);
+						}
+					}
 				};
 
 				window.WeaponText.MouseLeftButtonDown += (a, b) => {
