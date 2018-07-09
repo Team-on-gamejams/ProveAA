@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ProveAA.Creature;
 
 namespace ProveAA.Spell.Attack {
-	class Fireball : BasicSpell {
+	class Fireball : BasicSpell, ProveAA.Attributes.Fire {
 		public Fireball() {
 			this.itemImgPath += "Fireball";
 		}
@@ -16,7 +16,7 @@ namespace ProveAA.Spell.Attack {
 				return false;
 
 			player.manaPoints.Current -= 2;
-			player.Enemy.GetDmgWithArmor(20);
+			player.Enemy.GetSpellAttack(20, this);
 
 			return true;
 		}

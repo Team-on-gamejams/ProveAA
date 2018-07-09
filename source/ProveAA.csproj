@@ -55,7 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Attributes\Fire.cs" />
+    <Compile Include="Attributes\GhostKiller.cs" />
     <Compile Include="Card\Card.cs" />
+    <Compile Include="Attributes\BasicGhost.cs" />
     <Compile Include="Creature\Monster\BasicMonster.cs" />
     <Compile Include="Creature\Monster\Ghost1.cs" />
     <Compile Include="Creature\Monster\Ghost2.cs" />
@@ -72,6 +75,7 @@
     <Compile Include="Item\Potion\ManaPotion.cs" />
     <Compile Include="Item\Potion\RefreshPotion.cs" />
     <Compile Include="Item\Weapon\BasicWeapon.cs" />
+    <Compile Include="Item\Weapon\GhostSlayer.cs" />
     <Compile Include="Item\Weapon\Spear.cs" />
     <Compile Include="Map\GameCell.cs" />
     <Compile Include="Map\GameMap.cs" />
@@ -80,6 +84,7 @@
     <Compile Include="Map\Zone\MazeGenerator.cs" />
     <Compile Include="Map\Zone\ZoneTest.cs" />
     <Compile Include="Spell\Attack\Fireball.cs" />
+    <Compile Include="Spell\Attack\HolyWater.cs" />
     <Compile Include="Spell\BasicSpell.cs" />
     <Compile Include="Spell\Move\ExploreZone.cs" />
     <Compile Include="Spell\Move\OpenDoor.cs" />

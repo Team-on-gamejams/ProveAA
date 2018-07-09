@@ -545,7 +545,6 @@
 								<TextBlock x:Name="EnemyStatArmorText" Foreground="White" Text="5"/>
 							</Viewbox>
 						</Grid>
-
 					</Grid>
 
 					<Grid DockPanel.Dock="Bottom" Grid.Row="1" Margin="5 10 5 10">

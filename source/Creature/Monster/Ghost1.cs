@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProveAA.Creature.Monster {
-	class Ghost1 : BasicMonster {
+	class Ghost1 : BasicMonster, Attributes.BasicGhost {
 		public Ghost1(Creature.Player player) {
 			monsterDifficult = MonsterDifficult.lvl1;
 			monsterImgPath += @"Ghost1";

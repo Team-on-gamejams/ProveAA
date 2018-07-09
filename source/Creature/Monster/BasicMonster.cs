@@ -18,7 +18,6 @@ namespace ProveAA.Creature.Monster {
 
 		protected void BalanceMonster(Creature.Player player) {
 			this.hitPoints.Max = player.hitPoints.Max;
-			this.hitPoints.Current = player.hitPoints.Max;
 			switch (monsterDifficult) {
 			case MonsterDifficult.lvl1:
 			this.hitPoints.Max = (byte)(this.hitPoints.Max / Game.Settings.Enemy_Lvl1_HpDiv);
@@ -30,6 +29,7 @@ namespace ProveAA.Creature.Monster {
 			this.hitPoints.Max = (byte)(this.hitPoints.Max / Game.Settings.Enemy_Lvl3_HpDiv);
 			break;
 			}
+			this.hitPoints.Current = player.hitPoints.Max;
 
 			ushort maxStat = (ushort)(player.attack.Current + player.armor.Current - 1);
 			this.attack.Current = 1;

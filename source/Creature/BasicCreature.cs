@@ -36,10 +36,11 @@ namespace ProveAA.Creature {
 			manaPoints = new Bar();
 		}
 
-		public virtual bool GetDmgWithArmor(byte dmgIn) {
-			short dmg = (short)(dmgIn - this.armor.Current);
-			if (dmg <= 0)
-				dmg = 1;
+		public virtual bool GetSpellAttack(byte spellDmg, ProveAA.Spell.BasicSpell spell) {
+			short dmg = CalcDmgWithArmor(spellDmg);
+
+			CalcAttributesDmg(ref dmg, spell);
+
 			if (dmg > hitPoints.Current)
 				dmg = hitPoints.Current;
 			hitPoints.Current -= (byte)dmg;
@@ -47,13 +48,29 @@ namespace ProveAA.Creature {
 		}
 
 		public virtual bool GetAttack(BasicCreature Enemy) {
-			short dmg = (short)(Enemy.attack.Current - this.armor.Current);
-			if (dmg <= 0)
-				dmg = 1;
+			short dmg = CalcDmgWithArmor(Enemy.attack.Current);
+
+			if (Enemy is Player pl)
+				CalcAttributesDmg(ref dmg, pl.UsedWeapon);
+			else
+				CalcAttributesDmg(ref dmg, Enemy);
+
 			if (dmg > hitPoints.Current)
 				dmg = hitPoints.Current;
 			hitPoints.Current -= (byte)dmg;
 			return hitPoints.Current == 0;
+		}
+
+		short CalcDmgWithArmor(byte dmgIn) {
+			short dmg = (short)(dmgIn - this.armor.Current);
+			if (dmg <= 0)
+				dmg = 1;
+			return (byte)dmg;
+		}
+
+		void CalcAttributesDmg(ref short dmg, object attacker) {
+			if (this is Attributes.BasicGhost ghost && attacker is Attributes.GhostKiller)
+				dmg *= 4;
 		}
 
 		static public Grid CloneGrid(Grid grid) {

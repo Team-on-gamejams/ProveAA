@@ -27,8 +27,8 @@ namespace ProveAA.Creature {
 		List<Card.Card> cards;
 
 		Image armorImage, weaponImage;
-		private BasicArmor UsedArmor { get; set; }
-		private BasicWeapon UsedWeapon { get; set; }
+		public BasicArmor UsedArmor { get; private set; }
+		public BasicWeapon UsedWeapon { get; private set; }
 
 		public readonly Level level;
 		public Windows.GameWindow window;
@@ -267,8 +267,6 @@ namespace ProveAA.Creature {
 		}
 
 		void ChangeToBattle() {
-			window.MazeGrid.Opacity = 0.3;
-			window.BattleGrid.Opacity = 1;
 			window.EnemyImage.Source = new BitmapImage(Enemy.GetBattleImage());
 
 			ushort allStat = (ushort)(Enemy.attack.Current + Enemy.armor.Current);
@@ -289,8 +287,10 @@ namespace ProveAA.Creature {
 			Grid.SetColumnSpan(window.EnemyStatArmorViewbox, armorPersent);
 			Grid.SetColumnSpan(window.EnemyStatArmorRectangle, armorPersent);
 
-
 			UpdateEnemy();
+
+			window.MazeGrid.Opacity = 0.3;
+			window.BattleGrid.Opacity = 1;
 		}
 
 		public void UpdateEnemy() {
