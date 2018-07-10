@@ -22,6 +22,7 @@ using ProveAA.Item.Weapon;
 
 namespace ProveAA.Creature {
 	class Player : BasicCreature {
+		byte prevPosX, prevPosY;
 		byte posX, posY;
 		Map.GameMap map;
 		List<Card.Card> cards;
@@ -68,6 +69,10 @@ namespace ProveAA.Creature {
 			this.level.CurrentLvl = Settings.player_init_lvl;
 			this.level.CurrentExp = 0;
 			this.level.ExpToNext = Settings.player_init_toNextLvl;
+		}
+
+		public void EnteredNewLevel() {
+			prevPosX = prevPosY = 0;
 		}
 
 		public void InitOutput(Windows.GameWindow window, Map.GameMap map) {
@@ -271,7 +276,10 @@ namespace ProveAA.Creature {
 		public void PosChanged() {
 			Grid.SetRow(imageGridMaze, posY);
 			Grid.SetColumn(imageGridMaze, posX);
-			Map[posY, posX].IsVisited = true;
+			Map[prevPosY, prevPosX].IsVisited = true;
+			Map[posY, posX].IsVisited = false;
+			prevPosY = posY;
+			prevPosX = posX;
 			for (byte i = (byte)(posY - 1); i <= posY + 1; ++i)
 				for (byte j = (byte)(posX - 1); j <= posX + 1; ++j)
 					Map[i, j].IsInFog = false;

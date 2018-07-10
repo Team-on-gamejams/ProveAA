@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace ProveAA.Spell.Move {
 	class OpenDoor : BasicSpell {
-		byte doorId;
+		public byte DoorId { get; set; }
+		public byte DoorZoneStyleNum { get; set; }
 
-		public OpenDoor(byte _DoorId) {
-			this.doorId = _DoorId;
-			itemImgPath += "OpenDoor" + this.doorId.ToString().ToUpper();
+		public OpenDoor(byte _DoorId, byte _doorZoneStyleNum) {
+			DoorZoneStyleNum = _doorZoneStyleNum;
+			this.DoorId = _DoorId;
+			itemImgPath = @"img\map\" + DoorZoneStyleNum.ToString() + @"\openDoor_" + DoorId.ToString();
 		}
-
-		public byte DoorId { get => doorId; set => doorId = value; }
 
 		public override bool CardUsed(Creature.Player pl) {
 			if (pl.IsInBattle)

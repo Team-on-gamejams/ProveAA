@@ -18,6 +18,7 @@ namespace ProveAA.Map {
 		static byte generation = 0;
 		static List<Zone.BasicZoneGenerator> generators = new List<Zone.BasicZoneGenerator>() {
 			new Zone.MazeGenerator(),
+			new Zone.ForestGenerator(),
 		};
 		GameCell[,] map;
 
@@ -40,6 +41,7 @@ namespace ProveAA.Map {
 		public void NewLevel(Creature.Player player) {
 			ClearMap();
 			RandomFill(player);
+			player.EnteredNewLevel();
 		}
 
 		public void OutputMap(Windows.GameWindow window) {

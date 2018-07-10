@@ -20,11 +20,11 @@ namespace ProveAA.Map.Zone {
 			for (byte i = 1; i < map.SizeX - 1; ++i)
 				map[2, i].IsSolid = map[2, i].IsWall = true;
 
-			map[1, (byte)(map.SizeX - 2)].CellContent = new Card.Card(new Spell.Move.OpenDoor(1));
-			doorPos.Add(new Tuple<byte, byte, byte>(2, (byte)(map.SizeX - 2), 1));
+			//map[1, (byte)(map.SizeX - 2)].CellContent = new Card.Card(new Spell.Move.OpenDoor(1));
+			//doorPos.Add(new Tuple<byte, byte, byte>(2, (byte)(map.SizeX - 2), 1));
 
-			map[(byte)(map.SizeY - 2), 1].CellContent = new Card.Card(new Spell.Move.OpenDoor(0));
-			doorPos.Add(new Tuple<byte, byte, byte>((byte)(map.SizeY - 1), 1, 0));
+			//map[(byte)(map.SizeY - 2), 1].CellContent = new Card.Card(new Spell.Move.OpenDoor(0));
+			//doorPos.Add(new Tuple<byte, byte, byte>((byte)(map.SizeY - 1), 1, 0));
 
 
 			foreach (var i in doorPos) {

@@ -16,18 +16,21 @@ using ProveAA.Interface;
 
 namespace ProveAA.Map {
 	class GameCell {
+		private byte zoneStyleNum;
 		bool isSolid, isWall, isDoor, isInFog, isDoorOpened;
 		private Interface.ICellContent cellContent;
 		public bool IsVisited { get => _isVisited; set{ _isVisited = value; RecreateImage(); } }
 		public bool IsSolid { get => isSolid; set { isSolid = value; RecreateImage(); } }
 		public bool IsWall { get => isWall; set { isWall = value; isSolid = value; RecreateImage(); } }
-		public bool IsDoorOpened { get => isDoorOpened; set { isDoorOpened = value; IsSolid = !value; RecreateImage(); } }
-		public bool IsDoor { get => isDoor; set { isDoor = value; RecreateImage(); } }
+		public bool IsDoorOpened { get => isDoorOpened; set { isDoorOpened = value; IsSolid = !value; } }
+		public bool IsDoor { get => isDoor; set {isWall = false; isDoor = value; IsDoorOpened = false; } }
 		public byte DoorId { get; set; }
 
 		public bool IsInFog { get => isInFog; set { isInFog = value; RecreateImage(); } }
 
 		internal ICellContent CellContent { get => cellContent; set { cellContent = value; if (!IsInFog) RecreateContentImage(); } }
+
+		public byte ZoneStyleNum { get => zoneStyleNum; set { zoneStyleNum = value; RecreateImage(); } }
 
 		Uri lastImage;
 		public Image imageCell;
@@ -46,6 +49,7 @@ namespace ProveAA.Map {
 			isDoor = false;
 			isDoorOpened = false;
 			cellContent = null;
+			ZoneStyleNum = 0;
 			RecreateImage();
 			RecreateContentImage();
 		}
@@ -53,17 +57,17 @@ namespace ProveAA.Map {
 		public void RecreateImage() {
 			Uri newImage;
 			if (IsInFog)
-				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\fog.png", UriKind.Absolute);
+				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\" + ZoneStyleNum.ToString() + @"\fog.png", UriKind.Absolute);
 			else if (IsWall)
-				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\wall.png", UriKind.Absolute);
+				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\" + ZoneStyleNum.ToString() + @"\wall.png", UriKind.Absolute);
 			else if (IsDoor && !isDoorOpened)
-				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\doorClosed.png", UriKind.Absolute);
+				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\" + ZoneStyleNum.ToString() + @"\doorClosed_" + DoorId.ToString() + ".png", UriKind.Absolute);
 			else if (IsDoor && isDoorOpened)
-				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\doorOpened.png", UriKind.Absolute);
+				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\" + ZoneStyleNum.ToString() + @"\doorOpened_" + DoorId.ToString() + ".png", UriKind.Absolute);
 			else if (IsVisited)
-				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\visited.png", UriKind.Absolute);
+				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\" + ZoneStyleNum.ToString() + @"\visited.png", UriKind.Absolute);
 			else if (!IsSolid)
-				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\road.png", UriKind.Absolute);
+				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\" + ZoneStyleNum.ToString() + @"\road.png", UriKind.Absolute);
 			else
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\other.png", UriKind.Absolute);
 
