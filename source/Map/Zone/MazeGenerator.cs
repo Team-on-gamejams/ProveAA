@@ -26,9 +26,41 @@ namespace ProveAA.Map.Zone {
 				}
 			}
 
+			List<DoorInfo> doorInfoAll = new List<DoorInfo>();
+			List<DoorInfo> doorInfoReal = new List<DoorInfo>();
+			for (byte i = 1; i < map.SizeY - 1; ++i) {
+				for (byte j = 1; j < map.SizeX - 1; ++j) {
+					if (!map[i, j].IsSolid) {
+						int cnt = (map[(byte)(i + 1), j].IsSolid ? 1 : 0) +
+							(map[(byte)(i - 1), j].IsSolid ? 1 : 0) +
+							(map[i, (byte)(j + 1)].IsSolid ? 1 : 0) +
+							(map[i, (byte)(j - 1)].IsSolid ? 1 : 0);
+						if (cnt == 2) {
+							if(map[(byte)(i + 1), j].IsSolid == map[(byte)(i - 1), j].IsSolid &&
+								map[i, (byte)(j + 1)].IsSolid == map[i, (byte)(j - 1)].IsSolid)
+							doorInfoAll.Add(new DoorInfo(j, i));
+						}
+					}
+				}
+			}
+
+			foreach (var door in doorInfoAll) {
+				map[door.y, door.x].IsInFog = true;
+				//if (TryPlaceDoor(door))
+				//	doorInfoReal.Add(door);
+			}
+			doorInfoAll.Clear();
+
+
+
+			//map[(byte)(startY), (byte)(startX - 3)].CellContent = new Card.Card(new Spell.Move.OpenDoor(0));
+			//map[(byte)(startY - 3), (byte)(startX)].CellContent = new Card.Card(new Spell.Move.OpenDoor(0));
 			map[(byte)(startY), (byte)(startX - 3)].CellContent = new Card.Card(new Item.Weapon.Spear());
 			map[(byte)(startY - 3), (byte)(startX)].CellContent = new Card.Card(new Item.Weapon.Spear());
 
+			//map[(byte)(startY - 1), (byte)(startX)].IsDoor = true;
+			//map[(byte)(startY - 1), (byte)(startX)].IsDoorOpened = false;
+			//map[(byte)(startY - 1), (byte)(startX)].DoorId = 0;
 			map[(byte)(startY - 1), (byte)(startX)].CellContent = new Card.Card(new Item.Armor.MetallShield());
 			map[(byte)(startY - 2), (byte)(startX)].CellContent = new Card.Card(new Item.Weapon.GhostSlayer());
 			map[(byte)(startY), (byte)(startX - 1)].CellContent = new Card.Card(new Spell.Attack.HolyWater());
@@ -46,7 +78,6 @@ namespace ProveAA.Map.Zone {
 		void RecDig(DiggerInfo info) {
 			map[info.y, info.x].IsVisited = true;
 			map[info.y, info.x].IsSolid = map[info.y, info.x].IsWall = false;
-
 
 			List<DiggerInfo> readyPos = new List<DiggerInfo>();
 			List<DiggerInfo> tmpPos = new List<DiggerInfo>() {
@@ -84,6 +115,28 @@ namespace ProveAA.Map.Zone {
 			}
 		}
 
+		bool TryPlaceDoor(DoorInfo info) {
+			DoorCellInfo[,] cells = new DoorCellInfo[map.SizeY, map.SizeX];
+			for (byte i = 0; i < cells.GetLength(0); ++i)
+				for (byte j = 0; j < cells.GetLength(1); ++j)
+					cells[i, j].isSolid = map[i, j].IsSolid;
+
+			bool findLoop = false;
+			//Rec(info.x, info.y);
+
+			return true;
+
+			void Rec(byte x, byte y, byte doorId) {
+				if (cells[y, x].doorId != 0 && cells[y, x].doorId == doorId)
+					findLoop = true;
+				if (findLoop || cells[y, x].isSolid || cells[y, x].doorId != 0)
+					return;
+
+				cells[y, x].doorId = doorId;
+				Rec(x, y, doorId);
+			}
+		}
+
 		class DiggerInfo {
 			public byte x, y;
 			public ushort itterCnt;
@@ -94,5 +147,20 @@ namespace ProveAA.Map.Zone {
 				this.itterCnt = itterCnt;
 			}
 		}
+
+		class DoorInfo {
+			public byte x, y;
+			public ushort sizePart1, sizePart2, modSize;
+			public DoorInfo(byte x, byte y) {
+				this.x = x;
+				this.y = y;
+			}
+		}
+
+		class DoorCellInfo {
+			public bool isSolid;
+			public byte doorId;
+		}
+
 	}
 }

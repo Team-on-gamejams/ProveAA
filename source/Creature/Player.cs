@@ -151,9 +151,31 @@ namespace ProveAA.Creature {
 						OutputPlayerInfo();
 					}
 				};
+		
+				window.HealbarText.MouseLeftButtonDown += (a, b) => LvlUpHp();
+				window.ManabarRectangle.MouseLeftButtonDown += (a, b) => LvlUpHp();
+
+				window.ManabarText.MouseLeftButtonDown += (a, b) => LvlUpMana();
+				window.ManabarRectangle.MouseLeftButtonDown += (a, b) => LvlUpMana();
 
 				ChangeToMaze();
 			});
+
+			void LvlUpMana() {
+				if (level.freePoints != 0) {
+					--level.freePoints;
+					manaPoints.AddToBoth(Game.Settings.player_lvl_addToMaxHpAdditional);
+					OutputPlayerInfo();
+				}
+			}
+
+			void LvlUpHp() {
+				if (level.freePoints != 0) {
+					--level.freePoints;
+					hitPoints.AddToBoth(Game.Settings.player_lvl_addToMaxHpAdditional);
+					OutputPlayerInfo();
+				}
+			}
 		}
 
 		public void TryLevelUp() {
@@ -179,9 +201,15 @@ namespace ProveAA.Creature {
 		public void OutputPlayerInfo() {
 			System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
 				window.HealbarText.Text = hitPoints.ToString();
+				if (level.freePoints != 0)
+					window.HealbarText.Text += " [+]";
 				System.Windows.Controls.Grid.SetColumnSpan(window.HealbarRectangle, hitPoints.GetPersent());
+
 				window.ManabarText.Text = manaPoints.ToString();
+				if (level.freePoints != 0)
+					window.ManabarText.Text += " [+]";
 				System.Windows.Controls.Grid.SetColumnSpan(window.ManabarRectangle, manaPoints.GetPersent());
+				
 				SetWeaponText();
 				SetArmorText();
 			});

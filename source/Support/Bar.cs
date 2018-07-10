@@ -17,6 +17,11 @@ namespace ProveAA.Support {
 			return persent == 0 ? (byte)(1) : persent;
 		}
 
+		public void AddToBoth(byte num) {
+			_max += num;
+			current += num;
+		}
+
 		public override string ToString() {
 			return $"{Current} / {Max}";
 		}

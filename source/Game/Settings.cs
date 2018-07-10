@@ -22,6 +22,8 @@ namespace ProveAA.Game {
 		public static float player_lvl_expMod = 1.2f;
 		public static byte player_lvl_addToMaxHp = 10;
 		public static byte player_lvl_addToMaxMp = 5;
+		public static byte player_lvl_addToMaxHpAdditional = 10;
+		public static byte player_lvl_addToMaxMpAdditional = 10;
 		public static byte player_lvl_addToArmor = 1;
 		public static byte player_lvl_addToAttack = 1;
 		public static bool player_lvl_refreshHp = true;
