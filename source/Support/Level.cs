@@ -19,7 +19,7 @@ namespace ProveAA.Support {
 		}
 
 		public override string ToString() {
-			return $"{CurrentExp} / {Math.Floor(ExpToNext)}  ({CurrentLvl})";
+			return $"{Math.Floor(CurrentExp * 100)} / {Math.Floor(ExpToNext * 100)}  ({CurrentLvl}, {expMod})";
 		}
 	}
 }

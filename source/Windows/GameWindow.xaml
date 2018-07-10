@@ -37,7 +37,7 @@
 						<RowDefinition />
 					</Grid.RowDefinitions>
 
-					<Grid Grid.Row="0" Margin="5 10 5 10">
+					<Grid x:Name="HealbarGrid" Grid.Row="0" Margin="5 10 5 10">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
 							<ColumnDefinition />
@@ -141,17 +141,17 @@
 							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
 
-						<Rectangle Grid.ColumnSpan="100" Fill="Gray" />
+						<Rectangle Grid.ColumnSpan="100" Fill="Gray" x:Name="HealbarRectangleEmpty" />
 						<Rectangle x:Name="HealbarRectangle" Grid.ColumnSpan="50" Fill="Red" />
 						<Viewbox Grid.ColumnSpan="100" Margin="5 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left">
-							<TextBlock Foreground="White" Text="HP: "/>
+							<TextBlock Foreground="White" Text="HP: " x:Name="HealbarTextStatic"/>
 						</Viewbox>
 						<Viewbox Grid.ColumnSpan="100" >
 							<TextBlock x:Name="HealbarText" Foreground="White" Text="5/10"/>
 						</Viewbox>
 					</Grid>
 
-					<Grid Grid.Row="1" Margin="5 10 5 10">
+					<Grid x:Name="ManabarGrid" Grid.Row="1" Margin="5 10 5 10">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
 							<ColumnDefinition />
@@ -255,10 +255,10 @@
 							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
 
-						<Rectangle Grid.ColumnSpan="100" Fill="Gray" />
+						<Rectangle Grid.ColumnSpan="100" Fill="Gray" x:Name="ManabarRectangleEmpty" />
 						<Rectangle x:Name="ManabarRectangle" Grid.ColumnSpan="30" Fill="Blue" />
 						<Viewbox Grid.ColumnSpan="100" Margin="5 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left">
-							<TextBlock Foreground="White" Text="MP: "/>
+							<TextBlock Foreground="White" Text="MP: " x:Name="ManabarTextStatic"/>
 						</Viewbox>
 						<Viewbox Grid.ColumnSpan="100" >
 							<TextBlock x:Name="ManabarText" Foreground="White" Text="3/10"/>
@@ -270,7 +270,7 @@
 			</Grid>
 
 			<Grid Grid.Row="1">
-				<Grid Margin="5 0 5 7">
+				<Grid x:Name="ExpGrid" Margin="5 0 5 7">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
 						<ColumnDefinition />
@@ -374,10 +374,10 @@
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 
-					<Rectangle Grid.ColumnSpan="100" Fill="Gray" />
+					<Rectangle x:Name="ExpbarRectangleEmpty" Grid.ColumnSpan="100" Fill="Gray" />
 					<Rectangle x:Name="ExpbarRectangle" Grid.ColumnSpan="30" Fill="Orange" />
 					<Viewbox Grid.ColumnSpan="100" Margin="5 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left">
-						<TextBlock Foreground="White" Text="Exp: "/>
+						<TextBlock Foreground="White" Text="Exp: " x:Name="ExpbarTextStatic"/>
 					</Viewbox>
 					<Viewbox Grid.ColumnSpan="100" >
 						<TextBlock x:Name="ExpbarText" Foreground="White" Text="3/10"/>

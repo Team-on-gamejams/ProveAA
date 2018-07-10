@@ -140,35 +140,32 @@ namespace ProveAA.Creature {
 					}
 				};
 
-				window.WeaponText.MouseLeftButtonDown += (a, b) => {
-					if(level.freePoints != 0) {
-						--level.freePoints;
-						attack.Base += Settings.player_lvl_addToAttack;
-						attack.Current += Settings.player_lvl_addToAttack;
-						OutputPlayerInfo();
-					}
-				};
-
-				window.ArmorText.MouseLeftButtonDown += (a, b) => {
-					if (level.freePoints != 0) {
-						--level.freePoints;
-						armor.Base += Settings.player_lvl_addToArmor;
-						armor.Current += Settings.player_lvl_addToArmor;
-						OutputPlayerInfo();
-					}
-				};
-		
-				window.HealbarText.MouseLeftButtonDown += (a, b) => LvlUpHp();
-				window.ManabarRectangle.MouseLeftButtonDown += (a, b) => LvlUpHp();
-
-				window.ManabarText.MouseLeftButtonDown += (a, b) => LvlUpMana();
-				window.ManabarRectangle.MouseLeftButtonDown += (a, b) => LvlUpMana();
-
-				window.ExpbarText.MouseLeftButtonDown += (a, b) => LvlUpExp();
-				window.ExpbarRectangle.MouseLeftButtonDown += (a, b) => LvlUpExp();
+				window.WeaponText.MouseLeftButtonDown += (a, b) => LvlUpAttack();
+				window.ArmorText.MouseLeftButtonDown += (a, b) => LvlUpArmor();
+				window.HealbarGrid.MouseLeftButtonDown += (a, b) => LvlUpHp();
+				window.ManabarGrid.MouseLeftButtonDown += (a, b) => LvlUpMana();
+				window.ExpGrid.MouseLeftButtonDown += (a, b) => LvlUpExp();
 
 				ChangeToMaze();
 			});
+
+			void LvlUpAttack() {
+				if (level.freePoints != 0) {
+					--level.freePoints;
+					attack.Base += Settings.player_lvl_addToAttack;
+					attack.Current += Settings.player_lvl_addToAttack;
+					OutputPlayerInfo();
+				}
+			}
+
+			void LvlUpArmor() {
+				if (level.freePoints != 0) {
+					--level.freePoints;
+					armor.Base += Settings.player_lvl_addToArmor;
+					armor.Current += Settings.player_lvl_addToArmor;
+					OutputPlayerInfo();
+				}
+			}
 
 			void LvlUpMana() {
 				if (level.freePoints != 0) {
