@@ -29,10 +29,22 @@ namespace ProveAA.Creature.Monster {
 			if(player.level.CurrentLvl < minMonsterLevel || player.level.CurrentLvl > maxMonsterLevel) 
 				monsterLevel = maxMonsterLevel;
 
+			if(monsterLevel != player.level.CurrentLvl) {
+				ushort diff = (ushort)((monsterLevel - player.level.CurrentLvl) / 3);
+				if(diff > 0) {
+					while(diff-- != 0)
+						expMod +=  Game.Settings.ExpBonusPerLevelAbove;
+				}
+				else if(diff < 0) {
+					while (diff++ != 0)
+						expMod -= Game.Settings.ExpPenaltyPerLevelBelow;
+				}
+			}
+
 			ushort maxStat = (ushort)(Game.Settings.player_init_armor + Game.Settings.player_init_attack - 1 + 
 				monsterLevel - 1 + 
-				(player.UsedArmor?.armorMod ?? 0) +
-				(player.UsedWeapon?.dmgMod ?? 0)
+				(player.UsedArmor?.armorMod ?? 0) * Game.Settings.Enemy_Mult_ArmorStat +
+				(player.UsedWeapon?.dmgMod ?? 0) * Game.Settings.Enemy_Mult_WeaponStat
 			);
 			this.attack.Current = 1;
 			this.armor.Current = 0;

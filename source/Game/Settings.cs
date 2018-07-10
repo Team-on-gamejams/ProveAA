@@ -31,6 +31,12 @@ namespace ProveAA.Game {
 		public static bool player_lvl_refreshHp = true;
 		public static bool player_lvl_refreshMp = true;
 
+		public static float ApplyBonusEachNLvl = 3;
+		public static float ExpPenaltyPerLevelBelow = 0.5f;
+		public static float ExpBonusPerLevelAbove = 1.5f;
+
+		public static float Enemy_Mult_WeaponStat = 0.5f;
+		public static float Enemy_Mult_ArmorStat = 0.5f;
 		public static List<double> Enemy_Lvl_HpDiv = new List<double>() { 4, 2, 1.2, 1, 0.8, 0.5 };
 		public static List<double> Enemy_Lvl_expMod = new List<double>(){ 0.5, 1, 2,   2, 2,   2 };
 
