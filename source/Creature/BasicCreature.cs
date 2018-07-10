@@ -36,19 +36,19 @@ namespace ProveAA.Creature {
 			manaPoints = new Bar();
 		}
 
-		public virtual bool GetSpellAttack(byte spellDmg, ProveAA.Spell.BasicSpell spell) {
-			short dmg = CalcDmgWithArmor(spellDmg);
+		public virtual bool GetSpellAttack(int spellDmg, ProveAA.Spell.BasicSpell spell) {
+			int dmg = CalcDmgWithArmor(spellDmg);
 
 			CalcAttributesDmg(ref dmg, spell);
 
 			if (dmg > hitPoints.Current)
 				dmg = hitPoints.Current;
-			hitPoints.Current -= (byte)dmg;
+			hitPoints.Current -= dmg;
 			return hitPoints.Current == 0;
 		}
 
 		public virtual bool GetAttack(BasicCreature Enemy) {
-			short dmg = CalcDmgWithArmor(Enemy.attack.Current);
+			int dmg = CalcDmgWithArmor(Enemy.attack.Current);
 
 			if (Enemy is Player pl)
 				CalcAttributesDmg(ref dmg, pl.UsedWeapon);
@@ -57,18 +57,18 @@ namespace ProveAA.Creature {
 
 			if (dmg > hitPoints.Current)
 				dmg = hitPoints.Current;
-			hitPoints.Current -= (byte)dmg;
+			hitPoints.Current -= (int)dmg;
 			return hitPoints.Current == 0;
 		}
 
-		short CalcDmgWithArmor(byte dmgIn) {
+		short CalcDmgWithArmor(int dmgIn) {
 			short dmg = (short)(dmgIn - this.armor.Current);
 			if (dmg <= 0)
 				dmg = 1;
 			return (byte)dmg;
 		}
 
-		void CalcAttributesDmg(ref short dmg, object attacker) {
+		void CalcAttributesDmg(ref int dmg, object attacker) {
 			if (this is Attributes.Ghost ghost && attacker is Attributes.GhostKiller)
 				dmg *= 4;
 		}

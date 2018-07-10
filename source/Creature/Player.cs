@@ -193,10 +193,10 @@ namespace ProveAA.Creature {
 		}
 
 		public void TryLevelUp() {
-			if (level.CurrentExp >= Math.Floor(level.ExpToNext)) {
+			if (level.CurrentExp >= level.ExpToNext) {
 				++level.CurrentLvl;
 				++level.freePoints;
-				level.CurrentExp -= Math.Floor(level.ExpToNext);
+				level.CurrentExp -= level.ExpToNext;
 				level.ExpToNext *= Settings.player_lvl_expModToNextLevel;
 
 				hitPoints.Max += Settings.player_lvl_addToMaxHp;

@@ -13,7 +13,7 @@ namespace ProveAA.Item.Potion {
 		}
 
 		public override bool CardUsed(Player player) {
-			player.hitPoints.Current += (byte)(player.hitPoints.Max * Game.Settings.potion_Healing_HealPersent);
+			player.hitPoints.Current += (int)Math.Round(player.hitPoints.Max * Game.Settings.potion_Healing_HealPersent);
 			return true;
 		}
 	}

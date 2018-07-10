@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProveAA.Item.Armor {
 	abstract class BasicArmor : BasicItem {
-		public byte armorMod;
+		public short armorMod;
 
 		public BasicArmor() {
 			itemImgPath += @"armor\";

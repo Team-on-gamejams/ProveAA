@@ -8,10 +8,10 @@ namespace ProveAA.Creature.Monster {
 	abstract class BasicMonster : BasicCreature, Interface.ICellContent {
 		protected byte statChanceAttack = 50;
 
-		protected byte minMonsterLevel;
-		protected byte maxMonsterLevel;
+		protected ushort minMonsterLevel;
+		protected ushort maxMonsterLevel;
 		protected byte monsterDifficult;
-		public double expMod = 1;
+		public double expMod;
 
 		public string monsterName;
 		public string monsterImgPath;
@@ -22,7 +22,7 @@ namespace ProveAA.Creature.Monster {
 
 		protected void BalanceMonster(Creature.Player player) {
 			this.expMod = Game.Settings.Enemy_Lvl_expMod[monsterDifficult];
-			this.hitPoints.Max = (byte)(player.hitPoints.Max / Game.Settings.Enemy_Lvl_HpDiv[monsterDifficult]);
+			this.hitPoints.Max = (int)Math.Round(player.hitPoints.Max / Game.Settings.Enemy_Lvl_HpDiv[monsterDifficult]);
 			this.hitPoints.Current = this.hitPoints.Max;
 
 			ushort monsterLevel = player.level.CurrentLvl;
@@ -39,12 +39,14 @@ namespace ProveAA.Creature.Monster {
 					while (diff++ != 0)
 						expMod -= Game.Settings.ExpPenaltyPerLevelBelow;
 				}
+				if (expMod < 0)
+					expMod = 0;
 			}
 
 			ushort maxStat = (ushort)(Game.Settings.player_init_armor + Game.Settings.player_init_attack - 1 + 
 				monsterLevel - 1 + 
-				(player.UsedArmor?.armorMod ?? 0) * Game.Settings.Enemy_Mult_ArmorStat +
-				(player.UsedWeapon?.dmgMod ?? 0) * Game.Settings.Enemy_Mult_WeaponStat
+				Math.Round((player.UsedArmor?.armorMod ?? 0) * Game.Settings.Enemy_Mult_ArmorStat +
+				(player.UsedWeapon?.dmgMod ?? 0) * Game.Settings.Enemy_Mult_WeaponStat)
 			);
 			this.attack.Current = 1;
 			this.armor.Current = 0;

@@ -12,7 +12,7 @@ namespace ProveAA.Item.Potion {
 		}
 
 		public override bool CardUsed(Creature.Player player) {
-			player.manaPoints.Current += (byte)(player.manaPoints.Max * Game.Settings.potion_Mana_ManaPersent);
+			player.manaPoints.Current += (int)Math.Round(player.manaPoints.Max * Game.Settings.potion_Mana_ManaPersent);
 			return true;
 		}
 	}

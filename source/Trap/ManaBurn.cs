@@ -9,7 +9,7 @@ namespace ProveAA.Trap {
 	class ManaBurn : BasicTrap {
 		public override bool PlayerStepIn(Player player) {
 			PrintText("Mana burn!");
-			player.manaPoints.Current -= (byte)(player.manaPoints.Current / 4);
+			player.manaPoints.Current -= player.manaPoints.Current / 4;
 			return true;
 		}
 	}

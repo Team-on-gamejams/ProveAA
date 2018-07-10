@@ -7,7 +7,7 @@ using ProveAA.Creature;
 
 namespace ProveAA.Item.Weapon {
 	abstract class BasicWeapon : BasicItem {
-		public byte dmgMod;
+		public short dmgMod;
 
 		public BasicWeapon() {
 			itemImgPath += @"weapon\";

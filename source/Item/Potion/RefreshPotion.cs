@@ -12,8 +12,8 @@ namespace ProveAA.Item.Potion {
 		}
 
 		public override bool CardUsed(Creature.Player player) {
-			player.hitPoints.Current += (byte)(player.hitPoints.Max * Game.Settings.potion_Refresh_HealPersent);
-			player.manaPoints.Current += (byte)(player.manaPoints.Max * Game.Settings.potion_Refresh_ManaPersent);
+			player.hitPoints.Current += (int)Math.Round(player.hitPoints.Max * Game.Settings.potion_Refresh_HealPersent);
+			player.manaPoints.Current += (int)Math.Round(player.manaPoints.Max * Game.Settings.potion_Refresh_ManaPersent);
 			return true;
 		}
 	}
