@@ -17,6 +17,7 @@
 		<Grid x:Name="LeftGrid" Width="200" Margin="5" ShowGridLines="False" DockPanel.Dock="Left">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="75"/>
+				<RowDefinition Height="25"/>
 				<RowDefinition Height="100"/>
 				<RowDefinition />
 				<RowDefinition Height="25"/>
@@ -268,22 +269,141 @@
 
 			</Grid>
 
-			<Grid Grid.Row="1" ShowGridLines="False">
+			<Grid Grid.Row="1">
+				<Grid Margin="5 0 5 7">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+
+					<Rectangle Grid.ColumnSpan="100" Fill="Gray" />
+					<Rectangle x:Name="ExpbarRectangle" Grid.ColumnSpan="30" Fill="Orange" />
+					<Viewbox Grid.ColumnSpan="100" Margin="5 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left">
+						<TextBlock Foreground="White" Text="Exp: "/>
+					</Viewbox>
+					<Viewbox Grid.ColumnSpan="100" >
+						<TextBlock x:Name="ExpbarText" Foreground="White" Text="3/10"/>
+					</Viewbox>
+				</Grid>
+			</Grid>
+
+			<Grid Grid.Row="2" ShowGridLines="False">
 				<Grid.RowDefinitions>
 					<RowDefinition/>
 					<RowDefinition/>
 				</Grid.RowDefinitions>
 
-				<Viewbox Margin="7" Grid.Row="0">
+				<Viewbox HorizontalAlignment="Left" Margin="7" Grid.Row="0">
 					<TextBlock x:Name="ArmorText" Foreground="White" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Text="Броня: Щит+2 (2)"/>
 				</Viewbox>
 
-				<Viewbox Margin="7" Grid.Row="1">
+				<Viewbox HorizontalAlignment="Left"  Margin="7" Grid.Row="1">
 					<TextBlock x:Name="WeaponText" Foreground="White" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Text="Оружие: Палка+1 (2)"/>
 				</Viewbox>
 			</Grid>
 
 			<Grid Grid.Row="3" ShowGridLines="False">
+			</Grid>
+
+			<Grid Grid.Row="4" ShowGridLines="False">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition/>
 					<ColumnDefinition/>

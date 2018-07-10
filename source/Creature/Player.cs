@@ -69,6 +69,7 @@ namespace ProveAA.Creature {
 			this.level.CurrentLvl = Settings.player_init_lvl;
 			this.level.CurrentExp = 0;
 			this.level.ExpToNext = Settings.player_init_toNextLvl;
+			this.level.expMod = Settings.player_lvl_expModFromGet;
 		}
 
 		public void EnteredNewLevel() {
@@ -163,6 +164,9 @@ namespace ProveAA.Creature {
 				window.ManabarText.MouseLeftButtonDown += (a, b) => LvlUpMana();
 				window.ManabarRectangle.MouseLeftButtonDown += (a, b) => LvlUpMana();
 
+				window.ExpbarText.MouseLeftButtonDown += (a, b) => LvlUpExp();
+				window.ExpbarRectangle.MouseLeftButtonDown += (a, b) => LvlUpExp();
+
 				ChangeToMaze();
 			});
 
@@ -181,6 +185,14 @@ namespace ProveAA.Creature {
 					OutputPlayerInfo();
 				}
 			}
+
+			void LvlUpExp() {
+				if (level.freePoints != 0) {
+					--level.freePoints;
+					level.expMod += Game.Settings.player_lvl_expModFromGetAdditional;
+					OutputPlayerInfo();
+				}
+			}
 		}
 
 		public void TryLevelUp() {
@@ -188,7 +200,7 @@ namespace ProveAA.Creature {
 				++level.CurrentLvl;
 				++level.freePoints;
 				level.CurrentExp -= Math.Floor(level.ExpToNext);
-				level.ExpToNext *= Settings.player_lvl_expMod;
+				level.ExpToNext *= Settings.player_lvl_expModToNextLevel;
 
 				hitPoints.Max += Settings.player_lvl_addToMaxHp;
 				manaPoints.Max += Settings.player_lvl_addToMaxMp;
@@ -198,9 +210,9 @@ namespace ProveAA.Creature {
 				if (Settings.player_lvl_refreshMp)
 					manaPoints.Current = manaPoints.Max;
 
-				OutputPlayerInfo();
 				TryLevelUp();
 			}
+			OutputPlayerInfo();
 		}
 
 		public void OutputPlayerInfo() {
@@ -214,7 +226,12 @@ namespace ProveAA.Creature {
 				if (level.freePoints != 0)
 					window.ManabarText.Text += " [+]";
 				System.Windows.Controls.Grid.SetColumnSpan(window.ManabarRectangle, manaPoints.GetPersent());
-				
+
+				window.ExpbarText.Text = level.ToString();
+				if (level.freePoints != 0)
+					window.ExpbarText.Text += " [+]";
+				System.Windows.Controls.Grid.SetColumnSpan(window.ExpbarRectangle, level.GetPersent());
+
 				SetWeaponText();
 				SetArmorText();
 			});
@@ -310,7 +327,7 @@ namespace ProveAA.Creature {
 					if (rez) {
 						battleTimer.Stop();
 						IsInBattle = false;
-						++level.CurrentExp;
+						level.GetExp(1, Enemy.expMod);
 						TryLevelUp();
 						ChangeToMaze();
 						return;

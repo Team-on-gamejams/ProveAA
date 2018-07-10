@@ -8,7 +8,7 @@ namespace ProveAA.Creature.Monster.Graveyard {
 	class Ghost3 : BasicGraveyardMonster, Attributes.Ghost {
 		public Ghost3(Creature.Player player) {
 			statChanceAttack = 75;
-			monsterHpDifficult = 2;
+			monsterDifficult = 2;
 			monsterImgPath += @"Ghost3";
 			monsterName = "Ghost senior";
 

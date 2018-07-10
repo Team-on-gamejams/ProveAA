@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProveAA.Creature.Monster.Graveyard {
 	class Ghost2 : BasicGraveyardMonster, Attributes.Ghost {
 		public Ghost2(Creature.Player player) {
-			monsterHpDifficult = 1;
+			monsterDifficult = 1;
 			monsterImgPath += @"Ghost2";
 			monsterName = "Ghost middle";
 

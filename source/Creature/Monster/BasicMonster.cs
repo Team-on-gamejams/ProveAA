@@ -10,7 +10,8 @@ namespace ProveAA.Creature.Monster {
 
 		protected byte minMonsterLevel;
 		protected byte maxMonsterLevel;
-		protected byte monsterHpDifficult;
+		protected byte monsterDifficult;
+		public double expMod = 1;
 
 		public string monsterName;
 		public string monsterImgPath;
@@ -20,7 +21,8 @@ namespace ProveAA.Creature.Monster {
 		}
 
 		protected void BalanceMonster(Creature.Player player) {
-			this.hitPoints.Max = (byte)(player.hitPoints.Max / Game.Settings.Enemy_Lvl_HpDiv[monsterHpDifficult]);
+			this.expMod = Game.Settings.Enemy_Lvl_expMod[monsterDifficult];
+			this.hitPoints.Max = (byte)(player.hitPoints.Max / Game.Settings.Enemy_Lvl_HpDiv[monsterDifficult]);
 			this.hitPoints.Current = this.hitPoints.Max;
 
 			ushort monsterLevel = player.level.CurrentLvl;

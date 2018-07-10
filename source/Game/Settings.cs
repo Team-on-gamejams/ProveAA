@@ -19,7 +19,9 @@ namespace ProveAA.Game {
 
 		public static byte player_init_lvl = 1;
 		public static byte player_init_toNextLvl = 1;
-		public static float player_lvl_expMod = 1.2f;
+		public static float player_lvl_expModFromGet = 1f;
+		public static float player_lvl_expModFromGetAdditional = 0.25f;
+		public static float player_lvl_expModToNextLevel = 1.2f;
 		public static byte player_lvl_addToMaxHp = 10;
 		public static byte player_lvl_addToMaxMp = 5;
 		public static byte player_lvl_addToMaxHpAdditional = 10;
@@ -30,6 +32,7 @@ namespace ProveAA.Game {
 		public static bool player_lvl_refreshMp = true;
 
 		public static List<double> Enemy_Lvl_HpDiv = new List<double>() { 4, 2, 1.2, 1, 0.8, 0.5 };
+		public static List<double> Enemy_Lvl_expMod = new List<double>(){ 0.5, 1, 2,   2, 2,   2 };
 
 		public static float potion_Healing_HealPersent = 0.25f;
 		public static float potion_Mana_ManaPersent = 0.25f;
