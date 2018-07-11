@@ -22,6 +22,7 @@ using ProveAA.Item.Weapon;
 
 namespace ProveAA.Creature {
 	class Player : BasicCreature {
+		byte realPrevPosX, realPrevPosY;
 		byte prevPosX, prevPosY;
 		byte posX, posY;
 		Map.GameMap map;
@@ -31,10 +32,13 @@ namespace ProveAA.Creature {
 		public BasicArmor UsedArmor { get; private set; }
 		public BasicWeapon UsedWeapon { get; private set; }
 
+		ushort msForMove = 100;
+		DateTime lastMoveTime = DateTime.Now;
+
 		public readonly Level level;
 		public Windows.GameWindow window;
-		public byte PosX { get => posX; set { posX = value; } }
-		public byte PosY { get => posY; set {  posY = value; } }
+		public byte PosX { get => posX; set { realPrevPosX = posX; posX = value; } }
+		public byte PosY { get => posY; set { realPrevPosY = posY; posY = value; } }
 
 		public bool IsInBattle { get; set; }
 		public Creature.Monster.BasicMonster Enemy { get; set; }
@@ -72,10 +76,6 @@ namespace ProveAA.Creature {
 			this.level.expMod = Settings.player_lvl_expModFromGet;
 		}
 
-		public void SetPosTo0() {
-			prevPosX = prevPosY = 0;
-		}
-
 		public void InitOutput(Windows.GameWindow window, Map.GameMap map) {
 			System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
 				this.window = window;
@@ -84,57 +84,10 @@ namespace ProveAA.Creature {
 				window.LeftTopPlayerImage.Children.Clear();
 				window.LeftTopPlayerImage.Children.Add(CloneGrid(imageGridMaze));
 
-				ushort msForMove = 100;
-				DateTime lastMoveTime = DateTime.Now;
 				window.KeyDown += (a, b) => {
-					if (!this.IsInBattle) {
-						byte newX = PosX, newY = PosY;
-						GameCell cell;
+					TryMove(b);
 
-						if (b.Key == Key.Left || b.Key == Key.A) {
-							--newX;
-							TrySet();
-						}
-						else if (b.Key == Key.Right || b.Key == Key.D) {
-							++newX;
-							TrySet();
-						}
-						else if (b.Key == Key.Up || b.Key == Key.W) {
-							--newY;
-							TrySet();
-						}
-						else if (b.Key == Key.Down || b.Key == Key.S) {
-							++newY;
-							TrySet();
-						}
-
-						void TrySet() {
-							if (lastMoveTime.AddMilliseconds(msForMove) < DateTime.Now) {
-								lastMoveTime = DateTime.Now;
-								cell = map[newY, newX];
-								if (cell == null)
-									return;
-								if (!cell.IsSolid) {
-									posX = newX;
-									posY = newY;
-									PosChanged();
-									return;
-								}
-								if (cell.IsDoor) {
-									for (int i = 0; i < this.Cards.Count; ++i) {
-										if (Cards[i].CardContent is Spell.Move.OpenDoor card) {
-											if (card.DoorId == map[newY, newX].DoorId) {
-												Cards[i].Use(this);
-												return;
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-
-					if(Key.D0 <= b.Key && b.Key <= Key.D9) {
+					if (Key.D0 <= b.Key && b.Key <= Key.D9) {
 						int num = b.Key - Key.D1;
 						if (b.Key == Key.D0)
 							num = 9;
@@ -152,6 +105,63 @@ namespace ProveAA.Creature {
 
 				ChangeToMaze();
 			});
+
+
+			void TryMove(KeyEventArgs b) {
+				if (!this.IsInBattle) {
+					byte newX = PosX, newY = PosY;
+					GameCell cell;
+
+					if (b.Key == Key.Left || b.Key == Key.A) {
+						--newX;
+						TrySet();
+					}
+					else if (b.Key == Key.Right || b.Key == Key.D) {
+						++newX;
+						TrySet();
+					}
+					else if (b.Key == Key.Up || b.Key == Key.W) {
+						--newY;
+						TrySet();
+					}
+					else if (b.Key == Key.Down || b.Key == Key.S) {
+						++newY;
+						TrySet();
+					}
+
+					void TrySet() {
+						if (lastMoveTime.AddMilliseconds(msForMove) < DateTime.Now) {
+							lastMoveTime = DateTime.Now;
+							cell = map[newY, newX];
+							if (cell == null)
+								return;
+
+							if(cell.CellContent is Monster.BasicMonster monster) {
+								if (MessageBox.Show("Do you want to battle?", monster.monsterName + " try to attack you", MessageBoxButton.YesNo) == MessageBoxResult.No)
+									return;
+								
+							}
+
+							if (!cell.IsSolid) {
+								PosX = newX;
+								PosY = newY;
+								PosChanged();
+								return;
+							}
+							if (cell.IsDoor) {
+								for (int i = 0; i < this.Cards.Count; ++i) {
+									if (Cards[i].CardContent is Spell.Move.OpenDoor card) {
+										if (card.DoorId == map[newY, newX].DoorId) {
+											Cards[i].Use(this);
+											return;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 
 			void LvlUpAttack() {
 				if (level.freePoints != 0) {
@@ -302,6 +312,17 @@ namespace ProveAA.Creature {
 				for (byte j = (byte)(posX - 1); j <= posX + 1; ++j)
 					Map[i, j].IsInFog = false;
 			PlayerStepInCell(Map[posY, posX]);
+		}
+
+		public void ReturnToPrevPos() {
+			posY = realPrevPosY;
+			posX = realPrevPosX;
+			SetPosTo0();
+			PosChanged();
+		}
+
+		public void SetPosTo0() {
+			prevPosX = prevPosY = 0;
 		}
 
 		public void PlayerStepInCell(Map.GameCell cell) {
