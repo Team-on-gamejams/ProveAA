@@ -41,7 +41,6 @@ namespace ProveAA.Map {
 		public void NewLevel(Creature.Player player) {
 			ClearMap();
 			RandomFill(player);
-			player.EnteredNewLevel();
 		}
 
 		public void OutputMap(Windows.GameWindow window) {

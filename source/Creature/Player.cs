@@ -72,7 +72,7 @@ namespace ProveAA.Creature {
 			this.level.expMod = Settings.player_lvl_expModFromGet;
 		}
 
-		public void EnteredNewLevel() {
+		public void SetPosTo0() {
 			prevPosX = prevPosY = 0;
 		}
 

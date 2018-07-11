@@ -65,7 +65,7 @@ namespace ProveAA.Creature {
 			short dmg = (short)(dmgIn - this.armor.Current);
 			if (dmg <= 0)
 				dmg = 1;
-			return (byte)dmg;
+			return (short)dmg;
 		}
 
 		void CalcAttributesDmg(ref int dmg, object attacker) {

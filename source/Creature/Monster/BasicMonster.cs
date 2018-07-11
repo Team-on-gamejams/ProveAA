@@ -30,7 +30,7 @@ namespace ProveAA.Creature.Monster {
 				monsterLevel = maxMonsterLevel;
 
 			if(monsterLevel != player.level.CurrentLvl) {
-				ushort diff = (ushort)((monsterLevel - player.level.CurrentLvl) / 3);
+				short diff = (short)((monsterLevel - player.level.CurrentLvl) / 3);
 				if(diff > 0) {
 					while(diff-- != 0)
 						expMod +=  Game.Settings.ExpBonusPerLevelAbove;
