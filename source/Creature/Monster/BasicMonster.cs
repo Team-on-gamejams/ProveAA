@@ -11,7 +11,7 @@ namespace ProveAA.Creature.Monster {
 		protected ushort minMonsterLevel;
 		protected ushort maxMonsterLevel;
 		protected byte monsterDifficult;
-		public double expMod;
+		public int expFromEnemy;
 
 		public string monsterName;
 		public string monsterImgPath;
@@ -21,7 +21,7 @@ namespace ProveAA.Creature.Monster {
 		}
 
 		protected void BalanceMonster(Creature.Player player) {
-			this.expMod = Game.Settings.Enemy_Lvl_expMod[monsterDifficult];
+			this.expFromEnemy =(int)Math.Round(Game.Settings.Enemy_Lvl_expMod[monsterDifficult] * Game.Settings.Enemy_Lvl_BasicExp);
 			this.hitPoints.Max = (int)Math.Round(player.hitPoints.Max / Game.Settings.Enemy_Lvl_HpDiv[monsterDifficult]);
 			this.hitPoints.Current = this.hitPoints.Max;
 
@@ -29,18 +29,19 @@ namespace ProveAA.Creature.Monster {
 			if(player.level.CurrentLvl < minMonsterLevel || player.level.CurrentLvl > maxMonsterLevel) 
 				monsterLevel = maxMonsterLevel;
 
-			if(monsterLevel != player.level.CurrentLvl) {
+			expFromEnemy += Game.Settings.Enemy_Lvl_BonusExpPerLvl * (monsterLevel - 1);
+			if (monsterLevel != player.level.CurrentLvl) {
 				short diff = (short)((monsterLevel - player.level.CurrentLvl) / 3);
 				if(diff > 0) {
 					while(diff-- != 0)
-						expMod +=  Game.Settings.ExpBonusPerLevelAbove;
+						expFromEnemy = (int)Math.Round(expFromEnemy * Game.Settings.ExpBonusPerLevelAbove);
 				}
 				else if(diff < 0) {
 					while (diff++ != 0)
-						expMod -= Game.Settings.ExpPenaltyPerLevelBelow;
+						expFromEnemy = (int)Math.Round(expFromEnemy * Game.Settings.ExpPenaltyPerLevelBelow);
 				}
-				if (expMod < 0)
-					expMod = 0;
+				if (expFromEnemy < 0)
+					expFromEnemy = 0;
 			}
 
 			ushort maxStat = (ushort)(Game.Settings.player_init_armor + Game.Settings.player_init_attack - 1 + 

@@ -18,7 +18,7 @@ namespace ProveAA.Game {
 		public static byte player_init_attack = 1;
 
 		public static byte player_init_lvl = 1;
-		public static byte player_init_toNextLvl = 1;
+		public static byte player_init_toNextLvl = 100;
 		public static float player_lvl_expModFromGet = 1f;
 		public static float player_lvl_expModFromGetAdditional = 0.25f;
 		public static float player_lvl_expModToNextLevel = 1.2f;
@@ -37,6 +37,9 @@ namespace ProveAA.Game {
 
 		public static float Enemy_Mult_WeaponStat = 0.5f;
 		public static float Enemy_Mult_ArmorStat = 0.5f;
+
+		public static int Enemy_Lvl_BasicExp = 100;
+		public static int Enemy_Lvl_BonusExpPerLvl = 10;
 		public static List<double> Enemy_Lvl_HpDiv = new List<double>() {   4, 2, 1.2, 1, 0.8, 0.5 };
 		public static List<double> Enemy_Lvl_expMod = new List<double>(){ 0.5, 1, 2,   2, 2,   2 };
 

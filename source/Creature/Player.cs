@@ -139,7 +139,6 @@ namespace ProveAA.Creature {
 							if(cell.CellContent is Monster.BasicMonster monster) {
 								if (MessageBox.Show("Do you want to battle?", monster.monsterName + " try to attack you", MessageBoxButton.YesNo) == MessageBoxResult.No)
 									return;
-								
 							}
 
 							if (!cell.IsSolid) {
@@ -211,7 +210,7 @@ namespace ProveAA.Creature {
 				++level.CurrentLvl;
 				++level.freePoints;
 				level.CurrentExp -= level.ExpToNext;
-				level.ExpToNext *= Settings.player_lvl_expModToNextLevel;
+				level.ExpToNext = (uint)Math.Round(level.ExpToNext * Settings.player_lvl_expModToNextLevel);
 
 				hitPoints.Max += Settings.player_lvl_addToMaxHp;
 				manaPoints.Max += Settings.player_lvl_addToMaxMp;
@@ -349,7 +348,7 @@ namespace ProveAA.Creature {
 					if (rez) {
 						battleTimer.Stop();
 						IsInBattle = false;
-						level.GetExp(1, Enemy.expMod);
+						level.GetExp(Enemy.expFromEnemy);
 						TryLevelUp();
 						ChangeToMaze();
 						return;
