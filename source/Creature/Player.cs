@@ -84,6 +84,8 @@ namespace ProveAA.Creature {
 				window.LeftTopPlayerImage.Children.Clear();
 				window.LeftTopPlayerImage.Children.Add(CloneGrid(imageGridMaze));
 
+				ushort msForMove = 100;
+				DateTime lastMoveTime = DateTime.Now;
 				window.KeyDown += (a, b) => {
 					if (!this.IsInBattle) {
 						byte newX = PosX, newY = PosY;
@@ -107,26 +109,28 @@ namespace ProveAA.Creature {
 						}
 
 						void TrySet() {
-							cell = map[newY, newX];
-							if (cell == null)
-								return;
-							if (!cell.IsSolid) {
-								posX = newX;
-								posY = newY;
-								PosChanged();
-								return;
-							}
-							if (cell.IsDoor) {
-								for (int i = 0; i < this.Cards.Count; ++i) {
-									if (Cards[i].CardContent is Spell.Move.OpenDoor card) {
-										if (card.DoorId == map[newY, newX].DoorId) {
-											Cards[i].Use(this);
-											return;
+							if (lastMoveTime.AddMilliseconds(msForMove) < DateTime.Now) {
+								lastMoveTime = DateTime.Now;
+								cell = map[newY, newX];
+								if (cell == null)
+									return;
+								if (!cell.IsSolid) {
+									posX = newX;
+									posY = newY;
+									PosChanged();
+									return;
+								}
+								if (cell.IsDoor) {
+									for (int i = 0; i < this.Cards.Count; ++i) {
+										if (Cards[i].CardContent is Spell.Move.OpenDoor card) {
+											if (card.DoorId == map[newY, newX].DoorId) {
+												Cards[i].Use(this);
+												return;
+											}
 										}
 									}
 								}
 							}
-
 						}
 					}
 
