@@ -56,7 +56,12 @@ namespace ProveAA.Creature {
 			this.imageGridMaze.Children.Add(playerImg);
 			this.imageGridMaze.Children.Add(weaponImage);
 			this.imageGridMaze.Children.Add(armorImage);
+
+			imageGridMaze.VerticalAlignment = VerticalAlignment.Stretch;
+			imageGridMaze.HorizontalAlignment = HorizontalAlignment.Stretch;
+			Grid.SetRowSpan(imageGridMaze, 2);
 			Grid.SetZIndex(imageGridMaze, 2);
+
 			Grid.SetZIndex(playerImg, 2);
 			Grid.SetZIndex(weaponImage, 3);
 			Grid.SetZIndex(armorImage, 4);
@@ -301,7 +306,7 @@ namespace ProveAA.Creature {
 		}
 
 		public void PosChanged() {
-			Grid.SetRow(imageGridMaze, posY);
+			Grid.SetRow(imageGridMaze, posY - 1);
 			Grid.SetColumn(imageGridMaze, posX);
 			Map[prevPosY, prevPosX].IsVisited = true;
 			Map[posY, posX].IsVisited = false;

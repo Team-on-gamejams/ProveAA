@@ -58,6 +58,13 @@ namespace ProveAA.Map {
 				}
 			for (int i = 0; i < Game.Settings.handSize; ++i)
 				window.CardsGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
+			for (byte i = 0; i < map.GetLength(0); ++i)
+				for (byte j = 0; j < map.GetLength(1); ++j)
+					map[i, j].IsWall = !map[i, j].IsWall;
+			for (byte i = 0; i < map.GetLength(0); ++i)
+				for (byte j = 0; j < map.GetLength(1); ++j)
+					map[i, j].IsWall = !map[i, j].IsWall;
 		}
 
 		void ClearMap() {

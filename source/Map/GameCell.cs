@@ -17,16 +17,17 @@ using ProveAA.Interface;
 namespace ProveAA.Map {
 	class GameCell {
 		private byte zoneStyleNum;
-		bool isSolid, isWall, isDoor, isInFog, isDoorOpened;
+		bool isSolid, isWall,isWallFore, isDoor, isInFog, isDoorOpened;
 		private Interface.ICellContent cellContent;
 		public bool IsVisited { get => _isVisited; set{ _isVisited = value; RecreateImage(); } }
 		public bool IsSolid { get => isSolid; set { isSolid = value; RecreateImage(); } }
+		public bool IsWallFore { get => isWallFore; set { isWallFore = value; RecreateImage(); } }
 		public bool IsWall { get => isWall; set { isWall = value; isSolid = value; RecreateImage(); } }
 		public bool IsDoorOpened { get => isDoorOpened; set { isDoorOpened = value; IsSolid = !value; } }
 		public bool IsDoor { get => isDoor; set {isWall = false; isDoor = value; IsDoorOpened = false; } }
 		public byte DoorId { get; set; }
 
-		public bool IsInFog { get => isInFog; set { isInFog = value; RecreateImage(); } }
+		public bool IsInFog { get => isInFog; set { if (isInFog == value) return; isInFog = value; RecreateImage(); } }
 
 		internal ICellContent CellContent { get => cellContent; set { cellContent = value; if (!IsInFog) RecreateContentImage(); } }
 
@@ -49,7 +50,7 @@ namespace ProveAA.Map {
 			isDoor = false;
 			isDoorOpened = false;
 			cellContent = null;
-			ZoneStyleNum = 0;
+			zoneStyleNum = 0;
 			RecreateImage();
 			RecreateContentImage();
 		}
@@ -58,8 +59,10 @@ namespace ProveAA.Map {
 			Uri newImage;
 			if (IsInFog)
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\" + ZoneStyleNum.ToString() + @"\fog.png", UriKind.Absolute);
-			else if (IsWall)
+			else if (IsWall && !isWallFore)
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\" + ZoneStyleNum.ToString() + @"\wall.png", UriKind.Absolute);
+			else if (IsWall && isWallFore)
+				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\" + ZoneStyleNum.ToString() + @"\wallFore.png", UriKind.Absolute);
 			else if (IsDoor && !isDoorOpened)
 				newImage = new Uri(Environment.CurrentDirectory + @"\img\map\" + ZoneStyleNum.ToString() + @"\doorClosed_" + DoorId.ToString() + ".png", UriKind.Absolute);
 			else if (IsDoor && isDoorOpened)
@@ -85,6 +88,15 @@ namespace ProveAA.Map {
 				imageContent.Source = new BitmapImage(CellContent.GetDisplayImage());
 			else
 				imageContent.Source = null;
+			if (CellContent is Creature.Monster.BasicMonster) {
+				Grid.SetRowSpan(imageContent, 2);
+				if (Grid.GetRow(imageCell) != 0)
+					Grid.SetRow(imageContent, Grid.GetRow(imageCell) - 1);
+			}
+			else {
+				Grid.SetRowSpan(imageContent, 1);
+				Grid.SetRow(imageContent, Grid.GetRow(imageCell));
+			}
 		}
 
 	}
