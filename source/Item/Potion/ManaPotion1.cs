@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProveAA.Item.Potion {
-	class ManaPotion : BasicPotion {
-		public ManaPotion() {
-			this.itemImgPath += "Mana";
+	class ManaPotion1 : BasicPotion {
+		public ManaPotion1() {
+			this.itemImgPath += "Mana1";
 			this.itemName = "Mana potion";
 		}
 
 		public override bool CardUsed(Creature.Player player) {
-			player.manaPoints.Current += (int)Math.Round(player.manaPoints.Max * Game.Settings.potion_Mana_ManaPersent);
+			player.manaPoints.Current += (int)Math.Round(player.manaPoints.Max * 0.10);
 			return true;
 		}
 	}

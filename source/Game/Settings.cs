@@ -43,11 +43,6 @@ namespace ProveAA.Game {
 		public static List<double> Enemy_Lvl_HpDiv = new List<double>() {   4, 2, 1.2, 1, 0.8, 0.5 };
 		public static List<double> Enemy_Lvl_expMod = new List<double>(){ 0.5, 1, 2,   3, 4,   6 };
 
-		public static float potion_Healing_HealPersent = 0.25f;
-		public static float potion_Mana_ManaPersent = 0.25f;
-		public static float potion_Refresh_HealPersent = 0.50f;
-		public static float potion_Refresh_ManaPersent = 0.50f;
-
 		public static bool mazeGen_PlaceFog = false;
 		public static bool mazeGen_StartOnCenter = true;
 		public static List<ushort> mazeGen_crossOnItterCnt = new List<ushort>() {0, 3};
