@@ -19,19 +19,23 @@ namespace ProveAA.Map {
 		private byte zoneStyleNum;
 		bool isSolid, isWall,isWallFore, isDoor, isInFog, isDoorOpened;
 		private Interface.ICellContent cellContent;
+
 		public bool IsVisited { get => _isVisited; set{ _isVisited = value; RecreateImage(); } }
-		public bool IsSolid { get => isSolid; set { isSolid = value; RecreateImage(); } }
-		public bool IsWallFore { get => isWallFore; set { isWallFore = value; RecreateImage(); } }
-		public bool IsWall { get => isWall; set { isWall = value; isSolid = value; RecreateImage(); } }
-		public bool IsDoorOpened { get => isDoorOpened; set { isDoorOpened = value; IsSolid = !value; } }
-		public bool IsDoor { get => isDoor; set {isWall = false; isDoor = value; IsDoorOpened = false; } }
-		public byte DoorId { get; set; }
 
 		public bool IsInFog { get => isInFog; set { if (isInFog == value) return; isInFog = value; RecreateImage(); } }
 
-		internal ICellContent CellContent { get => cellContent; set { cellContent = value; if (!IsInFog) RecreateContentImage(); } }
-
 		public byte ZoneStyleNum { get => zoneStyleNum; set { zoneStyleNum = value; RecreateImage(); } }
+
+		internal ICellContent CellContent { get => cellContent; set { cellContent = value; if (!isInFog) RecreateContentImage(); } }
+
+		public bool IsSolid { get => isSolid; set { isSolid = value; RecreateImage(); } }
+		public bool IsWallFore { get => isWallFore; set { isWallFore = value; RecreateImage(); } }
+		public bool IsWall { get => isWall; set { isWall = value; isSolid = value; RecreateImage(); } }
+
+		public bool IsDoor { get => isDoor; set {isWall = !value; isDoor = value; isDoorOpened = false; isSolid = true; RecreateImage();  } }
+		public bool IsDoorOpened { get => isDoorOpened; set { isDoorOpened = value; isSolid = !value; RecreateImage(); } }
+		public byte DoorId { get; set; }
+
 
 		Uri lastImage;
 		public Image imageCell;

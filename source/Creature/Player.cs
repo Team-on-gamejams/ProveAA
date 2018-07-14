@@ -142,17 +142,11 @@ namespace ProveAA.Creature {
 								return;
 
 							if(cell.CellContent is Monster.BasicMonster monster) {
-								if (MessageBox.Show("Do you want to battle?", monster.monsterName + " try to attack you", MessageBoxButton.YesNo) == MessageBoxResult.No)
-									return;
+								//if (MessageBox.Show("Do you want to battle?", monster.monsterName + " try to attack you", MessageBoxButton.YesNo) == MessageBoxResult.No)
+								//	return;
 							}
 
-							if (!cell.IsSolid) {
-								PosX = newX;
-								PosY = newY;
-								PosChanged();
-								return;
-							}
-							if (cell.IsDoor) {
+							if (cell.IsDoor && !cell.IsDoorOpened) {
 								for (int i = 0; i < this.Cards.Count; ++i) {
 									if (Cards[i].CardContent is Spell.Move.OpenDoor card) {
 										if (card.DoorId == map[newY, newX].DoorId) {
@@ -161,7 +155,16 @@ namespace ProveAA.Creature {
 										}
 									}
 								}
+								return;
 							}
+
+							if (!cell.IsSolid) {
+								PosX = newX;
+								PosY = newY;
+								PosChanged();
+								return;
+							}
+							
 						}
 					}
 				}
@@ -314,7 +317,8 @@ namespace ProveAA.Creature {
 			prevPosX = posX;
 			for (byte i = (byte)(posY - 1); i <= posY + 1; ++i)
 				for (byte j = (byte)(posX - 1); j <= posX + 1; ++j)
-					Map[i, j].IsInFog = false;
+					if (Map[i, j] != null)
+						Map[i, j].IsInFog = false;
 			PlayerStepInCell(Map[posY, posX]);
 		}
 
