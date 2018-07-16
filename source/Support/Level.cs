@@ -20,7 +20,7 @@ namespace ProveAA.Support {
 		}
 
 		public override string ToString() {
-			return $"{CurrentExp} / {ExpToNext}  ({CurrentLvl}, {expMod})";
+			return $"{CurrentExp} / {ExpToNext}  ({CurrentLvl}, {expMod:F2})";
 		}
 	}
 }
