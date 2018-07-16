@@ -50,6 +50,7 @@ namespace ProveAA.Map {
 
 		public void RefillValue() {
 			IsVisited = false;
+			isWallFore = false;
 			isSolid = isWall = isInFog = true;
 			isDoor = false;
 			isDoorOpened = false;

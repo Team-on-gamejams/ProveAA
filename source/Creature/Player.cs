@@ -89,8 +89,16 @@ namespace ProveAA.Creature {
 				window.LeftTopPlayerImage.Children.Clear();
 				window.LeftTopPlayerImage.Children.Add(CloneGrid(imageGridMaze));
 
+				window.KeyUp += (a, b) => {
+					if (b.Key == Key.Tab && window.GlobalMapGrid.Opacity == 1) 
+						ChangeToMaze();
+				};
+
 				window.KeyDown += (a, b) => {
 					TryMove(b);
+
+					if(b.Key == Key.Tab && window.GlobalMapGrid.Opacity == 0)
+							ChangeToGlobalMap();
 
 					if (Key.D0 <= b.Key && b.Key <= Key.D9) {
 						int num = b.Key - Key.D1;
@@ -111,9 +119,8 @@ namespace ProveAA.Creature {
 				ChangeToMaze();
 			});
 
-
 			void TryMove(KeyEventArgs b) {
-				if (!this.IsInBattle) {
+				if (!this.IsInBattle && window.MazeGrid.Opacity == 1) {
 					byte newX = PosX, newY = PosY;
 					GameCell cell;
 
@@ -373,7 +380,16 @@ namespace ProveAA.Creature {
 
 		}
 
-		void ChangeToBattle() {
+		public void UpdateEnemy() {
+			if (IsInBattle) {
+				window.EnemyHpText.Text = Enemy.hitPoints.ToString();
+				Grid.SetColumnSpan(window.EnemyHpRectangle, Enemy.hitPoints.GetPersent());
+				window.PlayerHpText.Text = hitPoints.ToString();
+				Grid.SetColumnSpan(window.PlayerHpRectangle, hitPoints.GetPersent());
+			}
+		}
+
+		public void ChangeToBattle() {
 			window.EnemyImage.Source = new BitmapImage(Enemy.GetBattleImage());
 
 			ushort allStat = (ushort)(Enemy.attack.Current + Enemy.armor.Current);
@@ -400,18 +416,16 @@ namespace ProveAA.Creature {
 			window.BattleGrid.Opacity = 1;
 		}
 
-		public void UpdateEnemy() {
-			if (IsInBattle) {
-				window.EnemyHpText.Text = Enemy.hitPoints.ToString();
-				Grid.SetColumnSpan(window.EnemyHpRectangle, Enemy.hitPoints.GetPersent());
-				window.PlayerHpText.Text = hitPoints.ToString();
-				Grid.SetColumnSpan(window.PlayerHpRectangle, hitPoints.GetPersent());
-			}
+		public void ChangeToGlobalMap() {
+			window.GlobalMapGrid.Opacity = 1;
+			window.MazeGrid.Opacity = 0.3;
 		}
 
-		void ChangeToMaze() {
+		public void ChangeToMaze() {
 			window.MazeGrid.Opacity = 1;
+			window.GlobalMapGrid.Opacity = 0;
 			window.BattleGrid.Opacity = 0;
+			window.DialogBox.Opacity = 0;
 		}
 	}
 }

@@ -15,32 +15,29 @@ using System.Windows.Shapes;
 
 namespace ProveAA.Map {
 	class GameMap {
-		static byte generation = 0;
-		static List<Zone.BasicZoneGenerator> generators = new List<Zone.BasicZoneGenerator>() {
-			new Zone.MazeGenerator(),
-			new Zone.ForestGenerator(),
-		};
+		public GlobalGameMap globalMap;
 		GameCell[,] map;
 
 		public byte SizeY => (byte)map.GetLength(0);
 		public byte SizeX => (byte)map.GetLength(1);
 
 		public GameMap(Windows.GameWindow window) {
+			globalMap = new GlobalGameMap();
+
 			map = new GameCell[Game.Settings.map_sizeY, Game.Settings.map_sizeX];
 			for (byte i = 0; i < map.GetLength(0); ++i) {
 				window.MazeGrid.RowDefinitions.Add(new RowDefinition());
-				for (byte j = 0; j < map.GetLength(1); ++j) {
+				for (byte j = 0; j < map.GetLength(1); ++j) 
 					map[i, j] = new GameCell();
-				}
 			}
 			for (byte j = 0; j < map.GetLength(1); ++j)
 				window.MazeGrid.ColumnDefinitions.Add(new ColumnDefinition());
-
 		}
 
 		public void NewLevel(Creature.Player player) {
 			ClearMap();
 			RandomFill(player);
+			player.ChangeToMaze();
 		}
 
 		public void OutputMap(Windows.GameWindow window) {
@@ -77,9 +74,7 @@ namespace ProveAA.Map {
 		}
 
 		void RandomFill(Creature.Player player) {
-			generators[generation].GenerateMap(this, player);
-			if (generation != generators.Count - 1)
-				++generation;
+			globalMap.RecreateLevel(this, player);
 		}
 
 		public GameCell this[byte a, byte b] {

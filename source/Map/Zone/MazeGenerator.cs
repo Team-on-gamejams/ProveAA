@@ -83,9 +83,9 @@ namespace ProveAA.Map.Zone {
 			player.PosY = startY;
 			player.PosChanged();
 
-			for (byte i = 1; i < map.SizeY - 1; ++i)
+			for (byte i = 0; i < map.SizeY - 1; ++i)
 				for (byte j = 1; j < map.SizeX - 1; ++j)
-					if (map[i, j].IsWall && !map[(byte)(i + 1), j].IsSolid)
+					if (map[i, j].IsWall && (!map[(byte)(i + 1), j].IsSolid))
 						map[i, j].IsWallFore = true;
 		}
 

@@ -31,8 +31,8 @@ namespace ProveAA.Game {
 			map.OutputMap(window);
 
 			player.OutputPlayerInfo();
-			player.hitPoints.Changed += ()=> player.OutputPlayerInfo();
-			player.manaPoints.Changed += ()=> player.OutputPlayerInfo();
+			player.hitPoints.Changed += () => player.OutputPlayerInfo();
+			player.manaPoints.Changed += () => player.OutputPlayerInfo();
 			player.EquipArmor(null);
 			player.EquipWeapon(null);
 		}

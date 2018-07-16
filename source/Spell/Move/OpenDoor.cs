@@ -31,7 +31,42 @@ namespace ProveAA.Spell.Move {
 
 			if(doorPos != null) {
 				if(pl.Map[doorPos.Item1, doorPos.Item2].DoorId == 0) {
-					pl.Map.NewLevel(pl);
+					Support.DialogBox.ChangeToDialog("You complete the level. Whats next?",
+						"Continue explore",
+						pl.Map.globalMap.CanMoveLeft? "Left" : null,
+						pl.Map.globalMap.CanMoveUp ? "Up" : null,
+						pl.Map.globalMap.CanMoveRight ? "Right" : null,
+						pl.Map.globalMap.CanMoveDown ? "Down" : null
+					);
+
+					System.Timers.Timer t = new System.Timers.Timer() {
+						AutoReset = true,
+						Enabled = false,
+						Interval = 100,
+					};
+
+					t.Elapsed += (a, b) => {
+						System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
+						if (Support.DialogBox.isChoose) {
+							byte choose = Support.DialogBox.choose;
+							if (choose == 1)
+								pl.Map.globalMap.MoveLeft();
+							else if (choose == 2)
+								pl.Map.globalMap.MoveUp();
+							else if (choose == 3)
+								pl.Map.globalMap.MoveRight();
+							else if (choose == 4)
+								pl.Map.globalMap.MoveDown();
+
+							pl.Map.NewLevel(pl);
+							pl.ChangeToMaze();
+							t.Stop();
+						}
+						});
+					};
+
+					t.Start();
+
 					return true;
 				}
 				else {

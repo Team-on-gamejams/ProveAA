@@ -786,7 +786,59 @@
 					
 				</DockPanel>
 			</Grid>
-			
+
+			<Grid ShowGridLines="True" x:Name="GlobalMapGrid" Panel.ZIndex="3">
+				<Grid.Background>
+					<ImageBrush x:Name="GlobalMapGridBackground">
+
+					</ImageBrush>
+				</Grid.Background>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+
+				<Image x:Name="PlayerMarker" Grid.Column="1" Grid.Row="3"/>
+
+
+			</Grid>
+
+			<Grid ShowGridLines="True" x:Name="DialogBox" Panel.ZIndex="4">
+				<Grid  Background="DimGray" >
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1*"/>
+						<ColumnDefinition Width="5*"/>
+						<ColumnDefinition Width="1*"/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+
+					<TextBlock Grid.Row="0" Grid.Column="1" x:Name="dialogText" Text="Test"/>
+					<Button    Grid.Row="1" Grid.Column="1" x:Name="dialogBtn1" IsTabStop="False"/>
+					<Button    Grid.Row="2" Grid.Column="1" x:Name="dialogBtn2" IsTabStop="False"/>
+					<Button    Grid.Row="3" Grid.Column="1" x:Name="dialogBtn3" IsTabStop="False"/>
+					<Button    Grid.Row="4" Grid.Column="1" x:Name="dialogBtn4" IsTabStop="False"/>
+					<Button    Grid.Row="5" Grid.Column="1" x:Name="dialogBtn5" IsTabStop="False"/>
+				</Grid>
+			</Grid>
+
 		</Grid>
 		
 	</DockPanel>

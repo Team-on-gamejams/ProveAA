@@ -22,6 +22,8 @@ namespace ProveAA.Windows {
 		public GameWindow() {
 			InitializeComponent();
 			Card.Card.window = this;
+			Support.DialogBox.window = this;
+			Support.DialogBox.Init();
 		}
 
 		private void Window_Loaded(object sender, EventArgs e) {
@@ -40,6 +42,9 @@ namespace ProveAA.Windows {
 			this.BattleIconAttack.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\icons\attack.png", UriKind.Absolute));
 			this.BattleIconArmor.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\icons\armor.png", UriKind.Absolute));
 
+			this.GlobalMapGridBackground.ImageSource = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\globalMap\map.png", UriKind.Absolute));
+			this.PlayerMarker.Source = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\globalMap\playerMarker.png", UriKind.Absolute));
+
 			Game.Game game = new Game.Game(this);
 			game.Start(this);
 		}
@@ -51,6 +56,8 @@ namespace ProveAA.Windows {
 				double mazeGridSize = Math.Min(CenterGrid.RenderSize.Height, CenterGrid.RenderSize.Width);
 				MazeGrid.Width = MazeGrid.Height = mazeGridSize;
 				BattleGrid.Width = BattleGrid.Height = mazeGridSize;
+				GlobalMapGrid.Width = GlobalMapGrid.Height = mazeGridSize;
+				DialogBox.Width = DialogBox.Height = mazeGridSize;
 			});
 		}
 

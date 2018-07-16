@@ -61,7 +61,6 @@ namespace ProveAA.Card {
 			if (cardContent.CardUsed(player)) {
 				player.UpdateEnemy();
 				RemoveFromHand(player);
-				player.PlayerStepInCell(player.Map[player.PosY, player.PosX]);
 			}
 		}
 
@@ -70,6 +69,7 @@ namespace ProveAA.Card {
 			window.CardsGrid.Children.Remove(cardGrid);
 			for (byte i = 0; i < player.Cards.Count; ++i)
 				Grid.SetColumn(player.Cards[i].cardGrid, i);
+			player.PlayerStepInCell(player.Map[player.PosY, player.PosX]);
 		}
 
 		public Uri GetDisplayImage() =>
