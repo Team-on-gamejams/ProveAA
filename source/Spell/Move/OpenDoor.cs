@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace ProveAA.Spell.Move {
 	class OpenDoor : BasicSpell {
@@ -33,10 +41,10 @@ namespace ProveAA.Spell.Move {
 				if(pl.Map[doorPos.Item1, doorPos.Item2].DoorId == 0) {
 					Support.DialogBox.ChangeToDialog("You complete the level. Whats next?",
 						"Continue explore",
-						pl.Map.globalMap.CanMoveLeft? "Left" : null,
-						pl.Map.globalMap.CanMoveUp ? "Up" : null,
-						pl.Map.globalMap.CanMoveRight ? "Right" : null,
-						pl.Map.globalMap.CanMoveDown ? "Down" : null
+						pl.Map.globalMap.CanMoveLeft? "Left" + pl.Map.globalMap.LeftFromPlayer.CellName : null,
+						pl.Map.globalMap.CanMoveUp ? "Up" + pl.Map.globalMap.RightFromPlayer.CellName : null,
+						pl.Map.globalMap.CanMoveRight ? "Right" + pl.Map.globalMap.UpFromPlayer.CellName : null,
+						pl.Map.globalMap.CanMoveDown ? "Down" + pl.Map.globalMap.DownFromPlayer.CellName : null
 					);
 
 					System.Timers.Timer t = new System.Timers.Timer() {
@@ -60,6 +68,7 @@ namespace ProveAA.Spell.Move {
 
 							pl.Map.NewLevel(pl);
 							pl.ChangeToMaze();
+							pl.Map.globalMap.SetMarkerPos();
 							t.Stop();
 						}
 						});

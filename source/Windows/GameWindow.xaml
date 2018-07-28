@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProveAA"
         mc:Ignorable="d"
-        Title="ProveAA" Height="480" Width="640"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+		Title="ProveAA" Height="480" Width="640"
 		MinWidth="640" MinHeight="480"
 		Loaded="Window_Loaded">
     <DockPanel LastChildFill="True" Background="#262626">
@@ -425,7 +426,7 @@
 			
 			<Grid ShowGridLines="False" x:Name="BattleGrid" Panel.ZIndex="2">
 				<DockPanel LastChildFill="True">
-					<Grid DockPanel.Dock="Top" Grid.Row="1" Margin="5 10 5 0">
+					<Grid DockPanel.Dock="Top" Margin="5 10 5 0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
 							<ColumnDefinition />
@@ -536,7 +537,7 @@
 						</Viewbox>
 					</Grid>
 
-					<Grid DockPanel.Dock="Top" Grid.Row="1" Margin="5 5 5 10">
+					<Grid DockPanel.Dock="Top" Margin="5 5 5 10">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
 							<ColumnDefinition />
@@ -667,7 +668,7 @@
 						</Grid>
 					</Grid>
 
-					<Grid DockPanel.Dock="Bottom" Grid.Row="1" Margin="5 10 5 10">
+					<Grid DockPanel.Dock="Bottom" Margin="5 10 5 10">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
 							<ColumnDefinition />
@@ -779,10 +780,9 @@
 										
 					</Grid>
 
-
-					<Image x:Name="EnemyImage"/>
-					
-					
+					<Grid x:Name="EnemyGridForAttack">
+						<Image x:Name="EnemyImage"/>
+					</Grid>
 					
 				</DockPanel>
 			</Grid>

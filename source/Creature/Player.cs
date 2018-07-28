@@ -20,6 +20,8 @@ using ProveAA.Card;
 using ProveAA.Item.Armor;
 using ProveAA.Item.Weapon;
 
+using WpfAnimatedGif;
+
 namespace ProveAA.Creature {
 	class Player : BasicCreature {
 		byte realPrevPosX, realPrevPosY;
@@ -359,6 +361,10 @@ namespace ProveAA.Creature {
 				System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
 					bool rez = this.GetAttack(Enemy) || Enemy.GetAttack(this);
 
+					//	< Image Width = "26" Height = "110" x: Name = "AttackAnimation" />
+					//var image = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\attack\Cut_Top_Down.gif", UriKind.Absolute));
+					//ImageBehavior.SetAnimatedSource(AttackAnimation, image);
+
 					UpdateEnemy();
 
 					if (rez) {
@@ -426,6 +432,7 @@ namespace ProveAA.Creature {
 			window.GlobalMapGrid.Opacity = 0;
 			window.BattleGrid.Opacity = 0;
 			window.DialogBox.Opacity = 0;
+			DialogBox.ReopenIfNeed();
 		}
 	}
 }

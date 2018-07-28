@@ -12,6 +12,7 @@ namespace ProveAA.Support {
 		static public bool isChoose;
 
 		static public void Init() {
+			isChoose = true;
 			window.dialogBtn1.Click += (a, b) => {
 				//System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
 					choose = 0;
@@ -34,6 +35,7 @@ namespace ProveAA.Support {
 				choose = 4;
 				isChoose = true;
 			};
+
 		}
 
 		static public void ChangeToDialog(string dialogText, string btnText1, string btnText2, string btnText3, string btnText4, string btnText5) {
@@ -52,8 +54,21 @@ namespace ProveAA.Support {
 			window.dialogBtn4.Opacity = !(btnText4?.Equals("") ?? true) ? 1 : 0;
 			window.dialogBtn5.Opacity = !(btnText5?.Equals("") ?? true) ? 1 : 0;
 
+			window.dialogBtn1.IsEnabled = !(btnText1?.Equals("") ?? true);
+			window.dialogBtn2.IsEnabled = !(btnText2?.Equals("") ?? true);
+			window.dialogBtn3.IsEnabled = !(btnText3?.Equals("") ?? true);
+			window.dialogBtn4.IsEnabled = !(btnText4?.Equals("") ?? true);
+			window.dialogBtn5.IsEnabled = !(btnText5?.Equals("") ?? true);
+
 			window.DialogBox.Opacity = 1;
 			window.MazeGrid.Opacity = 0.3;
+		}
+
+		static public void ReopenIfNeed() {
+			if (!isChoose) {
+				window.DialogBox.Opacity = 1;
+				window.MazeGrid.Opacity = 0.3;
+			}
 		}
 	}
 }

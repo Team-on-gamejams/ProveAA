@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace ProveAA.Map {
 	class GlobalGameMap {
@@ -12,14 +20,41 @@ namespace ProveAA.Map {
 		public GlobalGameMap() {
 			globalMap = new GlobalGameMapCell[7, 4];
 			for (byte i = 0; i < globalMap.GetLength(0); ++i) {
-				for (byte j = 0; j < globalMap.GetLength(1); ++j)
+				for (byte j = 0; j < globalMap.GetLength(1); ++j) {
 					globalMap[i, j] = new GlobalGameMapCell();
+					globalMap[i, j].AddZone(new Map.Zone.MazeGenerator(), 100);
+				}
 			}
 
-			globalMap[3, 1].ChanceGenerator.Add(50);
-			globalMap[3, 1].Generators.Add(new Map.Zone.MazeGenerator());
-			globalMap[3, 1].ChanceGenerator.Add(50);
-			globalMap[3, 1].Generators.Add(new Map.Zone.ForestGenerator());
+			for (byte i = 0; i < globalMap.GetLength(0); ++i) {
+				for (byte j = 0; j < globalMap.GetLength(1); ++j)
+					globalMap[i, j].IsOpenLeft = globalMap[i, j].IsOpenRight = true;
+				globalMap[i, 0].IsOpenLeft = false;
+				globalMap[i, globalMap.GetLength(1) - 1].IsOpenRight = false;
+			}
+			globalMap[1, 3].IsOpenLeft = globalMap[1, 2].IsOpenRight = false;
+			globalMap[2, 2].IsOpenLeft = globalMap[2, 1].IsOpenRight = false;
+
+			globalMap[0, 2].IsOpenBottom = globalMap[1, 2].IsOpenTop = true;
+			globalMap[5, 2].IsOpenBottom = globalMap[6, 2].IsOpenTop = true;
+
+			globalMap[1, 0].IsOpenBottom = globalMap[2, 0].IsOpenTop = true;
+			globalMap[2, 0].IsOpenBottom = globalMap[3, 0].IsOpenTop = true;
+			globalMap[3, 0].IsOpenBottom = globalMap[4, 0].IsOpenTop = true;
+			globalMap[4, 0].IsOpenBottom = globalMap[5, 0].IsOpenTop = true;
+
+			globalMap[1, 3].IsOpenBottom = globalMap[2, 3].IsOpenTop = true;
+			globalMap[2, 3].IsOpenBottom = globalMap[3, 3].IsOpenTop = true;
+			globalMap[3, 3].IsOpenBottom = globalMap[4, 3].IsOpenTop = true;
+
+			globalMap[2, 1].IsOpenBottom = globalMap[3, 1].IsOpenTop = true;
+			globalMap[3, 1].IsOpenBottom = globalMap[4, 1].IsOpenTop = true;
+
+			globalMap[3, 1].ClearZones();
+			globalMap[3, 1].AddZone(new Map.Zone.MazeGenerator(),   50);
+			globalMap[3, 1].AddZone(new Map.Zone.ForestGenerator(), 50);
+
+
 		}
 
 		public void RecreateLevel(GameMap map, Creature.Player player) {
@@ -35,12 +70,22 @@ namespace ProveAA.Map {
 
 		public bool CanMoveUp => globalMap[playerPosY, playerPosX].IsOpenTop && playerPosY != 0;
 		public bool CanMoveDown => globalMap[playerPosY, playerPosX].IsOpenBottom && playerPosY != globalMap.GetLength(0);
-		public bool CanMoveLeft => globalMap[playerPosY, playerPosX].IsOpenRight && playerPosX != 0;
+		public bool CanMoveLeft => globalMap[playerPosY, playerPosX].IsOpenLeft && playerPosX != 0;
 		public bool CanMoveRight => globalMap[playerPosY, playerPosX].IsOpenRight && playerPosX != globalMap.GetLength(1);
+
+		public GlobalGameMapCell LeftFromPlayer => globalMap[playerPosY, playerPosX - 1];
+		public GlobalGameMapCell RightFromPlayer => globalMap[playerPosY, playerPosX + 1];
+		public GlobalGameMapCell UpFromPlayer => globalMap[playerPosY - 1, playerPosX];
+		public GlobalGameMapCell DownFromPlayer => globalMap[playerPosY + 2, playerPosX];
+
+		public void SetMarkerPos() {
+			Grid.SetRow(Support.DialogBox.window.PlayerMarker, playerPosY);
+			Grid.SetColumn(Support.DialogBox.window.PlayerMarker, playerPosX);
+		}
 
 		public void MoveUp() {
 			if (CanMoveUp)
-				--playerPosY;
+				--playerPosY;	
 		}
 
 		public void MoveLeft() {
