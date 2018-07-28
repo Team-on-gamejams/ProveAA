@@ -20,6 +20,6 @@ Game for "Press To Win" contest. Dungeon crawler + card game.
 	* C#, WPF
 	* [WpfAnimatedGif](https://github.com/XamlAnimatedGif/WpfAnimatedGif)
  * **Art:**
-	* Paint)
+	* Paint
 	* [Piskel](https://github.com/piskelapp/piskel)
 	* Photoshop CS2

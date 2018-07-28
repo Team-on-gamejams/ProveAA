@@ -53,8 +53,6 @@ namespace ProveAA.Map {
 			globalMap[3, 1].ClearZones();
 			globalMap[3, 1].AddZone(new Map.Zone.MazeGenerator(),   50);
 			globalMap[3, 1].AddZone(new Map.Zone.ForestGenerator(), 50);
-
-
 		}
 
 		public void RecreateLevel(GameMap map, Creature.Player player) {

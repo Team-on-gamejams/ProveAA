@@ -26,6 +26,12 @@ namespace ProveAA.Windows {
 			Card.Card.window = this;
 			Support.DialogBox.window = this;
 			Support.DialogBox.Init();
+
+			EnemyImage.SizeChanged += (a, b) => {
+				EnemyCanvas.Width = EnemyImage.RenderSize.Width;
+				EnemyCanvas.Height = EnemyImage.RenderSize.Height;
+			};
+
 		}
 
 		private void Window_Loaded(object sender, EventArgs e) {

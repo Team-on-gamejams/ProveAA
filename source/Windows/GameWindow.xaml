@@ -782,6 +782,7 @@
 
 					<Grid x:Name="EnemyGridForAttack">
 						<Image x:Name="EnemyImage"/>
+						<Canvas x:Name="EnemyCanvas"/>
 					</Grid>
 					
 				</DockPanel>

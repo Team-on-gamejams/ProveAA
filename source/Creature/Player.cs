@@ -350,6 +350,7 @@ namespace ProveAA.Creature {
 		public void StartBattle(Creature.Monster.BasicMonster monster) {
 			IsInBattle = true;
 			Enemy = monster;
+			window.EnemyCanvas.Children.Clear();
 
 			System.Timers.Timer battleTimer = new System.Timers.Timer() {
 				AutoReset = false,
@@ -361,9 +362,15 @@ namespace ProveAA.Creature {
 				System.Windows.Application.Current.Dispatcher.Invoke((Action)delegate {
 					bool rez = this.GetAttack(Enemy) || Enemy.GetAttack(this);
 
-					//	< Image Width = "26" Height = "110" x: Name = "AttackAnimation" />
-					//var image = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\attack\Cut_Top_Down.gif", UriKind.Absolute));
-					//ImageBehavior.SetAnimatedSource(AttackAnimation, image);
+					Image outImage = new Image();
+					outImage.Width = 26;
+					outImage.Height = 110;
+					var image = new BitmapImage(new Uri(Environment.CurrentDirectory + @"\img\attack\Cut_Top_Down.gif", UriKind.Absolute));
+					ImageBehavior.SetAnimatedSource(outImage, image);
+					ImageBehavior.SetRepeatBehavior(outImage, new System.Windows.Media.Animation.RepeatBehavior(1));
+					window.EnemyCanvas.Children.Add(outImage);
+					Canvas.SetTop(outImage, Game.Rand.Next(20, (int)(window.EnemyCanvas.RenderSize.Height - outImage.Height) - 20));
+					Canvas.SetLeft(outImage, Game.Rand.Next(20, (int)(window.EnemyCanvas.RenderSize.Width - outImage.Width) - 20));
 
 					UpdateEnemy();
 
