@@ -32,8 +32,9 @@ namespace ProveAA.Map {
 				globalMap[i, 0].IsOpenLeft = false;
 				globalMap[i, globalMap.GetLength(1) - 1].IsOpenRight = false;
 			}
-			globalMap[1, 3].IsOpenLeft = globalMap[1, 2].IsOpenRight = false;
-			globalMap[2, 2].IsOpenLeft = globalMap[2, 1].IsOpenRight = false;
+			globalMap[1, 2].IsOpenRight = globalMap[1, 3].IsOpenLeft =  false;
+			globalMap[2, 1].IsOpenRight = globalMap[2, 2].IsOpenLeft =  false;
+			globalMap[2, 0].IsOpenRight = globalMap[2, 1].IsOpenLeft = false;
 
 			globalMap[0, 2].IsOpenBottom = globalMap[1, 2].IsOpenTop = true;
 			globalMap[5, 2].IsOpenBottom = globalMap[6, 2].IsOpenTop = true;
@@ -48,7 +49,6 @@ namespace ProveAA.Map {
 			globalMap[3, 3].IsOpenBottom = globalMap[4, 3].IsOpenTop = true;
 
 			globalMap[2, 1].IsOpenBottom = globalMap[3, 1].IsOpenTop = true;
-			globalMap[3, 1].IsOpenBottom = globalMap[4, 1].IsOpenTop = true;
 
 			globalMap[3, 1].ClearZones();
 			globalMap[3, 1].AddZone(new Map.Zone.MazeGenerator(),   50);
