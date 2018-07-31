@@ -60,12 +60,14 @@ namespace ProveAA.Support {
 			window.dialogBtn4.IsEnabled = !(btnText4?.Equals("") ?? true);
 			window.dialogBtn5.IsEnabled = !(btnText5?.Equals("") ?? true);
 
+			System.Windows.Controls.Grid.SetZIndex(window.DialogBox, 4);
 			window.DialogBox.Opacity = 1;
 			window.MazeGrid.Opacity = 0.3;
 		}
 
 		static public void ReopenIfNeed() {
 			if (!isChoose) {
+				System.Windows.Controls.Grid.SetZIndex(window.DialogBox, 4);
 				window.DialogBox.Opacity = 1;
 				window.MazeGrid.Opacity = 0.3;
 			}

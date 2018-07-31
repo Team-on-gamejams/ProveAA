@@ -788,32 +788,7 @@
 				</DockPanel>
 			</Grid>
 
-			<Grid ShowGridLines="True" x:Name="GlobalMapGrid" Panel.ZIndex="3">
-				<Grid.Background>
-					<ImageBrush x:Name="GlobalMapGridBackground">
-
-					</ImageBrush>
-				</Grid.Background>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition/>
-					<RowDefinition/>
-					<RowDefinition/>
-					<RowDefinition/>
-					<RowDefinition/>
-					<RowDefinition/>
-					<RowDefinition/>
-				</Grid.RowDefinitions>
-
-				<Image x:Name="PlayerMarker" Grid.Column="1" Grid.Row="3"/>
-
-
-			</Grid>
+			
 
 			<Grid ShowGridLines="True" x:Name="DialogBox" Panel.ZIndex="4">
 				<Grid  Background="DimGray" >
@@ -840,6 +815,33 @@
 				</Grid>
 			</Grid>
 
+			<Grid ShowGridLines="True" x:Name="GlobalMapGrid" Panel.ZIndex="3">
+				<Grid.Background>
+					<ImageBrush x:Name="GlobalMapGridBackground">
+
+					</ImageBrush>
+				</Grid.Background>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+
+				<Image x:Name="PlayerMarker" Grid.Column="1" Grid.Row="3"/>
+
+
+			</Grid>
+			
 		</Grid>
 		
 	</DockPanel>

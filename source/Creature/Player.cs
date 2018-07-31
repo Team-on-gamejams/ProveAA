@@ -432,14 +432,25 @@ namespace ProveAA.Creature {
 		public void ChangeToGlobalMap() {
 			window.GlobalMapGrid.Opacity = 1;
 			window.MazeGrid.Opacity = 0.3;
+			Grid.SetZIndex(window.GlobalMapGrid, 5);
 		}
 
 		public void ChangeToMaze() {
 			window.MazeGrid.Opacity = 1;
+			
+			if(Grid.GetZIndex(window.GlobalMapGrid) != 3)
+				Grid.SetZIndex(window.GlobalMapGrid, 3);
 			window.GlobalMapGrid.Opacity = 0;
+
 			window.BattleGrid.Opacity = 0;
-			window.DialogBox.Opacity = 0;
-			DialogBox.ReopenIfNeed();
+
+			if (DialogBox.isChoose) {
+				if (Grid.GetZIndex(window.DialogBox) != 0)
+					Grid.SetZIndex(window.DialogBox, 0);
+				window.DialogBox.Opacity = 0;
+			}
+			else
+				DialogBox.ReopenIfNeed();
 		}
 	}
 }

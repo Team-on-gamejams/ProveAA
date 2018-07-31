@@ -56,13 +56,20 @@ namespace ProveAA.Map {
 		}
 
 		public void RecreateLevel(GameMap map, Creature.Player player) {
-			byte randPersent = Game.Rand.NextPersent();
-			for(byte i = 0, currMinNum = 0; i < globalMap[playerPosY, playerPosX].ChanceGenerator.Count; ++i) {
-				currMinNum += globalMap[playerPosY, playerPosX].ChanceGenerator[i];
-				if(randPersent < currMinNum) {
-					globalMap[playerPosY, playerPosX].Generators[i].GenerateMap(map, player);
-					break;
+			REPEAT_CREATION:
+			try {
+				byte randPersent = Game.Rand.NextPersent();
+				for (byte i = 0, currMinNum = 0; i < globalMap[playerPosY, playerPosX].ChanceGenerator.Count; ++i) {
+					currMinNum += globalMap[playerPosY, playerPosX].ChanceGenerator[i];
+					if (randPersent < currMinNum) {
+						globalMap[playerPosY, playerPosX].Generators[i].GenerateMap(map, player);
+						break;
+					}
 				}
+			}
+			catch (Exception ex) {
+				MessageBox.Show(ex.Message + "\n\n\n\n Write to developer about it, pls)\nPress OK for new attempt", "Error in creation!", MessageBoxButton.OK, MessageBoxImage.Error);
+				goto REPEAT_CREATION;
 			}
 		}
 
