@@ -76,7 +76,7 @@ namespace ProveAA.Map {
 				}
 			}
 			catch (Exception ex) {
-				MessageBox.Show(ex.Message + "\n\n\n\n Write to developer about it, pls)\nPress OK for new attempt", "Error in creation!", MessageBoxButton.OK, MessageBoxImage.Error);
+				MessageBox.Show(ex.Message + '\n' + ex.StackTrace + "\n\n\n\n Write to developer about it, pls)\nPress OK for new attempt", "Error in creation!", MessageBoxButton.OK, MessageBoxImage.Error);
 				goto REPEAT_CREATION;
 			}
 		}
@@ -89,7 +89,7 @@ namespace ProveAA.Map {
 		public GlobalGameMapCell LeftFromPlayer => globalMap[playerPosY, playerPosX - 1];
 		public GlobalGameMapCell RightFromPlayer => globalMap[playerPosY, playerPosX + 1];
 		public GlobalGameMapCell UpFromPlayer => globalMap[playerPosY - 1, playerPosX];
-		public GlobalGameMapCell DownFromPlayer => globalMap[playerPosY + 2, playerPosX];
+		public GlobalGameMapCell DownFromPlayer => globalMap[playerPosY + 1, playerPosX];
 
 		public void SetMarkerPos() {
 			Grid.SetRow(Support.DialogBox.window.PlayerMarker, playerPosY);

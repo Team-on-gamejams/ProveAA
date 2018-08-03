@@ -81,6 +81,12 @@ namespace ProveAA.Creature {
 			this.level.CurrentExp = 0;
 			this.level.ExpToNext = Settings.player_init_toNextLvl;
 			this.level.expMod = Settings.player_lvl_expModFromGet;
+
+			if (Settings.IsCheatsOn) {
+				Support.CheatConsole.AddCommand("r", () => {
+					new Card.Card(new Spell.Move.EscapeFromLvl(0)).Use(this);
+				});
+			}
 		}
 
 		public void InitOutput(Windows.GameWindow window, Map.GameMap map) {

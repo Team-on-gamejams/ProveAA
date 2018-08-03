@@ -22,7 +22,6 @@ namespace ProveAA.Map.Zone {
 			doorInfoAll.Clear();
 			doorInfoReal.Clear();
 			doorForTreasure.Clear();
-
 			map = _map;
 			for (byte i = 0; i < map.SizeY; ++i)
 				for (byte j = 0; j < map.SizeX; ++j)
@@ -33,23 +32,18 @@ namespace ProveAA.Map.Zone {
 
 			while (digInfo.Count != 0)
 				RecDig(digInfo.Pop());
+			// END init
 
-			for (byte i = 0; i < map.SizeY; ++i) {
-				for (byte j = 0; j < map.SizeX; ++j) {
-					map[i, j].ZoneStyleNum = this.generatorZoneStyleNum;
-					map[i, j].IsVisited = false;
-					map[i, j].IsInFog = Game.Settings.mazeGen_PlaceFog;
-				}
-			}
-
-			FillListWithPos();
-
-			foreach (var door in doorInfoReal) {
-				map[door.y, door.x].IsInFog = true;
-			}
-
+			//Place player
+			var newPlPos = NearestEmpty(player.PosX, player.PosY);
+			player.SetPosTo0();
+			player.PosX = newPlPos.Item1;
+			player.PosY = newPlPos.Item2;
+			player.PosChanged();
+			//END Place player
 
 			//Place exit door
+			FillListWithDoorExitPos();
 			var exit = doorExitPos[Game.Rand.Next(0, doorExitPos.Count)];
 			map[exit.y, exit.x].IsDoor = true;
 			map[exit.y, exit.x].DoorId = 0;
@@ -64,7 +58,13 @@ namespace ProveAA.Map.Zone {
 				map[(byte)(exit.y), (byte)(exit.x - 1)].CellContent = new Card.Card(new Spell.Move.OpenDoor(0, generatorZoneStyleNum));
 			//END Place exit door
 
-			//map[(byte)(startY - 3), (byte)(startX)].CellContent = new Card.Card(new Spell.Move.OpenDoor(0));
+
+			FillListWithDoorPos();
+			foreach (var door in doorInfoReal) {
+				map[door.y, door.x].IsInFog = true;
+			}
+
+
 			map[(byte)(startY), (byte)(startX - 3)].CellContent = new Card.Card(new Item.Weapon.Spear());
 			map[(byte)(startY - 3), (byte)(startX)].CellContent = new Card.Card(new Item.Weapon.Spear());
 
@@ -77,24 +77,28 @@ namespace ProveAA.Map.Zone {
 			map[(byte)(startY + 1), (byte)(startX)].CellContent = new Creature.Monster.Graveyard.Ghost3(player);
 			map[(byte)(startY + 2), (byte)(startX)].CellContent = new Trap.HealthTrap();
 
-			player.SetPosTo0();
-			player.PosX = startX;
-			player.PosY = startY;
-			player.PosChanged();
 
 			for (byte i = 0; i < map.SizeY - 1; ++i)
 				for (byte j = 1; j < map.SizeX - 1; ++j)
 					if (map[i, j].IsWall && (!map[(byte)(i + 1), j].IsSolid))
 						map[i, j].IsWallFore = true;
-		}
 
-		void FillListWithPos() {
 			for (byte i = 0; i < map.SizeY; ++i) {
 				for (byte j = 0; j < map.SizeX; ++j) {
-					int cntWalls = ((map[(byte)(i + 1), j]?.IsSolid ?? false)? 1 : 0) +
-							((map[(byte)(i - 1), j]?.IsSolid ?? false) ? 1 : 0) +
-							((map[i, (byte)(j + 1)]?.IsSolid ?? false) ? 1 : 0) +
-							((map[i, (byte)(j - 1)]?.IsSolid ?? false) ? 1 : 0);
+					map[i, j].ZoneStyleNum = this.generatorZoneStyleNum;
+					map[i, j].IsVisited = false;
+					map[i, j].IsInFog = Game.Settings.mazeGen_PlaceFog;
+				}
+			}
+		}
+
+		void FillListWithDoorPos() {
+			for (byte i = 0; i < map.SizeY; ++i) {
+				for (byte j = 0; j < map.SizeX; ++j) {
+					int cntWalls = ((map[(byte)(i + 1), j]?.IsWall ?? false)? 1 : 0) +
+							((map[(byte)(i - 1), j]?.IsWall ?? false) ? 1 : 0) +
+							((map[i, (byte)(j + 1)]?.IsWall ?? false) ? 1 : 0) +
+							((map[i, (byte)(j - 1)]?.IsWall ?? false) ? 1 : 0);
 
 
 					int cntRoads = ((map[(byte)(i + 1), j]?.IsSolid ?? true) ? 0 : 1) +
@@ -106,8 +110,7 @@ namespace ProveAA.Map.Zone {
 						(map[i, (byte)(j + 1)]?.IsSolid ?? true) == (map[i, (byte)(j - 1)]?.IsSolid ?? true);
 
 					if (map[i, j].IsSolid) {
-						if (cntRoads == 1)
-							doorExitPos.Add(new DoorInfo(j, i));
+
 					}
 					else {
 						if (cntWalls == 2) {
@@ -122,6 +125,20 @@ namespace ProveAA.Map.Zone {
 				if (TryPlaceDoor(door))
 					doorInfoReal.Add(door);
 			doorInfoReal.Sort(new Comparison<DoorInfo>((a, b) => { return a.ModSize - b.ModSize; }));
+		}
+
+		void FillListWithDoorExitPos() {
+			for (byte i = 0; i < map.SizeY; ++i) {
+				for (byte j = 0; j < map.SizeX; ++j) {
+					int cntRoads = ((map[(byte)(i + 1), j]?.IsSolid ?? true) ? 0 : 1) +
+							((map[(byte)(i - 1), j]?.IsSolid ?? true) ? 0 : 1) +
+							((map[i, (byte)(j + 1)]?.IsSolid ?? true) ? 0 : 1) +
+							((map[i, (byte)(j - 1)]?.IsSolid ?? true) ? 0 : 1);
+					if (map[i, j].IsSolid && cntRoads == 1) 
+						doorExitPos.Add(new DoorInfo(j, i));
+					
+				}
+			}
 		}
 
 		void RecDig(DiggerInfo info) {
@@ -206,6 +223,41 @@ namespace ProveAA.Map.Zone {
 				Rec((byte)(x - 1), (byte)(y), doorId);
 				Rec((byte)(x), (byte)(y + 1), doorId);
 				Rec((byte)(x), (byte)(y - 1), doorId);
+			}
+		}
+
+		Tuple<byte, byte> NearestEmpty(byte startX, byte startY) {
+			byte x = startX, y = startY;
+			if (x < 1)
+				x = 1;
+			if (y < 1)
+				y = 1;
+
+			Stack<Tuple<byte, byte>> recInfo = new Stack<Tuple<byte, byte>>();
+			recInfo.Push(new Tuple<byte, byte>(x, y));
+			while(recInfo.Count != 0) {
+				Rec(recInfo.Pop());
+			}
+
+			return new Tuple<byte, byte>(x, y);
+
+			void Rec(Tuple<byte, byte> pos) {
+				if (!(map[pos.Item2, pos.Item1]?.IsVisited ?? true)) {
+					recInfo.Push(new Tuple<byte, byte>((byte)(pos.Item1 + 1), pos.Item2));
+					recInfo.Push(new Tuple<byte, byte>((byte)(pos.Item1 - 1), pos.Item2));
+					recInfo.Push(new Tuple<byte, byte>(pos.Item1, (byte)(pos.Item2 + 1)));
+					recInfo.Push(new Tuple<byte, byte>(pos.Item1, (byte)(pos.Item2 - 1)));
+				}
+
+				if ((map[pos.Item2, pos.Item1]?.IsWall ?? true) || (map[pos.Item2, pos.Item1]?.IsSolid ?? true)) {
+					if(map[pos.Item2, pos.Item1] != null)
+						map[pos.Item2, pos.Item1].IsVisited = true;
+					return;
+				}
+
+				x = pos.Item1;
+				y = pos.Item2;
+				recInfo.Clear();
 			}
 		}
 

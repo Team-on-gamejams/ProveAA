@@ -101,6 +101,7 @@
     <Compile Include="Spell\Attack\Fireball.cs" />
     <Compile Include="Spell\Attack\HolyWater.cs" />
     <Compile Include="Spell\BasicSpell.cs" />
+    <Compile Include="Spell\Move\EscapeFromLvl.cs" />
     <Compile Include="Spell\Move\OpenDoor.cs" />
     <Compile Include="Support\Bar.cs" />
     <Compile Include="Creature\BasicCreature.cs" />
