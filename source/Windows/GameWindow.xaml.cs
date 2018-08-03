@@ -32,8 +32,10 @@ namespace ProveAA.Windows {
 				EnemyCanvas.Height = EnemyImage.RenderSize.Height;
 			};
 
-			if(Settings.IsCheatsOn)
+			if (Settings.IsCheatsOn) {
 				Support.CheatConsole.CatchInput(this);
+				Support.CheatConsole.AddCommand("test", () => { MessageBox.Show(Grid.GetZIndex(this.DialogBox).ToString());});
+			}
 		}
 
 		private void Window_Loaded(object sender, EventArgs e) {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProveAA.Game {
 	static class Settings {
-		public static bool IsCheatsOn = true;
+		public static bool IsCheatsOn = false;
 
 		public static byte handSize = 12;
 		public static byte map_sizeX = 15;

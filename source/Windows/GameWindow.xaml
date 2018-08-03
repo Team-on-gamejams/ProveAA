@@ -787,9 +787,7 @@
 					
 				</DockPanel>
 			</Grid>
-
-			
-
+	
 			<Grid ShowGridLines="True" x:Name="DialogBox" Panel.ZIndex="4">
 				<Grid  Background="DimGray" >
 					<Grid.ColumnDefinitions>

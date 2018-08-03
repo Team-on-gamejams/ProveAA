@@ -42,8 +42,8 @@ namespace ProveAA.Spell.Move {
 					Support.DialogBox.ChangeToDialog("You complete the level. Whats next?",
 						"Continue explore",
 						pl.Map.globalMap.CanMoveLeft? "Left" + pl.Map.globalMap.LeftFromPlayer.CellName : null,
-						pl.Map.globalMap.CanMoveUp ? "Up" + pl.Map.globalMap.RightFromPlayer.CellName : null,
-						pl.Map.globalMap.CanMoveRight ? "Right" + pl.Map.globalMap.UpFromPlayer.CellName : null,
+						pl.Map.globalMap.CanMoveUp ? "Up" + pl.Map.globalMap.UpFromPlayer.CellName : null,
+						pl.Map.globalMap.CanMoveRight ? "Right" + pl.Map.globalMap.RightFromPlayer.CellName : null,
 						pl.Map.globalMap.CanMoveDown ? "Down" + pl.Map.globalMap.DownFromPlayer.CellName : null
 					);
 
