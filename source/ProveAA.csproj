@@ -104,6 +104,7 @@
     <Compile Include="Spell\Move\OpenDoor.cs" />
     <Compile Include="Support\Bar.cs" />
     <Compile Include="Creature\BasicCreature.cs" />
+    <Compile Include="Support\CheatConsole.cs" />
     <Compile Include="Support\DialogBox.cs" />
     <Compile Include="Support\Level.cs" />
     <Compile Include="Game\Settings.cs" />

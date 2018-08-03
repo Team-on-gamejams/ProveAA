@@ -441,7 +441,6 @@ namespace ProveAA.Creature {
 			if(Grid.GetZIndex(window.GlobalMapGrid) != 3)
 				Grid.SetZIndex(window.GlobalMapGrid, 3);
 			window.GlobalMapGrid.Opacity = 0;
-
 			window.BattleGrid.Opacity = 0;
 
 			if (DialogBox.isChoose) {
