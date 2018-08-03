@@ -23,9 +23,15 @@ namespace ProveAA.Map.Zone {
 			doorInfoReal.Clear();
 			doorForTreasure.Clear();
 			map = _map;
-			for (byte i = 0; i < map.SizeY; ++i)
-				for (byte j = 0; j < map.SizeX; ++j)
+
+			for (byte i = 0; i < map.SizeY; ++i) {
+				for (byte j = 0; j < map.SizeX; ++j) {
+					map[i, j].ZoneStyleNum = this.generatorZoneStyleNum;
+					map[i, j].IsVisited = false;
+					map[i, j].IsInFog = Game.Settings.mazeGen_PlaceFog;
 					map[i, j].IsWall = true;
+				}
+			}
 
 			byte startX = (byte)(map.SizeX / 2), startY = (byte)(map.SizeY / 2);
 			digInfo.Push(new DiggerInfo(startX, startY, 0));
@@ -35,6 +41,9 @@ namespace ProveAA.Map.Zone {
 			// END init
 
 			//Place player
+			for (byte i = 0; i < map.SizeY; ++i) 
+				for (byte j = 0; j < map.SizeX; ++j) 
+					map[i, j].IsVisited = false;
 			var newPlPos = NearestEmpty(player.PosX, player.PosY);
 			player.SetPosTo0();
 			player.PosX = newPlPos.Item1;
@@ -43,6 +52,9 @@ namespace ProveAA.Map.Zone {
 			//END Place player
 
 			//Place exit door
+			for (byte i = 0; i < map.SizeY; ++i)
+				for (byte j = 0; j < map.SizeX; ++j)
+					map[i, j].IsVisited = false;
 			FillListWithDoorExitPos();
 			var exit = doorExitPos[Game.Rand.Next(0, doorExitPos.Count)];
 			map[exit.y, exit.x].IsDoor = true;
@@ -59,6 +71,9 @@ namespace ProveAA.Map.Zone {
 			//END Place exit door
 
 
+			for (byte i = 0; i < map.SizeY; ++i)
+				for (byte j = 0; j < map.SizeX; ++j)
+					map[i, j].IsVisited = false;
 			FillListWithDoorPos();
 			foreach (var door in doorInfoReal) {
 				map[door.y, door.x].IsInFog = true;
@@ -235,9 +250,8 @@ namespace ProveAA.Map.Zone {
 
 			Stack<Tuple<byte, byte>> recInfo = new Stack<Tuple<byte, byte>>();
 			recInfo.Push(new Tuple<byte, byte>(x, y));
-			while(recInfo.Count != 0) {
+			while(recInfo.Count != 0)
 				Rec(recInfo.Pop());
-			}
 
 			return new Tuple<byte, byte>(x, y);
 
@@ -247,17 +261,15 @@ namespace ProveAA.Map.Zone {
 					recInfo.Push(new Tuple<byte, byte>((byte)(pos.Item1 - 1), pos.Item2));
 					recInfo.Push(new Tuple<byte, byte>(pos.Item1, (byte)(pos.Item2 + 1)));
 					recInfo.Push(new Tuple<byte, byte>(pos.Item1, (byte)(pos.Item2 - 1)));
-				}
 
-				if ((map[pos.Item2, pos.Item1]?.IsWall ?? true) || (map[pos.Item2, pos.Item1]?.IsSolid ?? true)) {
-					if(map[pos.Item2, pos.Item1] != null)
-						map[pos.Item2, pos.Item1].IsVisited = true;
-					return;
-				}
+					map[pos.Item2, pos.Item1].IsVisited = true;
+					if (!(map[pos.Item2, pos.Item1].IsWall || map[pos.Item2, pos.Item1].IsSolid || map[pos.Item2, pos.Item1].IsDoor)) {
+						x = pos.Item1;
+						y = pos.Item2;
+						recInfo.Clear();
+					}
 
-				x = pos.Item1;
-				y = pos.Item2;
-				recInfo.Clear();
+				}	
 			}
 		}
 
