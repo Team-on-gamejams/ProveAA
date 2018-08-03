@@ -14,7 +14,7 @@ Game for "Press To Win" contest. Dungeon crawler + card game.
  * 
  * 
  
-## Made with
+## Tools used:
  * **Code:**
 	* Visual studio 2017
 	* C#, WPF
