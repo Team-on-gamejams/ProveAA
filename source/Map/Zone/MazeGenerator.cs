@@ -44,7 +44,7 @@ namespace ProveAA.Map.Zone {
 			for (byte i = 0; i < map.SizeY; ++i) 
 				for (byte j = 0; j < map.SizeX; ++j) 
 					map[i, j].IsVisited = false;
-			var newPlPos = NearestEmpty(player.PosX, player.PosY);
+			var newPlPos = NearestEmpty((byte)(map.SizeX - 1 - player.PosX), (byte)(map.SizeY - 1 - player.PosY));
 			player.SetPosTo0();
 			player.PosX = newPlPos.Item1;
 			player.PosY = newPlPos.Item2;
