@@ -1,5 +1,5 @@
 # ProveAA
- Dungeon crawler + card game. All actions(except move) player perform through cards.
+ Dungeon crawler + card game. All actions(except move and auto-battle) player perform through cards.
 
 ## Control
  * WASD/Arrows - move
